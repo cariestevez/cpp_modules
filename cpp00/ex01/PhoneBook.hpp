@@ -9,11 +9,11 @@ class	PhoneBook
 {
 	private:
 		Contact	_contacts[MAX_CONTACTS];
+
 	public:
+		void 	welcomeMessage(void) const;
 		void	addContact(void);
-		void	searchContact(void)	const;
-		void	printContact(void) const;
-		void 	welcomeMessage(void) const;	
+		void	searchContact(void);
 };
 
 #endif
