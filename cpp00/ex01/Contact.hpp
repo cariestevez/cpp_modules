@@ -25,7 +25,7 @@ class	 Contact
 		std::string	getPhoneNum(void) const;
 		std::string	getDarkestSecret(void) const;
 		std::string	getUserInput(std::string message);
-		void		printPreview(void) const;
+		void		printPreview(void);
 		void		printContactFull(void) const;
 
 };
