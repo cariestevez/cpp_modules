@@ -1,0 +1,35 @@
+->1. Create the instances of the 7 accounts, initialize to correspondent amount and sum to the total amount
+->2. Loop Print _amount and "created" for each
+
+->3. Print the total: nbAccounts(idx + 1), totalAmount, totalNbDeposits, totalNbWithdrawals
+
+->4. Loop Print _amount, _nbDeposits and _nbWithdrawals
+
+->5. Do the corresponding deposit in each (+update the _amount and _nbDeposits also _totalAmount and _totalNbDeposits)
+->6. Print with info of previous amount(_amount - deposit qtty.), deposit quantity, _amount and _nbDeposits
+
+->7. (Same as 3.)Print the total: nbAccounts(idx + 1), totalAmount, totalNbDeposits, totalNbWithdrawals
+
+->8. (Same as 4.) Print _amount, _nbDeposits and _nbWithdrawals
+
+->9. Do the corresponding withdrawal in each (+update the _amount and _nbWithdrawals or return error msg, update also _totalAmount and _totalNbWithdrawals)
+->10. (same as 6.) Print with info of previous amount(_amount - withdrawal qtty.), withdrawal quantity, _amount and _nbDeposits->12. (Same as 4. & 8.) Print _amount, _nbDeposits and _nbWithdrawals
+
+->11. (Same as 3. & 7) Print the total: nbAccounts(idx + 1), totalAmount, totalNbDeposits, totalNbWithdrawals
+
+->12. (Same as 4. & 8.) Print _amount, _nbDeposits and _nbWithdrawals
+
+->13. Destructor
+->14. (Same as 2.) Print _amount and "closed" for each
+
+
+
+
+1 Loop: Print in constructor/destructor (timestamp, _accountIndex, _amount, "created"/"closed);
+
+2 Account::displayAccountsInfos (timestamp, _nbAccounts, _totalAmount, _totalNbDeposits, _totalNbWithdrawals);
+
+3 Account::displayStatus (timestamp, _accountIndex, _amount, _nbDeposits, _ndWithdrawals)
+
+4 Loop: Print in makeDeposit (timestamp, _accountIndex, prevAmount, depositQtty, _amount, _nbDeposits)
+  Loop: Print in makeWithdrawal (timestamp, _accountIndex, prevAmount, withdrawalQtty, _amount, _nbWithdrawals)

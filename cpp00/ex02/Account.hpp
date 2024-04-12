@@ -23,36 +23,35 @@ public:
 
 	typedef Account		t;
 
-	static int	getNbAccounts( void );
-	static int	getTotalAmount( void );
-	static int	getNbDeposits( void );
-	static int	getNbWithdrawals( void );
-	static void	displayAccountsInfos( void );
+	static int	getNbAccounts( void );//returns total num of accounts
+	static int	getTotalAmount( void );//returns total amount of money across all accounts
+	static int	getNbDeposits( void );//returns total number of deposits made across all accounts
+	static int	getNbWithdrawals( void );//returns the total number of withdrawals made across all accounts
+	static void	displayAccountsInfos( void );//displays information about the accounts?
 
-	Account( int initial_deposit );
-	~Account( void );
+	Account( int initial_deposit );//constructor with parameters that initializes an account with an initial deposit
+	~Account( void );//destructor for cleaning up resources associated with an account
 
-	void	makeDeposit( int deposit );
-	bool	makeWithdrawal( int withdrawal );
-	int		checkAmount( void ) const;
-	void	displayStatus( void ) const;
+	void	makeDeposit( int deposit );//Adds a deposit to the account
+	bool	makeWithdrawal( int withdrawal );//Makes a withdrawal from the account
+	int		checkAmount( void ) const;//Returns the current balance of the account
+	void	displayStatus( void ) const;//Displays the status of the account
 
 
 private:
 
-	static int	_nbAccounts;
-	static int	_totalAmount;
-	static int	_totalNbDeposits;
-	static int	_totalNbWithdrawals;
-
+	static int	_nbAccounts;//total num of accounts
+	static int	_totalAmount;//total amount of money across all accounts
+	static int	_totalNbDeposits;//total num of deposits across all accounts
+	static int	_totalNbWithdrawals;//total num of withdrawals across all accounts
 	static void	_displayTimestamp( void );
 
 	int				_accountIndex;
-	int				_amount;
-	int				_nbDeposits;
-	int				_nbWithdrawals;
+	int				_amount;//Current balance of the account
+	int				_nbDeposits;//Number of deposits made to the account
+	int				_nbWithdrawals;//Number of withdrawals made to the account
 
-	Account( void );
+	Account( void );//default constructor
 
 };
 
