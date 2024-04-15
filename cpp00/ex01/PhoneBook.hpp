@@ -4,6 +4,10 @@
 # define MAX_CONTACTS 8
 
 #include "Contact.hpp"
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <iomanip>
 
 class	PhoneBook
 {
