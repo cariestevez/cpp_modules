@@ -23,6 +23,7 @@ public:
 
 	typedef Account		t;
 
+	//shared by every instance
 	static int	getNbAccounts( void );//returns total num of accounts
 	static int	getTotalAmount( void );//returns total amount of money across all accounts
 	static int	getNbDeposits( void );//returns total number of deposits made across all accounts
@@ -40,12 +41,14 @@ public:
 
 private:
 
+	//shared by every instance
 	static int	_nbAccounts;//total num of accounts
 	static int	_totalAmount;//total amount of money across all accounts
 	static int	_totalNbDeposits;//total num of deposits across all accounts
 	static int	_totalNbWithdrawals;//total num of withdrawals across all accounts
 	static void	_displayTimestamp( void );
 
+	//instance specific
 	int				_accountIndex;
 	int				_amount;//Current balance of the account
 	int				_nbDeposits;//Number of deposits made to the account
