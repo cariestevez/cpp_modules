@@ -1,19 +1,16 @@
 #include "HumanB.hpp"
 
-HumanB::HumanB(/* args */)
-{
-}
+HumanB::HumanB(std::string name) : _name(name), _weapon(nullptr) {}
 
-HumanB::~HumanB()
+void HumanB::setWeapon(const Weapon &weaponObject)//we need the address of the object, to not create a copy
 {
-}
-
-void HumanB::setWeapon(Weapon weapon)
-{
-
+    _weapon = &weaponObject;//give _weapon the address of the initialized object, so both point to the same 
 }
 
 void HumanB::attack(void)
 {
-    
+    if (_weapon)
+        std::cout << _name << " attacks with their " << _weapon->getType() << std::endl;
+    else
+        std::cout << _name << " has no weapon!" << std::endl;
 }
