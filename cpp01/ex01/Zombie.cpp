@@ -22,6 +22,7 @@ This involves two steps:
 In Zombie::Zombie(std::string name) : _name(name) {}
 _name is initialized directly in the member initializer list
 ->this is preferred because it initializes the member variable once during construction and is more efficient.
+We can't do it in this case bc the allocation of the array doesn't accept arguments (we would need the name arg to init the zombie)
 */
 
 //destructor

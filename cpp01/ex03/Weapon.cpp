@@ -1,20 +1,15 @@
 #include "Weapon.hpp"
- 
-Weapon::Weapon(std::string weapon)
-{
-}
 
-Weapon::~Weapon()
-{
-}
+//consructor. Takes a string as parameter, which is the weapon type
+Weapon::Weapon(const char *initialType) : _type(initialType) {}
 
- 
-std::string   Weapon::getType(void) const
+//returns a contant reference to type
+const std::string   &Weapon::getType(void) const
 {
     return (_type);
 }
 
-void   Weapon::setType(std::string  newType)
+void   Weapon::setType(const std::string  &newType)
 {
     _type = newType;
 }
