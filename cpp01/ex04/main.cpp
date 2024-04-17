@@ -15,7 +15,7 @@ void    ftReplace(std::string &line, const std::string &s1, const std::string &s
 
 void    replaceStringInFile(const std::string &file, const std::string &s1, const std::string &s2)
 {
-    std::ifstream    inputFile(file);//opens file in input mode (read). inputFile its equivalent of a fd
+    std::ifstream    inputFile(file);//creates an input file stream, opens the "file" and links it to the stream  ==> opens file in input mode (read)
     if (!inputFile)
     {
         std::cerr << "Error opening input file!" << file << std::endl;
