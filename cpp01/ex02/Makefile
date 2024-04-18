@@ -1,4 +1,4 @@
-NAME	:= hithisisbrain
+NAME	:= hiThisIsBrain
 
 all:	$(NAME)
 

@@ -1,6 +1,6 @@
 #include "HumanB.hpp"
 
-HumanB::HumanB(std::string name) : _name(name), _weapon(nullptr) {}
+HumanB::HumanB(std::string name) : _name(name), _weapon(NULL) {}
 
 void HumanB::setWeapon(const Weapon &weaponObject)//we need the address of the object, to not create a copy
 {

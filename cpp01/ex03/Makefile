@@ -1,4 +1,4 @@
-NAME	:= unnecessary_violence
+NAME	:= unnecessaryViolence
 
 all:	$(NAME)
 

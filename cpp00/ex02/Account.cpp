@@ -124,7 +124,7 @@ bool	Account::makeWithdrawal( int withdrawal )
 void	Account::_displayTimestamp( void )
 {
     std::time_t unixTimestamp = 0;
-    std::tm *localTimestamp = (nullptr);
+    std::tm *localTimestamp = (NULL);
 
     std::time(&unixTimestamp);
     localTimestamp = std::localtime(&unixTimestamp);

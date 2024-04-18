@@ -13,7 +13,7 @@ void    ftReplace(std::string &line, const std::string &s1, const std::string &s
     }
 }
 
-void    replaceStringInFile(const std::string &file, const std::string &s1, const std::string &s2)
+void    replaceStringInFile(const char *file, const std::string &s1, const std::string &s2)
 {
     std::ifstream    inputFile(file);//creates an input file stream, opens the "file" and links it to the stream  ==> opens file in input mode (read)
     if (!inputFile)
@@ -22,8 +22,8 @@ void    replaceStringInFile(const std::string &file, const std::string &s1, cons
         return ;
     }
 
-    std::string     outputFileName = file + ".replace";
-    std::ofstream    outputFile(outputFileName);//creates and opens in output mode (write)
+    std::string     outputFileName = std::string(file) + ".replace";
+    std::ofstream    outputFile(outputFileName.c_str());//creates and opens in output mode (write)
     if (!outputFile)
     {
         std::cerr << "Error creating new file!" << std::endl;

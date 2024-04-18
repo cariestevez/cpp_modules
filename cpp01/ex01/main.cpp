@@ -7,8 +7,13 @@ int main(int argc, char **argv)
         std::cout << "Error! Usage: ./MoarBrainz! horde_size" << std::endl;
         return (1);
     }
-
-    int members = std::atoi(argv[1]);
+    int                 members;
+    std::istringstream  numMembers(argv[1]);
+    if (!(numMembers >> members))
+    {
+        std::cerr << "Invalid integer: " << argv[1] << '\n';
+        return 1;
+    }
     Zombie *dynamicZombieHorde = zombieHorde(members, "theTribe");
 
     for (int i = 0; i < members; i++)

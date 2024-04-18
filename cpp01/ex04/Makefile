@@ -1,4 +1,4 @@
-NAME	:= sed_is_for_losers
+NAME	:= sedIsForLosers
 
 all:	$(NAME)
 

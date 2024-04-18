@@ -33,4 +33,5 @@ void Harl::complain( std::string level )
            return ;
         }
     }
+    std::cout << "Error!\nType a valid complain level. You can choose between:\nDEBUG\nINFO\nWARNING\nERROR" << std::endl;
 }
