@@ -10,18 +10,31 @@ Fixed::Fixed(void) : _fixedPointNum(0)
 }
 
 //copy constructor
-Fixed::Fixed(const Fixed &other) : _fixedPointNum(other._fixedPointNum)
+// Fixed::Fixed(const Fixed &other) : _fixedPointNum(other._fixedPointNum)
+// {
+//     std::cout << "Copy constructor called" << std::endl;
+// }
+// same as:
+Fixed::Fixed(const Fixed &other)
 {
     std::cout << "Copy constructor called" << std::endl;
+    this->setRawBits(other.getRawBits());
 }
 
 //copy assignment operator overload
+// Fixed &Fixed::operator=(const Fixed &other)
+// {
+//     std::cout << "Copy assignment operator called" << std::endl;
+//     if (this != &other) { // Avoid self-assignment
+//         _fixedPointNum = other._fixedPointNum;
+//     }
+//     return (*this);
+// }
+//same as:
 Fixed &Fixed::operator=(const Fixed &other)
 {
     std::cout << "Copy assignment operator called" << std::endl;
-    if (this != &other) { // Avoid self-assignment
-        _fixedPointNum = other._fixedPointNum;
-    }
+    this->setRawBits(other.getRawBits());
     return (*this);
 }
 
@@ -32,15 +45,15 @@ Fixed::~Fixed(void)
 
 }
 
-int Fixed::getRawBits( void ) const
+int Fixed::getRawBits(void) const
 {
     std::cout << "getRawBits member function called" << std::endl;
     return (_fixedPointNum);
 }
 
-void Fixed::setRawBits( int const raw )
+void Fixed::setRawBits(int const raw)
 {
-    std::cout << "setRawBits member function called" << std::endl;
+    //std::cout << "setRawBits member function called" << std::endl;
     _fixedPointNum = raw;
 
 }

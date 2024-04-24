@@ -1,4 +1,4 @@
-NAME	:= fixed00
+NAME	:= fixed01
 
 all:	$(NAME)
 
