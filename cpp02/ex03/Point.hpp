@@ -1,4 +1,5 @@
-#pragma one
+#ifndef POINT_H
+#define POINT_H
 
 #include "Fixed.hpp"
 
@@ -16,4 +17,8 @@ public:
     
     Point &operator=(const Point &other);
 
+    Fixed const getX(void) const;
+    Fixed const getY(void) const;
 };
+
+#endif
