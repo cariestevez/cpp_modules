@@ -1,35 +1,46 @@
 #include "Dog.hpp"
 
-Dog::Dog(void)//: type("")
+Dog::Dog(void) : Animal("Dog"), _type("Dog")
 {
-    std::cout << "\e[0;104mDog::\e[0m Default constructor called for " << type << std::endl;
+    std::cout << "\e[0;104mDog::\e[0m Default constructor called for " << _type << std::endl;
 }
 
-Dog::Dog(std::string type) : type(type)
+Dog::Dog(std::string type) : Animal(type), _type(type)
 {
-    std::cout << "\e[0;104mDog::\e[0m Parameteried constructor called for " << type << std::endl;
+    std::cout << "\e[0;104mDog::\e[0m Parameteried constructor called for " << _type << std::endl;
 }
 
-Dog::Dog(const Dog &source)
+Dog::Dog(const Dog &source) : Animal(source), _type(source._type)
 {
-    type = source.type;
-    std::cout << "\e[0;104mDog::\e[0m Copy constructor called for " << type << std::endl;
+    std::cout << "\e[0;104mDog::\e[0m Copy constructor called for " << _type << std::endl;
 }
 
 Dog &Dog::operator=(const Dog &source)
 {
     if (this != &source)
-        type = source.type;
-	std::cout << "\e[0;104mDog::\e[0m Assignment operator used for " << type << std::endl;
+    {
+         Animal::operator=(source);
+         _type = source._type;
+    }
+	std::cout << "\e[0;104mDog::\e[0m Assignment operator used for " << _type << std::endl;
 	return (*this);
 }
 
 Dog::~Dog()
 {
-    std::cout << "\e[0;104mDog::\e[0m Destructor called for " << type << std::endl;
+    std::cout << "\e[0;104mDog::\e[0m Destructor called for " << _type << std::endl;
 }
 
-void Dog::makeSound(void)
+//////////////////////////////////////////////////////////////////////////////////////
+
+const std::string Dog::getType(void) const
 {
-    std::cout << type << "\e[1;34msays: Woof woof!\e[0m" << std::endl;
+    return _type;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+void Dog::makeSound(void) const
+{
+    std::cout << _type << "\e[1;34m says: Woof woof!\e[0m" << std::endl;
 }

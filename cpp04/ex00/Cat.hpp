@@ -6,7 +6,7 @@
 class Cat : public Animal
 {
 protected:
-    std::string type;
+    std::string _type;
 public:
     Cat(void);
     Cat(std::string type);
@@ -14,7 +14,9 @@ public:
     Cat &operator=(const Cat &source);
     ~Cat(void);
 
-    virtual void makeSound(void);
+    const std::string getType(void) const;
+
+    virtual void makeSound(void) const;
 };
 
 #endif

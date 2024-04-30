@@ -3,7 +3,7 @@ NAME	:= polymorphism
 all:	$(NAME)
 
 $(NAME): main.cpp
-		g++ -Wall -Wextra -Werror -std=c++98 main.cpp animal.cpp -o $(NAME)
+		c++ -Wall -Wextra -Werror -std=c++98 main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp -o $(NAME)
 #-Wshadow -Wno-shadow
 clean:
 	@rm -rf $(NAME)
