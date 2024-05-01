@@ -3,11 +3,13 @@
 Cat::Cat(void) : Animal("Cat"), _type("Cat")
 {
     std::cout << "\e[0;105mCat::\e[0m Default constructor called for " << _type << std::endl;
+    _brain = new Brain();
 }
 
 Cat::Cat(std::string type) : Animal(type), _type(type)
 {
     std::cout << "\e[0;105mCat::\e[0m Parameterized constructor called for " << _type << std::endl;
+    _brain = new Brain();
 }
 
 Cat::Cat(const Cat &source) : Animal(source), _type(source._type)
@@ -29,6 +31,7 @@ Cat &Cat::operator=(const Cat &source)
 Cat::~Cat()
 {
     std::cout << "\e[0;105mCat::\e[0m Destructor called for " << _type << std::endl;
+    delete _brain;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////

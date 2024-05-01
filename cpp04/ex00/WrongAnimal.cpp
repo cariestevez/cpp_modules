@@ -7,7 +7,7 @@ WrongAnimal::WrongAnimal(void)//: _type("")
 
 WrongAnimal::WrongAnimal(std::string type) : _type(type)
 {
-    std::cout << "\e[0;103mWrongAnimal::\e[0m Parameteried constructor called for " << _type << std::endl;
+    std::cout << "\e[0;103mWrongAnimal::\e[0m Parameterized constructor called for " << _type << std::endl;
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal &source)
@@ -39,7 +39,7 @@ const std::string WrongAnimal::getType(void) const
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-void WrongAnimal::makeSound(void)
+void WrongAnimal::makeSound(void) const
 {
-    std::cout << _type << "\e[1;33mIs confused and doesn't know what to say...\e[0m" << std::endl;
+    std::cout << "\e[1;33mIs confused and doesn't know what to say...\e[0m" << std::endl;
 }

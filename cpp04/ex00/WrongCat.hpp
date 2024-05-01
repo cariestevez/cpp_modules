@@ -12,11 +12,11 @@ public:
     WrongCat(std::string type);
     WrongCat(const WrongCat &source);
     WrongCat &operator=(const WrongCat &source);
-    ~WrongCat(void);
+    virtual ~WrongCat(void);
 
     const std::string getType(void) const;
 
-    virtual void makeSound(void);
+    void makeSound(void) const;
 };
 
 #endif
