@@ -17,5 +17,36 @@ int main()
     delete j;//should not create a leak
     delete i;
 
+    std::cout << std::endl;
+
+    Animal *animals[4];//pointer to the array of base class elements
+    for (int i = 0; i < 4; i++)
+    {
+        if (i < 2)
+            animals[i] = new Dog();
+        else
+            animals[i] = new Cat();
+    }
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < 4; i++)
+    {
+        animals[i]->makeSound(); // should output Polymorphic behavior
+    }
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < 4; ++i) {
+        delete animals[i];
+    }
+
     return 0;
 }
+
+//Polymorphism refers to the ability of different objects to be treated
+//as instances of the same class through a common interface.
+//Achieved through inheritance and virtual functions.
+//by doing animals[i] = Dog(); or animals[i] = Cat(); polymorphism gets lost
+//-> makeSound() from animal class overrides makeSound() from specific animals
+//to avoid object slicing: use pointer and dynamic memory allocation
