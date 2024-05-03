@@ -42,3 +42,14 @@ void Animal::makeSound(void) const
 {
     std::cout << "\e[1;33mIs confused and doesn't know what to say...\e[0m" << std::endl;
 }
+
+void Animal::addIdea(const std::string& idea)
+{
+    (void)idea;
+    std::cout << "I have no brain for ideas" << std::endl;
+}
+
+void Animal::printIdeas(void) const
+{
+    std::cout << "You can get nothing out of a brainles being" << std::endl;
+}

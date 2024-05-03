@@ -4,34 +4,21 @@
 
 int main()
 {
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
+    const AAnimal* j = new Dog();//concrete class derived from the abstract class AAnimal
+    const AAnimal* i = new Cat();
     delete j;//should not create a leak
     delete i;
 
-    std::cout << std::endl;
+    // std::cout << std::endl;
 
-    Animal *animals[4];//pointer to the array of base class elements
-    for (int i = 0; i < 4; i++)
-    {
-        if (i < 2)
-            animals[i] = new Dog();
-        else
-            animals[i] = new Cat();
-    }
+    // std::cout << "testing abstract" << std::endl;
 
-    std::cout << std::endl;
-
-    for (int i = 0; i < 4; i++)
-    {
-        animals[i]->makeSound(); // should output Polymorphic behavior
-    }
-
-    std::cout << std::endl;
-
-    for (int i = 0; i < 4; ++i) {
-        delete animals[i];
-    }
+    // const AAnimal* pureAnimal = new AAnimal();//attempt to create an instance of the abstract class
+    // pureAnimal->getType();
+    // delete pureAnimal;
 
     return 0;
 }
+
+//Abstract classes:
+//https://www.ibm.com/docs/en/zos/2.4.0?topic=only-abstract-classes-c
