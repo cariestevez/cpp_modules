@@ -2,14 +2,6 @@
 #include "Dog.hpp"
 #include "Brain.hpp"
 
-// In your main function, create and fill an array of Animal objects. Half of it will
-// be Dog objects and the other half will be Cat objects. At the end of your program
-// execution, loop over this array and delete every Animal. You must delete directly dogs
-// and cats as Animals. The appropriate destructors must be called in the expected order.
-// Don’t forget to check for memory leaks.
-// A copy of a Dog or a Cat mustn’t be shallow. Thus, you have to test that your copies
-// are deep copies!
-
 int main()
 {
     const Animal* j = new Dog();
@@ -32,8 +24,25 @@ int main()
 
     for (int i = 0; i < 4; i++)
     {
-        animals[i]->makeSound(); // should output Polymorphic behavior
+        animals[i]->makeSound();//should output Polymorphic behavior
     }
+
+    std::cout << std::endl;
+
+    Cat guachi("pRrRrR");
+    std::cout << "Type: " << guachi.getType() << std::endl;
+    guachi.addIdea("I'm excited about birds");
+    Cat catCopy = guachi;
+    std::cout << "What's in guachi's mind?" << std::endl;
+    guachi.printIdeas();
+    std::cout << "What's in cat copy's mind?" << std::endl;
+    catCopy.printIdeas();
+    catCopy.addIdea("My best friend is actually a bird");
+    guachi.addIdea("I just want to play with them");
+    std::cout << "What's in guachi's mind?" << std::endl;
+    guachi.printIdeas();
+    std::cout << "What's in cat copy's mind?" << std::endl;
+    catCopy.printIdeas();
 
     std::cout << std::endl;
 
@@ -50,3 +59,9 @@ int main()
 //by doing animals[i] = Dog(); or animals[i] = Cat(); polymorphism gets lost
 //-> makeSound() from animal class overrides makeSound() from specific animals
 //to avoid object slicing: use pointer and dynamic memory allocation
+
+//Shallow copy of an object: copies all of the member field values
+//If the fields contain references to dynamically allocated memory,
+//the memory addresses will be copied, not the actual data.
+//Deep copy: copies everything, including dynamically allocated memory,
+//ensuring that the copied object is fully independent of the original.

@@ -1,11 +1,9 @@
-#ifndef ANIMAL_H
-#define ANIMAL_H
+#ifndef AANIMAL_H
+#define AANIMAL_H
 
 #include <iostream>
 #include <string>
 
-//Adding a pure virtual function makes the class abstract
-//=> it cannot be instantiated directly. It serve as base class for other classes
 
 class AAnimal
 {
@@ -21,6 +19,11 @@ public:
     const std::string getType(void) const;
 
     virtual void makeSound(void) const = 0; //pure virtual function
+    virtual void addIdea(const std::string& idea);
+    virtual void printIdeas(void) const;
 };
 
 #endif
+
+//Adding at least 1 pure virtual function makes the class abstract
+//=> it cannot be instantiated directly. It serves as base class for other classes

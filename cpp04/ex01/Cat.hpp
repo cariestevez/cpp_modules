@@ -20,6 +20,9 @@ public:
     const std::string getType(void) const;
 
     virtual void makeSound(void) const;
+    virtual void addIdea(const std::string& idea);
+    virtual void printIdeas(void) const;
+
 };
 
 #endif

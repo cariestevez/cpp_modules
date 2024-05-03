@@ -21,19 +21,19 @@ int main()
     std::cout << std::endl;
    
     std::cout << meta->getType() << ": ";
-    meta->makeSound();
+    meta->makeSound();//animal
     
     std::cout << j->getType() << ": ";
-    j->makeSound();
+    j->makeSound();//animal - dog
 
     std::cout << i->getType() << ": ";
-    i->makeSound();
+    i->makeSound();//animal - cat
 
     std::cout << h->getType() << ": ";
-    h->makeSound();
+    h->makeSound();//animal - wrongcat
 
     std::cout << g->getType() << ": ";
-    g->makeSound();
+    g->makeSound();//cat - cat
 
     std::cout << std::endl;
 
