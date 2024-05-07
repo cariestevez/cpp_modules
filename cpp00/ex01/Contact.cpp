@@ -8,8 +8,8 @@ std::string Contact::getUserInput(std::string message)
     while (!inputCorrect)
     {
         std::cout << message << std::endl;
-        std::cin >> userInput;
-        if (!userInput.empty())
+        std::getline(std::cin, userInput);
+        if (userInput.find_first_not_of(' ') != std::string::npos)
             inputCorrect = true;
     }
     return (userInput);
@@ -39,12 +39,12 @@ void	Contact::printPreview(void)
     this->_lastName = (this->_lastName.length() > 10) ? (this->_lastName.substr(0, 9) + '.') : this->_lastName;
     this->_nickName = (this->_nickName.length() > 10) ? (this->_nickName.substr(0, 9) + '.') : this->_nickName;
 
-	std::cout	<< "\033[33m" << "\n"
-				<< std::right << this->_index << " | "
+	std::cout	<< "\033[33m"
+				<< std::right << std::setw(10) << this->_index << " | "
 				<< std::right << std::setw(10) << this->_firstName << " | "
 				<< std::right << std::setw(10) << this->_lastName << " | "
 				<< std::right << std::setw(10) << this->_nickName
-				<< "\033[0m\n" << std::endl;
+				<< "\033[0m" << std::endl;
 }
 
 void	Contact::printContactFull() const

@@ -28,11 +28,18 @@ void	PhoneBook::searchContact(void)
         std::cout << "\033[31mPhoneBook is empty! \033[0m🕳️" << std::endl;
         return ;
     }
+    std::cout	<< "\033[33m" << "\n"
+				<< std::right << std::setw(10) << "index" << " | "
+				<< std::right << std::setw(10) << "first name" << " | "
+				<< std::right << std::setw(10) << "last name" << " | "
+				<< std::right << std::setw(10) << "nickname"
+				<< "\033[0m" << std::endl;
     while (i < 8 && !(this->_contacts[i].getFirstName().empty()))
     {
         this->_contacts[i].printPreview();
         i++;
     }
+    std::cout << std::endl;
     std::istringstream iss(this->_contacts[i].getUserInput ("\033[35m--->Enter index of desired contact to view full information: \033[0m"));
     if (!(iss >> i) || !(i >= 0 && i < 8))
     {

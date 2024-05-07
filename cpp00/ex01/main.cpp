@@ -8,7 +8,8 @@ int main()
 	while (1)
 	{
 		phonebook.welcomeMessage();
-		std::cin >> userInput; //reads only until the first whitespace
+		std::getline(std::cin, userInput);
+		//std::cin >> userInput; //reads only until the first whitespace
 		if (userInput.compare("ADD") == 0)
 			phonebook.addContact();
 		else if (userInput.compare("SEARCH") == 0)
