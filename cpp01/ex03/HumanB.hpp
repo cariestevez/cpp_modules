@@ -13,7 +13,7 @@ class HumanB
         
     public:
         HumanB(std::string name);//only takes the name parameter, so _weapon has to be init to null (can only be done with a ptr)
-        //~HumanB();
+        ~HumanB();
         
         void setWeapon(const Weapon &weaponObject);//passing address of the weaponObject initialized in the main
         void attack(void);

@@ -1,13 +1,14 @@
 #include "Zombie.hpp"
 #include <iostream>
 
-//constructors
+//constructor
 Zombie::Zombie(void)
 {
-    std::cout << "Zombie " << "created" << std::endl;
+    std::cout << "Zombie created" << std::endl;
 }
 
-//Zombie::Zombie(std::string name) : _name(name){}
+//parameterized constructor
+//Zombie::Zombie(std::string name) : _name(name){} // cannot be used when creating an array of instances of a class
 
 void    Zombie::rename(std::string name) 
 {
@@ -30,6 +31,7 @@ Zombie::~Zombie(void)
 {
     std::cout << "Zombie " << _name << " destructed" << std::endl;
 }
+
 
 void    Zombie::announce(void)
 {
