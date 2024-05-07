@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 
     std::string s1 = argv[2];
     std::string s2 = argv[3];
-    if (s1.empty() || s2.empty())
+    if (s1.empty())
     {
         std::cout << "Error! Empty string passed as argument!" << std::endl;
         return (1);

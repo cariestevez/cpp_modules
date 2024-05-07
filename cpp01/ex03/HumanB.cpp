@@ -7,6 +7,8 @@ void HumanB::setWeapon(const Weapon &weaponObject)//we need the address of the o
     _weapon = &weaponObject;//give _weapon the address of the initialized object, so both point to the same 
 }
 
+HumanB::~HumanB() {}
+
 void HumanB::attack(void)
 {
     if (_weapon)

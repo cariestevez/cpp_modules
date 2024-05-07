@@ -2,9 +2,9 @@
 
 int main(void)
 {
-    randomChump("Chupacabras");
     Zombie *dynamicZombie = newZombie("Kizombi");
 
+    randomChump("Chupacabras");
     dynamicZombie->announce();
     delete dynamicZombie;
 

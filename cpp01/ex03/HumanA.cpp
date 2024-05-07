@@ -6,6 +6,7 @@
 //doing it inside of the function body is assignment, not init!
 HumanA::HumanA(std::string name, const Weapon &weapon) : _name(name), _weapon(weapon) {}
 
+HumanA::~HumanA() {}
 
 void HumanA::attack(void)
 {
