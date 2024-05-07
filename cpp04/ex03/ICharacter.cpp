@@ -2,7 +2,7 @@
  
 ICharacter::~ICharacter()
 {
-    std::cout << "\e[0;103mICharacter::\e[0m Destructor called " << std::endl;
+    // std::cout << "\e[0;103mICharacter::\e[0m Destructor called " << std::endl;
 }
 
 //virtual std::string const & getName() const = 0;

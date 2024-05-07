@@ -1,13 +1,26 @@
-NAME	:= weird
+NAME = diamond
 
-all:	$(NAME)
-
-$(NAME): main.cpp
-		c++ -Wall -Wextra -Werror -std=c++98 main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp -o $(NAME)
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 #-Wshadow -Wno-shadow
+CPP = c++
+
+SRC = ClapTrap ScavTrap FragTrap DiamondTrap main
+OBJ = $(SRC:=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME)
+
+%.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $< -o $@
+
 clean:
-	@rm -rf $(NAME)
+	$(RM) $(OBJ)
 
-re:	clean all
+fclean: clean
+	$(RM) $(NAME)
 
-.PHONY: all clean re
+re: fclean all
+
+.PHONY: all fclean re

@@ -1,7 +1,7 @@
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
 
-#include "unityBuildHeader.hpp"
+// #include "unityBuildHeader.hpp"
 
 class Character : public ICharacter
 {

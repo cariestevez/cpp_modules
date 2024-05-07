@@ -2,17 +2,17 @@
 
 AMateria::AMateria(void) : _type("just A Materia")
 {
-    std::cout << "\e[0;103mAMateria::\e[0m Default constructor called for " << _type << std::endl;
+    // std::cout << "\e[0;103mAMateria::\e[0m Default constructor called for " << _type << std::endl;
 }
 
 AMateria::AMateria(std::string const &type) : _type(type)
 {
-    std::cout << "\e[0;103mAMateria::\e[0m Parameterized constructor called for " << _type << std::endl;
+    // std::cout << "\e[0;103mAMateria::\e[0m Parameterized constructor called for " << _type << std::endl;
 }
 
 AMateria::AMateria(const AMateria &source) :  _type(source._type)
 {
-    std::cout << "\e[0;103mAMateria::\e[0m Copy constructor called for " << _type << std::endl;
+    // std::cout << "\e[0;103mAMateria::\e[0m Copy constructor called for " << _type << std::endl;
 }
 
 AMateria &AMateria::operator=(const AMateria &source)
@@ -20,13 +20,14 @@ AMateria &AMateria::operator=(const AMateria &source)
     if (this != &source)
         const std::string _type = source._type;
 	
-    std::cout << "\e[0;103mAMateria::\e[0m Assignment operator used for " << _type << std::endl;
-	return (*this);
+    // std::cout << "\e[0;103mAMateria::\e[0m Assignment operator used for " << _type << std::endl;
+	
+    return (*this);
 }
 
 AMateria::~AMateria()
 {
-    std::cout << "\e[0;103mAMateria::\e[0m Destructor called for " << _type << std::endl;
+    // std::cout << "\e[0;103mAMateria::\e[0m Destructor called for " << _type << std::endl;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////

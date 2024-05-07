@@ -2,7 +2,7 @@
  
 IMateriaSource::~IMateriaSource()
 {
-    std::cout << "\e[0;103mIMateriaSource::\e[0m Destructor called " << std::endl;
+    // std::cout << "\e[0;103mIMateriaSource::\e[0m Destructor called " << std::endl;
 }
 
 // virtual void learnMateria(AMateria*) = 0;

@@ -1,13 +1,26 @@
-NAME	:= dreamjob
+NAME = Account
 
-all:	$(NAME)
+CPP = c++
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
+RM = rm -rf
 
-$(NAME): Account.cpp
-		c++ -Wall -Wextra -Werror -std=c++98 Account.cpp tests.cpp -o $(NAME)
+SRC = tests Account
+OBJ = $(SRC:=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME)
+
+%.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 clean:
-	@rm -rf $(NAME)
+	$(RM) $(OBJ)
 
-re:	clean all
+fclean: clean
+	$(RM) $(NAME)
 
-.PHONY: all clean re
+re: fclean all
+
+.PHONY: all clean fclean re

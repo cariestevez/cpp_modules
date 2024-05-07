@@ -26,9 +26,11 @@ void MateriaSource::learnMateria(AMateria *materia)
     {
         if (!_materias[i])
         {
-            _materias[i] = materia->clone();
+            _materias[i] = materia; //materia->clone();
             return ;
         }
+        // else
+        //     std::cout << "Index " << i << " has " << _materias[i]->getType() << std::endl;
     }
 }
 
