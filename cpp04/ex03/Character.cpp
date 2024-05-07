@@ -2,15 +2,21 @@
 
 // The Character possesses an inventory of 4 slots, which means 4 Materias at most.
 // The inventory is empty at construction.
-Character::Character(void) : _name("no_name"), _inventory{NULL, NULL, NULL, NULL}
+Character::Character(void) : _name("no_name")
 {
-    std::cout << "Character:: Default constructor called for " << _name << std::endl;
+    for (int i = 0; i < 4; ++i)
+        _inventory[i] = NULL;
+
+    // std::cout << "Character:: Default constructor called for " << _name << std::endl;
 }
 
 // Your Character must have a constructor taking its name as a parameter.
-Character::Character(std::string name) : _name(name), _inventory{NULL, NULL, NULL, NULL}
+Character::Character(std::string name) : _name(name)
 {
-    std::cout << "Character:: Parameterized constructor called for " << _name << std::endl;
+    for (int i = 0; i < 4; ++i)
+        _inventory[i] = NULL;
+    
+    // std::cout << "Character:: Parameterized constructor called for " << _name << std::endl;
 }
 
 // Any copy (using copy constructor or copy assignment operator) of a Character must be deep.
@@ -23,7 +29,8 @@ Character::Character(const Character &source) : _name(source._name)
         delete _inventory[i];
         _inventory[i] = source._inventory[i]->clone();
     }
-    std::cout << "Character:: Default constructor called for " << _name << std::endl;
+
+    // std::cout << "Character:: Default constructor called for " << _name << std::endl;
 }
 
 Character &Character::operator=(const Character &source)
@@ -35,7 +42,7 @@ Character &Character::operator=(const Character &source)
             _inventory[i] = source._inventory[i]->clone();
     }
 	
-    std::cout << "Character:: Assignment operator used for " << _name << std::endl;
+    // std::cout << "Character:: Assignment operator used for " << _name << std::endl;
 	
     return (*this);
 }
@@ -45,8 +52,8 @@ Character::~Character()
 {
     for (int i = 0; i < 4; i++)
         delete _inventory[i];
-    //call other destructors??
-    std::cout << "Character:: Destructor called for " << _name << std::endl;
+
+    // std::cout << "Character:: Destructor called for " << _name << std::endl;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -68,6 +75,9 @@ void Character::equip(AMateria* m)
     {
         if (!_inventory[i])
         {
+            //std::cout << "equip with materia" << std::endl;
+            //std::cout << m->getType() << " at idx " << i << std::endl;
+
             _inventory[i] = m;
             return ;
         }
@@ -92,5 +102,8 @@ void Character::unequip(int idx)
 void Character::use(int idx, ICharacter& target)
 {
     if (idx >= 0 && idx < 4 && _inventory[idx] != NULL)
+    {
+        // std::cout << "in character use idx = " << idx << std::endl;
         _inventory[idx]->use(target);
+    }
 }

@@ -1,7 +1,7 @@
 #ifndef CURE_HPP
 #define CURE_HPP
 
-#include "AMateria.hpp"
+// #include "AMateria.hpp"
 // #include "unityBuildHeader.hpp"
 
 class Cure : public AMateria

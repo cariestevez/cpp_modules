@@ -1,13 +1,26 @@
-NAME	:= polymorphism
+NAME = animal
 
-all:	$(NAME)
-
-$(NAME): main.cpp
-		c++ -Wall -Wextra -Werror -std=c++98 main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp -o $(NAME)
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 #-Wshadow -Wno-shadow
+CPP = c++
+
+SRC = Animal Cat Dog WrongAnimal WrongCat main
+OBJ = $(SRC:=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME)
+
+%.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $< -o $@
+
 clean:
-	@rm -rf $(NAME)
+	$(RM) $(OBJ)
 
-re:	clean all
+fclean: clean
+	$(RM) $(NAME)
 
-.PHONY: all clean re
+re: fclean all
+
+.PHONY: all fclean re

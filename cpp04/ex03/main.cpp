@@ -1,5 +1,5 @@
-//#include "unityBuildHeader.hpp"
-#include "MateriaSource.hpp"
+#include "unityBuildHeader.hpp"
+// #include "MateriaSource.hpp"
 
 int main()
 {
@@ -16,6 +16,7 @@ int main()
     
     ICharacter* bob = new Character("bob"); // Create a new Character object named "bob" and assign its address to bob pointer
     
+    //std::cout << "JASJDAJWJE" << std::endl;
     me->use(0, *bob);  // Use the first materia in "me"'s inventory on "bob"
     me->use(1, *bob);  // Use the second materia in "me"'s inventory on "bob"
     

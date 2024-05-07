@@ -1,7 +1,7 @@
 #ifndef MATERIASOURCE_HPP
 #define MATERIASOURCE_HPP
 
-#include "IMateriaSource.hpp"
+// #include "IMateriaSource.hpp"
 // #include "unityBuildHeader.hpp"
 
 // learnMateria(AMateria*)

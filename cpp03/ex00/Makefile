@@ -1,13 +1,25 @@
-NAME	:= open
+NAME = claptrap
 
-all:	$(NAME)
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
+CPP = c++
 
-$(NAME): main.cpp
-		c++ -Wall -Wextra -Werror -std=c++98 main.cpp ClapTrap.cpp -o $(NAME)
+SRC = ClapTrap main
+OBJ = $(SRC:=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME)
+
+%.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 clean:
-	@rm -rf $(NAME)
+	$(RM) $(OBJ)
 
-re:	clean all
+fclean: clean
+	$(RM) $(NAME)
 
-.PHONY: all clean re
+re: fclean all
+
+.PHONY: all fclean re
