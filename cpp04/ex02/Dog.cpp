@@ -58,7 +58,10 @@ void Dog::addIdea(const std::string& idea)
     while (i < 100)
     {
         if (_brain->ideaIsEmpty(i))
+        {
             _brain->addIdeaAtIndex(idea, i);
+            return;
+        }
         i++;
     }
     if (i >= 100)

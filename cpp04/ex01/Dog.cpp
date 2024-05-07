@@ -25,7 +25,8 @@ Dog &Dog::operator=(const Dog &source)
         Animal::operator=(source);// Call the base class assignment operator
         _type = source._type;// Perform (deep copy) for Dog-specific members
         delete _brain;// Delete current _brain if any
-        _brain = new Brain(*source._brain);// Create a new instance of Brain and copy its content
+        _brain = new Brain(*source._brain);// Create a new instance of Brain and copy its content after calling brains copy constructor
+        //*_brain = *source._brain;//does the same as above? calling the copy constructor
     }
     std::cout << "\e[0;105mDog::\e[0m Assignment operator used for " << _type << std::endl;
 	return (*this);
@@ -58,7 +59,10 @@ void Dog::addIdea(const std::string& idea)
     while (i < 100)
     {
         if (_brain->ideaIsEmpty(i))
+        {
             _brain->addIdeaAtIndex(idea, i);
+            return;
+        }
         i++;
     }
     if (i >= 100)

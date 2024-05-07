@@ -1,4 +1,4 @@
-#include "AMateria.hpp"
+#include "unityBuildHeader.hpp"
 
 AMateria::AMateria(void) : _type("just A Materia")
 {
@@ -18,7 +18,7 @@ AMateria::AMateria(const AMateria &source) :  _type(source._type)
 AMateria &AMateria::operator=(const AMateria &source)
 {
     if (this != &source)
-        _type = source._type;
+        const std::string _type = source._type;
 	
     std::cout << "\e[0;103mAMateria::\e[0m Assignment operator used for " << _type << std::endl;
 	return (*this);
@@ -40,8 +40,8 @@ std::string const &AMateria::getType() const //Returns the materia type
 
 //virtual AMateria* clone() const = 0;
 
-void AMateria::use(ICharacter& target)
+void AMateria::use(ICharacter &target)
 {
-    // Ice: "* shoots an ice bolt at <name> *"
-    // Cure: "* heals <name>’s wounds *
+    std::cout << "* Doesn't know what to do with " << target.getName() << " *" << std::endl;
+
 }

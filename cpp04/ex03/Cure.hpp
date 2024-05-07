@@ -1,11 +1,10 @@
-#ifndef CURE_H
-#define CURE_H
+#ifndef CURE_HPP
+#define CURE_HPP
 
 #include "AMateria.hpp"
-#include <iostream>
-#include <string>
+// #include "unityBuildHeader.hpp"
 
-class Cure
+class Cure : public AMateria
 {
     protected:
         const std::string _type;
@@ -16,8 +15,8 @@ class Cure
         Cure &operator=(const Cure &source);
         ~Cure(void);
 
-        Cure *clone(const Cure *source);// returns a new instance of the same type
-        void use(ICharacter& target);
+        virtual Cure *clone(void) const;// returns a new instance of the same type
+        virtual void use(ICharacter &target);
 };
 
 #endif

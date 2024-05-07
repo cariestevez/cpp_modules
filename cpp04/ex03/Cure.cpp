@@ -1,4 +1,5 @@
-#include "Cure.hpp"
+
+#include "unityBuildHeader.hpp"
 
 Cure::Cure(void) : _type("cure")
 {
@@ -18,7 +19,7 @@ Cure::Cure(const Cure &source) :  _type(source._type)
 Cure &Cure::operator=(const Cure &source)
 {
     if (this != &source)
-        _type = source._type;
+       const std::string _type = source._type;
 	
     std::cout << "\e[0;103mCure::\e[0m Assignment operator used for " << _type << std::endl;
 	return (*this);
@@ -29,15 +30,17 @@ Cure::~Cure()
     std::cout << "\e[0;103mCure::\e[0m Destructor called for " << _type << std::endl;
 }
 
-Cure *Cure::clone(const Cure *source)// returns a new instance of the same type
+//////////////////////////////////////////////////////////////////////////////////////
+
+Cure *Cure::clone(void) const// returns a new instance of the same type
 {
-    Cure *clone = new Cure;
-    clone->_type = source->_type;
-    
+    Cure *clone = new Cure(*this);
+    // clone->_type = source->_type;
+    std::cout << "Cure:: Cloning cure" << std::endl;
     return clone;
 }
 
-void Cure::use(ICharacter& target)
+void Cure::use(ICharacter &target)
 {
-    // Cure: "* heals <name>’s wounds *
+    std::cout << "* heals " << target.getName() << "’s wounds *" << std::endl;
 }
