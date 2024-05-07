@@ -2,10 +2,9 @@
 #define ICE_H
 
 #include "AMateria.hpp"
-#include <iostream>
-#include <string>
+// #include "unityBuildHeader.hpp"
 
-class Ice
+class Ice : public AMateria
 {
     protected:
         const std::string _type;
@@ -16,8 +15,8 @@ class Ice
         Ice &operator=(const Ice &source);
         ~Ice(void);
 
-        Ice *clone(const Ice *source);
-        void use(ICharacter& target);
+        virtual Ice *clone(void) const;
+        virtual void use(ICharacter &target);
 
 };
 

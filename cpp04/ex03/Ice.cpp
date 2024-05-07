@@ -1,4 +1,4 @@
-#include "Ice.hpp"
+#include "unityBuildHeader.hpp"
 
 Ice::Ice(void) : _type("ice")
 {
@@ -18,7 +18,7 @@ Ice::Ice(const Ice &source) :  _type(source._type)
 Ice &Ice::operator=(const Ice &source)
 {
     if (this != &source)
-        _type = source._type;
+       const std::string _type = source._type;
 	
     std::cout << "\e[0;103mIce::\e[0m Assignment operator used for " << _type << std::endl;
 	return (*this);
@@ -29,16 +29,17 @@ Ice::~Ice()
     std::cout << "\e[0;103mIce::\e[0m Destructor called for " << _type << std::endl;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////
 
-Ice *Ice::clone(const Ice *source)// returns a new instance of the same type
+Ice *Ice::clone(void) const// returns a new instance of the same type
 {
-    Ice *clone = new Ice;
-    clone->_type = source->_type;
-    
+    Ice *clone = new Ice(*this);
+    // clone->_type = source->_type;
+    std::cout << "Ice:: Cloning ice" << std::endl;
     return clone;
 }
 
-void Ice::use(ICharacter& target)
+void Ice::use(ICharacter &target)
 {
-    // Ice: "* shoots an ice bolt at <name> *"
+    std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
 }

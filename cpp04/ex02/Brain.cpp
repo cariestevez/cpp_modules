@@ -9,7 +9,7 @@ Brain::Brain(void)
 Brain::Brain(const Brain &source)
 {
     for (int i = 0; i < 100; ++i) 
-        _ideas[i] = source._ideas[i];//deep copy of ideas array
+        _ideas[i] = source._ideas[i];//deep copy of ideas array performed by std::string
 
     std::cout << "\e[0;101mBrain::\e[0m Copy constructor called" << std::endl;
 }

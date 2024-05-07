@@ -46,6 +46,27 @@ int main()
 
     std::cout << std::endl;
 
+    Animal *aDog = new Dog("doggo");
+    aDog->addIdea("I'm a dog");
+    aDog->printIdeas();
+    //Animal *dogCopy = aDog;//just saving address of aDog ->leak
+    //using the copy constructor:
+    //*static_cast<Dog*>(aDog) dereferences aDog to obtain the Dog object it points to,
+    //and then passes this object as an argument to the copy constructor of Dog,
+    //creating a new Dog object that is a deep copy of the original one
+    Animal *dogCopy = new Dog(*static_cast<Dog*>(aDog));
+    //Alternatively, if dogCopy is already initialized, using the copy assignment operator:
+    //*static_cast<Dog*>(dogCopy) = *static_cast<Dog*>(aDog);
+    //Here, *static_cast<Dog*>(dogCopy) and *static_cast<Dog*>(aDog) dereference dogCopy and aDog respectively
+    //to obtain the Dog objects they point to,
+    //and then the copy assignment operator of Dog is invoked to copy the state of the source Dog object into the destination Dog object.
+    //This updates the state of dogCopy with the state of the Dog object pointed to by aDog, effectively performing a deep copy
+    delete aDog;
+    dogCopy->printIdeas();
+    delete dogCopy;
+
+    std::cout << std::endl;
+
     for (int i = 0; i < 4; ++i) {
         delete animals[i];
     }

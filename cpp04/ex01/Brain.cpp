@@ -6,6 +6,8 @@ Brain::Brain(void)
 
 }
 
+// The copy constructor is used to create a new object as a copy of an existing object.
+// The copy assignment operator is used to modify the state of an existing object to be the same as another object.
 Brain::Brain(const Brain &source)
 {
     for (int i = 0; i < 100; ++i) 
