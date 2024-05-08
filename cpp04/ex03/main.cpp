@@ -7,20 +7,21 @@ int main()
     src->learnMateria(new Cure());
     ICharacter* me = new Character("me");
     AMateria* tmp;
-    tmp = src->createMateria("ice");
+    tmp = src->createMateria("ice");//allocates and saves in MateriaSource _materias[i]
     me->equip(tmp);
-    tmp = src->createMateria("cure");
-    me->equip(tmp);
+    tmp = src->createMateria("cure");//allocates and saves in MateriaSource _materias[i]
+    me->equip(tmp);//saves a copy of the ptr in the character's _inventory[i]
     ICharacter* bob = new Character("bob");
     me->use(0, *bob);
     me->use(1, *bob);
-    // me->unequip(0);
-    // me->unequip(1);
-    me->equip(tmp);
+    me->unequip(0);
+    me->unequip(1);
+    // me->equip(tmp);
     me->use(0, *bob);
     delete bob;
     delete me;
     delete src;
+
     return 0;
 }
 
