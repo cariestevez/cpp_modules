@@ -43,6 +43,11 @@ std::string const &AMateria::getType() const //Returns the materia type
 
 void AMateria::use(ICharacter &target)
 {
-    std::cout << "* Doesn't know what to do with " << target.getName() << " *" << std::endl;
+    if (_type == "cure")
+        std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
+    else if (_type == "ice")
+        std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
+    else
+        std::cout << "* Doesn't know what to do with " << target.getName() << " *" << std::endl;
 
 }

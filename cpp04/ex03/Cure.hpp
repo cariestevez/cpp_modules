@@ -1,9 +1,6 @@
 #ifndef CURE_HPP
 #define CURE_HPP
 
-// #include "AMateria.hpp"
-// #include "unityBuildHeader.hpp"
-
 class Cure : public AMateria
 {
     protected:
@@ -16,7 +13,7 @@ class Cure : public AMateria
         ~Cure(void);
 
         virtual Cure *clone(void) const;// returns a new instance of the same type
-        virtual void use(ICharacter &target);
+        // virtual void use(ICharacter &target);
 };
 
 #endif
