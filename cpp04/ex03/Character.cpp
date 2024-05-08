@@ -2,20 +2,22 @@
 
 // The Character possesses an inventory of 4 slots, which means 4 Materias at most.
 // The inventory is empty at construction.
-Character::Character(void) : _name("no_name")
+Character::Character(void) : _name("no_name"), _unequipedMateriasCount(0)
 {
     for (int i = 0; i < 4; ++i)
         _inventory[i] = NULL;
-
+    for (int i = 0; i < 1000; ++i)
+        _unequipedMaterias[i] = NULL;
     // std::cout << "Character:: Default constructor called for " << _name << std::endl;
 }
 
 // Your Character must have a constructor taking its name as a parameter.
-Character::Character(std::string name) : _name(name)
+Character::Character(std::string name) : _name(name), _unequipedMateriasCount(0)
 {
     for (int i = 0; i < 4; ++i)
         _inventory[i] = NULL;
-    
+    for (int i = 0; i < 1000; ++i)
+        _unequipedMaterias[i] = NULL;
     // std::cout << "Character:: Parameterized constructor called for " << _name << std::endl;
 }
 
@@ -44,12 +46,22 @@ Character &Character::operator=(const Character &source)
         _name = source._name;
         for (int i = 0; i < 4; i++)
         {
-            // if (_inventory[i])
-            //     delete _inventory[i];
+            if (_inventory[i])
+                delete _inventory[i];
             if (source._inventory[i])
                 _inventory[i] = (source._inventory[i])->clone();
             else
                 _inventory[i] = NULL;
+        }
+        for (int i = 0; i < 1000; i++)
+        {
+            if (_unequipedMaterias[i])
+                delete _unequipedMaterias[i];
+            if (source._unequipedMaterias[i])
+                _unequipedMaterias[i] = (source._unequipedMaterias[i])->clone();
+            else
+                _unequipedMaterias[i] = NULL;
+            _unequipedMateriasCount = source._unequipedMateriasCount;
         }
     }
 	
@@ -63,8 +75,16 @@ Character::~Character()
 {
     for (int i = 0; i < 4; i++)
     {
-    //    delete _inventory[i];
+       delete _inventory[i];
        _inventory[i] = NULL;
+    }
+    for (int i = 0; i < 1000; i++)
+    {
+        if (_unequipedMaterias[i])
+        {
+            delete _unequipedMaterias[i];
+            _unequipedMaterias[i] = NULL;
+        }
     }
 
     // std::cout << "Character:: Destructor called for " << _name << std::endl;
@@ -106,8 +126,14 @@ void Character::unequip(int idx)
 {
     if (idx >= 0 && idx < 4 && _inventory[idx] != NULL)
     {
-        // delete _inventory[idx];
         //try to save address to delete later before exiting
+        _unequipedMaterias[_unequipedMateriasCount++] = _inventory[idx];
+        if (_unequipedMateriasCount == 1000)
+        {
+            _unequipedMateriasCount = 0;
+            delete _unequipedMaterias[_unequipedMateriasCount];
+            _unequipedMaterias[_unequipedMateriasCount] = NULL;
+        }
         _inventory[idx] = NULL;
     }
 }

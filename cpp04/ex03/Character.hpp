@@ -6,6 +6,8 @@ class Character : public ICharacter
     private:
         std::string _name;
         AMateria    *_inventory[4]; //Your character’s inventory will be able to support any type of AMateria
+        AMateria    *_unequipedMaterias[1000];
+        int         _unequipedMateriasCount;
     public:
         Character(void);
         Character(std::string name);
