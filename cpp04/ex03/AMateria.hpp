@@ -1,10 +1,6 @@
 #ifndef AMATERIA_HPP
 #define AMATERIA_HPP
 
-// #include "unityBuildHeader.hpp"
-
-class ICharacter;
-
 class AMateria
 {
     protected:

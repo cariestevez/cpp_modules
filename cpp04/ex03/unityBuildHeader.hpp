@@ -2,8 +2,8 @@
 # define UNITYBUILDHEADER_HPP
 
 class ICharacter;
-class IMaterialSource;
-class MaterialSource;
+// class IMaterialSource;
+// class MaterialSource;
 
 # include <string>
 # include <iostream>

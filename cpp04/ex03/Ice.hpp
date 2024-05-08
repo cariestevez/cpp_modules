@@ -1,9 +1,6 @@
 #ifndef ICE_H
 #define ICE_H
 
-// #include "AMateria.hpp"
-// #include "unityBuildHeader.hpp"
-
 class Ice : public AMateria
 {
     protected:
@@ -16,7 +13,7 @@ class Ice : public AMateria
         ~Ice(void);
 
         virtual Ice *clone(void) const;
-        virtual void use(ICharacter &target);
+        // virtual void use(ICharacter &target);
 
 };
 

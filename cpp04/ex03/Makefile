@@ -4,7 +4,7 @@ CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 #-Wshadow -Wno-shadow
 CPP = c++
 
-SRC = AMateria Character Cure Ice ICharacter IMateriaSource MateriaSource main
+SRC = AMateria Character Cure Ice MateriaSource main
 OBJ = $(SRC:=.o)
 
 all: $(NAME)
