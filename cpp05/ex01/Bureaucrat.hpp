@@ -5,6 +5,8 @@
 #include <string>
 #include <exception>
 
+class Form;
+
 class Bureaucrat
 {
     private:
@@ -16,12 +18,12 @@ class Bureaucrat
         class GradeTooHighException : public std::exception
         {
             public:
-                const char* what() const throw();//_NOEXCEPT override;//derived from std::exception, which has a virtual member function what(). override ensures that it correctly overrides the what() method from the base class.
+                const char* what() const throw();
         };
         class GradeTooLowException : public std::exception
         {
             public:
-                const char* what() const throw();//_NOEXCEPT override;
+                const char* what() const throw();
         };  
         Bureaucrat(void);
         Bureaucrat(const Bureaucrat &source);
@@ -37,6 +39,7 @@ class Bureaucrat
         void    decrementGrade(void);
 
         void    checkGrade(int grade);
+        void    signForm(Form &f);
 };
 
 std::ostream &operator<<(std::ostream &output, Bureaucrat const &instance);
