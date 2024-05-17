@@ -8,9 +8,8 @@ Bureaucrat::Bureaucrat(void) : _name("Anonymous"), _grade(1)
 Bureaucrat::Bureaucrat(std::string name, int  grade) : _name(name)
 {
 	std::cout << "\e[47mBureaucrat::\e[0m Parameterized constructor called for " << _name << std::endl;
-	checkGrade(grade);//if exception is thrown, execution continues where it finds the matching "catch" block (in main in this case)
+	checkGrade(grade);
 	_grade = grade;
-	
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &source) : _name(source._name), _grade(source._grade)
@@ -31,7 +30,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &source)
 	return (*this);
 }
 
-Bureaucrat::~Bureaucrat(void)// _NOEXCEPT
+Bureaucrat::~Bureaucrat(void)
 {
 	std::cout << "\e[47mBureaucrat::\e[0m Destructor called for " << _name << std::endl;
 }
@@ -89,7 +88,6 @@ std::ostream &operator<<(std::ostream &output, Bureaucrat const &instance)
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-// Check grade validity--> evtl. throws the exceptions
 void Bureaucrat::checkGrade(int grade)
 {
 	if (grade >= _maxGrade && grade <= _minGrade)
@@ -103,3 +101,14 @@ void Bureaucrat::checkGrade(int grade)
         throw GradeTooLowException();
     }
 }
+
+// void    Bureaucrat::signForm(Form &f)
+// {
+// 	if (f.isSigned())
+// 	<bureaucrat> signed <form>
+// Otherwise, it will print something like:
+// <bureaucrat> couldn’t sign <form> because <reason>
+// 	output << instance.getName() << ", bureaucrat grade " << instance.getGrade() << ".";
+
+//     return output;
+// }

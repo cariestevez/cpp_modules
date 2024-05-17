@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 #-Wshadow -Wno-shadow
 CXX = c++
 
-SRC = Bureaucrat main
+SRC = Bureaucrat Form main
 OBJ = $(SRC:=.o)
 
 all: $(NAME)
