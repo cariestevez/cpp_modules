@@ -38,7 +38,7 @@ const std::string AAnimal::getType(void) const
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-//will be ignored since the fucntion is being declared as pure virtual
+//will be ignored since the function is being declared as pure virtual
 void AAnimal::makeSound(void) const
 {
     std::cout << "\e[1;33mIs confused and doesn't know what to say...\e[0m" << std::endl;
