@@ -72,6 +72,11 @@ const char *AForm::GradeTooLowException::what() const throw()
     return "\e[46mAForm::\e[0m \e[4;31mGrade too low!\e[0m";
 }
 
+const char *AForm::NotSignedException::what() const throw()
+{
+    return "\e[46mAForm::\e[0m \e[4;31mForm is not signed!\e[0m";
+}
+
 //////////////////////////////////////////////////////////////////////////////////////
 
 void AForm::checkRequiredGrade(int grade)
@@ -86,6 +91,15 @@ void AForm::checkRequiredGrade(int grade)
 	{
         throw GradeTooLowException();
     }
+}
+
+void AForm::CanBeExecuted(Bureaucrat const &executor) const
+{
+    if (getIsSigned() == 0)
+        throw NotSignedException();
+
+    if (executor.getGrade() > getGradeToExecute())
+        throw GradeTooLowException();
 }
 
 //////////////////////////////////////////////////////////////////////////////////////

@@ -95,12 +95,12 @@ void Bureaucrat::checkGrade(int grade)
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-void    Bureaucrat::signForm(AForm &form)
+void    Bureaucrat::signForm(Form &form)
 {
 	form.beSigned(*this);
 }
 
-void	Bureaucrat::executeForm(AForm const &form)
+void	Bureaucrat::executeForm(Form const &form)
 {
 	form.execute(*this);
 
