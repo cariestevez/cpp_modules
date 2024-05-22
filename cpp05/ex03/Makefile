@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 #-Wshadow -Wno-shadow
 CXX = c++
 
-SRC = Bureaucrat AForm  ShrubberyCreationForm RobotomyRequestForm PresidentialPardonForm main
+SRC = Bureaucrat Form ShrubberyCreationForm RobotomyRequestForm PresidentialPardonForm Intern main
 OBJ = $(SRC:=.o)
 
 all: $(NAME)
