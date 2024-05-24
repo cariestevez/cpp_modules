@@ -1,18 +1,14 @@
 #include "ScalarConverter.hpp"
 
-int main()
+int main(int argc, char **argv)
 {
-    try
-    { 
-
-
-    }
-    catch(const std::exception &e)
+    if (argc != 2)
     {
-        std::cerr << "\e[1;31mException caught: \e[0m" << e.what() << std::endl;
+        std::cout << "Error! Usage: <executableName> <stringLiteral>" << std::endl;
+        return 1;
     }
-
-    std::cout << std::endl;
-
+    
+    ScalarConverter::convert(argv[1]); // Corrected call
+    
     return 0;
 }

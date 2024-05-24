@@ -1,6 +1,7 @@
-NAME = cast
+NAME = convert
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -Wno-unused-variable
+#-O0 -Wno-unused-variable -Wunused-function
 #-Wshadow -Wno-shadow
 CXX = c++
 

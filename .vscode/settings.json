@@ -134,6 +134,10 @@
     "__bits": "cpp",
     "__nullptr": "cpp",
     "__string": "cpp",
-    "__tuple": "cpp"
+    "__tuple": "cpp",
+    "filesystem": "cpp",
+    "__memory": "cpp",
+    "__tree": "cpp",
+    "map": "cpp"
   }
 }
