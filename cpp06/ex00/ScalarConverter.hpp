@@ -5,6 +5,9 @@
 #include <string>
 #include <exception>
 #include <limits>
+#include <iomanip>
+
+enum LiteralType { CHAR, INT, FLOAT, DOUBLE, PSEUDOLITERAL, UNKNOWN };
 
 class ScalarConverter
 {
@@ -15,19 +18,9 @@ class ScalarConverter
         ~ScalarConverter(void);
        
     public: 
-        class TypeConversionNotPossible : public std::exception
-        {
-            public:
-                virtual const char* what() const throw();
-        };
-
-        bool isChar(std::string str);
-        bool isInt(std::string str);
-        bool isFloat(std::string str);
-        bool isDouble(std::string str);
-
         static void convert(std::string literal);
-
 };
+
+LiteralType identifyLiteralType(std::string literal);
 
 #endif
