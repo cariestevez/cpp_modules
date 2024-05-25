@@ -26,92 +26,6 @@ ScalarConverter::~ScalarConverter(void)
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-LiteralType identifyLiteralType(std::string literal)
-{
-	LiteralType type = UNKNOWN;
-	
-	if (literal == "nan" || literal == "+inf" || literal == "-inf"
-		|| literal == "nanf" ||  literal == "+inff" || literal == "-inff")
-	{
-		std::cout << "Type: " << "PSEUDOLITERAL" << std::endl;
-		return PSEUDOLITERAL;
-	}
-
-	else if (literal.length() == 1 && !isdigit(literal[0]))
-	{
-		std::cout << "Type: " << "CHAR" << std::endl;
-		return CHAR;
-	}
-
-	try
-	{
-		std::cout << "trying to convert to INT" << std::endl;
-		size_t idx;
-		int intValue = std::stoi(literal, &idx);
-		if (idx == literal.length())//to confirm the whole str was converted
-		{
-			std::cout << "Type: " << "INT" << std::endl;
-			return INT;
-		}
-	}
-	catch (const std::invalid_argument &)//variable name of the exception can be omited if we don't need to use it inside of the catch block
-	{
-		// not an int, continue to next check
-	}
-	catch (const std::out_of_range &)
-	{
-		// out of range for an int, continue to next check
-	}
-
-	if (type == UNKNOWN)
-	{
-		try
-		{
-			std::cout << "trying to convert to FLOAT" << std::endl;
-			size_t pos;
-			float floatValue = std::stof(literal, &pos);
-			std::cout << "Float: " << floatValue << std::endl;
-			std::cout << "last char: " << literal[literal.length() - 1] << std::endl;
-			if (pos == literal.length() - 1 && literal[literal.length() - 1] == 'f')
-			{
-				std::cout << "Type: " << "FLOAT" << std::endl;
-				return FLOAT;
-			}
-		}
-		catch (const std::invalid_argument &)
-		{
-			// Not a float, continue to next check
-		}
-		catch (const std::out_of_range &)
-		{
-			// Out of range for float, continue to next check
-		}
-
-		try
-		{
-			std::cout << "trying to convert to DOUBLE" << std::endl;
-			size_t pos;
-			double doubleValue = std::stod(literal, &pos);
-			if (pos == literal.length())
-			{
-				std::cout << "Type: " << "DOUBLE" << std::endl;
-				return DOUBLE;
-			}
-		}
-		catch (const std::invalid_argument&)
-		{
-			// Not a double, continue
-		}
-		catch (const std::out_of_range&)
-		{
-			// Out of range for double, continue
-		}
-	}
-
-	return UNKNOWN;
-}
-
-
 	//detect the type of the string literal passed as parameter
 	//convert it from string to its actual type
 	//convert it explicitly to the three other data types
@@ -202,7 +116,7 @@ void ScalarConverter::convert(std::string literal)
 				std::cout << std::fixed; // Set fixed-point notation
 				std::cout << std::setprecision(1); // Set precision to 1 decimal place
                 double doubleValue = std::stod(literal);
-				std::cout << "Double value: " << doubleValue << std::endl;
+				// std::cout << "Double value: " << doubleValue << std::endl;
 				if (doubleValue >= std::numeric_limits<char>::min() && doubleValue <= std::numeric_limits<char>::max())
 				{
 					if (isprint(doubleValue))
@@ -246,19 +160,87 @@ void ScalarConverter::convert(std::string literal)
     }
 }
 
+LiteralType identifyLiteralType(std::string literal)
+{
+	LiteralType type = UNKNOWN;
+	
+	if (literal == "nan" || literal == "+inf" || literal == "-inf"
+		|| literal == "nanf" ||  literal == "+inff" || literal == "-inff")
+	{
+		// std::cout << "Type: " << "PSEUDOLITERAL" << std::endl;
+		return PSEUDOLITERAL;
+	}
 
-// char:
-// Can be converted to int, float, and double.
-// If the char is non-printable, conversion to char should display a message indicating that it's non-displayable.
+	else if (literal.length() == 1 && !isdigit(literal[0]))
+	{
+		// std::cout << "Type: " << "CHAR" << std::endl;
+		return CHAR;
+	}
 
-// int:
-// Can be converted to char, float, and double.
-// If the integer value is out of the printable char range, the conversion to char should display a message indicating that it's non-displayable.
+	try
+	{
+		// std::cout << "trying to convert to INT" << std::endl;
+		size_t idx;
+		int intValue = std::stoi(literal, &idx);
+		if (idx == literal.length())//to confirm the whole str was converted
+		{
+			// std::cout << "Type: " << "INT" << std::endl;
+			return INT;
+		}
+	}
+	catch (const std::invalid_argument &)//variable name of the exception can be omited if we don't need to use it inside of the catch block
+	{
+		// not an int, continue to next check
+	}
+	catch (const std::out_of_range &)
+	{
+		// out of range for an int, continue to next check
+	}
 
-// float:
-// Can be converted to char, int, and double.
-// Special values like -inff, +inff, and nanf must be handled explicitly.
+	if (type == UNKNOWN)
+	{
+		try
+		{
+			// std::cout << "trying to convert to FLOAT" << std::endl;
+			size_t pos;
+			float floatValue = std::stof(literal, &pos);
+			// std::cout << "Float: " << floatValue << std::endl;
+			// std::cout << "last char: " << literal[literal.length() - 1] << std::endl;
+			if (pos == literal.length() - 1 && literal[literal.length() - 1] == 'f')
+			{
+				// std::cout << "Type: " << "FLOAT" << std::endl;
+				return FLOAT;
+			}
+		}
+		catch (const std::invalid_argument &)
+		{
+			// Not a float, continue to next check
+		}
+		catch (const std::out_of_range &)
+		{
+			// Out of range for float, continue to next check
+		}
 
-// double:
-// Can be converted to char, int, and float.
-// Special values like -inf, +inf, and nan must be handled explicitly.
+		try
+		{
+			// std::cout << "trying to convert to DOUBLE" << std::endl;
+			size_t pos;
+			double doubleValue = std::stod(literal, &pos);
+			if (pos == literal.length())
+			{
+				// std::cout << "Type: " << "DOUBLE" << std::endl;
+				return DOUBLE;
+			}
+		}
+		catch (const std::invalid_argument&)
+		{
+			// Not a double, continue
+		}
+		catch (const std::out_of_range&)
+		{
+			// Out of range for double, continue
+		}
+	}
+
+	return UNKNOWN;
+}
