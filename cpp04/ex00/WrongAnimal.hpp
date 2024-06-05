@@ -6,18 +6,18 @@
 
 class WrongAnimal
 {
-protected:
-    std::string _type;
-public:
-    WrongAnimal(void);
-    WrongAnimal(std::string type);
-    WrongAnimal(const WrongAnimal &source);
-    WrongAnimal &operator=(const WrongAnimal &source);
-    virtual ~WrongAnimal(void);
+    protected:
+        std::string _type;
+    public:
+        WrongAnimal(void);
+        WrongAnimal(std::string type);
+        WrongAnimal(const WrongAnimal &source);
+        WrongAnimal &operator=(const WrongAnimal &source);
+        virtual ~WrongAnimal(void);
 
-    const std::string getType(void) const;
+        const std::string getType(void) const;
 
-    void makeSound(void) const;
+        void makeSound(void) const;
 };
 
 #endif

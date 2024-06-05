@@ -6,12 +6,12 @@ int main()
 {
     const AAnimal* j = new Dog();//concrete class derived from the abstract class AAnimal
     const AAnimal* i = new Cat();
-    delete j;//should not create a leak
+    j->makeSound();
+    i->makeSound();
+    delete j;
     delete i;
 
-    // std::cout << std::endl;
-
-    // std::cout << "testing abstract" << std::endl;
+    std::cout << std::endl;
 
     // const AAnimal* pureAnimal = new AAnimal();//attempt to create an instance of the abstract class
     // pureAnimal->getType();

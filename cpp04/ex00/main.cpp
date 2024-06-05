@@ -17,8 +17,8 @@ int main()
     const WrongAnimal* h = new WrongCat();
     std::cout << std::endl;
     
-    const WrongCat* g = new WrongCat();
-    std::cout << std::endl;
+    // const WrongCat* g = new WrongCat();
+    // std::cout << std::endl;
    
     std::cout << meta->getType() << ": ";
     meta->makeSound();//animal
@@ -32,8 +32,8 @@ int main()
     std::cout << h->getType() << ": ";
     h->makeSound();//animal - wrongcat
 
-    std::cout << g->getType() << ": ";
-    g->makeSound();//cat - cat
+    // std::cout << g->getType() << ": ";
+    // g->makeSound();//cat - cat
 
     std::cout << std::endl;
 
@@ -41,7 +41,7 @@ int main()
     delete j;
     delete i;
     delete h;
-    delete g;
+    // delete g;
 
     return 0;
 }

@@ -109,9 +109,7 @@ void Character::equip(AMateria* m)
     {
         if (_inventory[i] == NULL && m != NULL)
         {
-            std::cout << "equip with materia " << m->getType() << std::endl;
-            //std::cout << m->getType() << " at idx " << i << std::endl;
-
+            // std::cout << "equip with materia " << m->getType() << std::endl;
             _inventory[i] = m;
             return ;
         }
