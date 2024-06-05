@@ -5,18 +5,18 @@
 
 class Cat : public Animal
 {
-protected:
-    std::string _type;
-public:
-    Cat(void);
-    Cat(std::string type);
-    Cat(const Cat &source);
-    Cat &operator=(const Cat &source);
-    virtual ~Cat(void);
+    protected:
+        std::string _type;
+    public:
+        Cat(void);
+        Cat(std::string type);
+        Cat(const Cat &source);
+        Cat &operator=(const Cat &source);
+        virtual ~Cat(void);
 
-    const std::string getType(void) const;
+        const std::string getType(void) const;
 
-    virtual void makeSound(void) const;
+        virtual void makeSound(void) const;
 };
 
 #endif

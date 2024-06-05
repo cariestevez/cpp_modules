@@ -7,20 +7,20 @@
 
 class AAnimal
 {
-protected:
-    std::string _type;
-public:
-    AAnimal(void);
-    AAnimal(std::string type);
-    AAnimal(const AAnimal &source);
-    AAnimal &operator=(const AAnimal &source);
-    virtual ~AAnimal(void);
+    protected:
+        std::string _type;
+    public:
+        AAnimal(void);
+        AAnimal(std::string type);
+        AAnimal(const AAnimal &source);
+        AAnimal &operator=(const AAnimal &source);
+        virtual ~AAnimal(void);
 
-    const std::string getType(void) const;
+        const std::string getType(void) const;
 
-    virtual void makeSound(void) const = 0; //pure virtual function
-    virtual void addIdea(const std::string& idea);
-    virtual void printIdeas(void) const;
+        virtual void makeSound(void) const = 0; //pure virtual function
+        virtual void addIdea(const std::string& idea);
+        virtual void printIdeas(void) const;
 };
 
 #endif

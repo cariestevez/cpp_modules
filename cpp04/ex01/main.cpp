@@ -29,20 +29,20 @@ int main()
 
     std::cout << std::endl;
 
-    Cat guachi("pRrRrR");
+    Cat guachi("guachipRrRrR");
     std::cout << "Type: " << guachi.getType() << std::endl;
     guachi.addIdea("I'm excited about birds");
-    Cat catCopy = guachi;
+    Cat guachiCopy = guachi;
     std::cout << "What's in guachi's mind?" << std::endl;
     guachi.printIdeas();
-    std::cout << "What's in cat copy's mind?" << std::endl;
-    catCopy.printIdeas();
-    catCopy.addIdea("My best friend is actually a bird");
+    std::cout << "What's in guachi copy's mind?" << std::endl;
+    guachiCopy.printIdeas();
+    guachiCopy.addIdea("My best friend is actually a bird");
     guachi.addIdea("I just want to play with them");
     std::cout << "What's in guachi's mind?" << std::endl;
     guachi.printIdeas();
-    std::cout << "What's in cat copy's mind?" << std::endl;
-    catCopy.printIdeas();
+    std::cout << "What's in guachi copy's mind?" << std::endl;
+    guachiCopy.printIdeas();
 
     std::cout << std::endl;
 

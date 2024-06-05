@@ -6,20 +6,20 @@
 
 class Animal
 {
-protected:
-    std::string _type;
-public:
-    Animal(void);
-    Animal(std::string type);
-    Animal(const Animal &source);
-    Animal &operator=(const Animal &source);
-    virtual ~Animal(void);//*
+    protected:
+        std::string _type;
+    public:
+        Animal(void);
+        Animal(std::string type);
+        Animal(const Animal &source);
+        Animal &operator=(const Animal &source);
+        virtual ~Animal(void);//*
 
-    const std::string getType(void) const;
+        const std::string getType(void) const;
 
-    virtual void makeSound(void) const;
-    virtual void addIdea(const std::string& idea);
-    virtual void printIdeas(void) const;
+        virtual void makeSound(void) const;
+        virtual void addIdea(const std::string& idea);
+        virtual void printIdeas(void) const;
 
 };
 
