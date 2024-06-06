@@ -21,10 +21,7 @@ AForm &AForm::operator=(const AForm &source)
 {
 	if (this != &source)
 	{
-		// (std::string)_name = source._name;
 		_isSigned = source._isSigned;
-		// (int)_requiredGradeToSign = source._requiredGradeToSign;
-		// (int)_requiredGradeToExecute = source._requiredGradeToExecute;
 	}
 	
 	std::cout << "\e[46mAForm::\e[0m Assignment operator used for " << _name << std::endl;

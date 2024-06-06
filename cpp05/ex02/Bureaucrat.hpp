@@ -4,8 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <stdexcept>
-#include <stdlib.h>
+#include <exception>
+#include <cstdlib>
 #include <ctime>
 #include "AForm.hpp"
 

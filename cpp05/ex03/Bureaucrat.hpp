@@ -5,6 +5,8 @@
 #include <fstream>
 #include <string>
 #include <exception>
+#include <cstdlib>
+#include <ctime> 
 #include "Form.hpp"
 
 class Form;

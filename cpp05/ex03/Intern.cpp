@@ -28,7 +28,7 @@ Intern::~Intern(void)
 
 Form *Intern::makeForm(const std::string formName, const std::string target)
 {
-    // Map form names to corresponding form types
+    // Map with form names and its corresponding form types
     static std::map<std::string, Form*> formTypes;
 
     // Insert elements into the map
@@ -50,33 +50,16 @@ Form *Intern::makeForm(const std::string formName, const std::string target)
                 delete deleteIt->second;
             }
         }
-        return it->second;//it is now evtl. pointing to one of the pairs, so we return the second member of the std::pair type of the map
+        return it->second;//it is now pointing to one of the pairs, so we return the second member of the std::pair type of the map
     } 
 	else
 	{
         std::cerr << "Error: Form name '" << formName << "' does not exist." << std::endl;
-        // Delete all form objects if none match the form name
+        // Delete all form objects if none matches the form name
         for (std::map<std::string, Form*>::iterator deleteIt = formTypes.begin(); deleteIt != formTypes.end(); ++deleteIt)
 		{
             delete deleteIt->second;
         }
         return NULL;
     }
-	// Form *form;
-
-    // if (formName == "xxx")
-	// 	form = new ShrubberyCreationForm(target);
-	// else if (formName == "xxx")
-	// 	form = new RobotomyRequestForm(target);
-	// else if (formName == "xxx")
-	// 	form = new PresidentialPardonForm(target);
-	// else
-	// {
-	// 	std::cout << "Error! Form type unknown" << std::endl;
-	// 	return NULL;
-	// }
-
-	// form->setName(formName);
-
-	// return form;
 }
