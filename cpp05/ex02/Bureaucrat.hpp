@@ -4,7 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <exception>
+#include <stdexcept>
+#include <stdlib.h>
+#include <ctime>
 #include "AForm.hpp"
 
 class AForm;
