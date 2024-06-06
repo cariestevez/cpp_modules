@@ -7,11 +7,14 @@
 
 int main()
 {
+    std::srand(std::time(0));
+    
     try
     { 
         Intern someRandomIntern;
         Form *rrf;
         rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+        //rrf = someRandomIntern.makeForm("whateverrr", "nono");
         Bureaucrat Max("Musterman", 1);
         std::cout << Max << std::endl;
 

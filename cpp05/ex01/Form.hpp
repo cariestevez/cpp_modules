@@ -13,7 +13,7 @@ class Form
         const int           _requiredGradeToSign;
         const int           _requiredGradeToExecute;
         static const int    _maxGrade = 1;
-        static const int    _minGrade = 50;
+        static const int    _minGrade = 150;
 
     public:
         class GradeTooHighException : public std::exception

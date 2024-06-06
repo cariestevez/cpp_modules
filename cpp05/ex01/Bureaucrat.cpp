@@ -21,7 +21,6 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &source)
 {
 	if (this != &source)
 	{
-		// (std::string)_name = source._name;
 		_grade = source._grade;
 	}
 	

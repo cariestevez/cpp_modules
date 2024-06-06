@@ -1,25 +1,5 @@
 #include "Bureaucrat.hpp"
 
-//use the exceptions exceptionally! they use many resources
-//only for exceptional errors that might occur, not for normal error returning of funcs
-//for ex: 'new' returns an BAD ALLOC EXCEPTION if there's not enough memory available
-//it's a good practice to handle exceptions at the highest level possible
-//where you have enough context to deal with them appropriately.
-//This often means that exceptions should be caught in the main function or in other high-level functions
-//that can make meaningful decisions about how to recover from an error or how to log it.
-// - Centralized Error Handling: makes it easier to manage and maintain the code.
-//You can decide how to log errors, clean up resources, or perform other actions based on the type of error.
-// - Separation of Concerns: It separates the error-handling logic from the core functionality of your classes.
-//Your class methods should focus on their main responsibilities, and exception handling can be dealt with separately.
-// - Flexibility: Handling exceptions at a higher level provides more flexibility in deciding what to do with different types of exceptions.
-//For example, you might want to retry an operation, provide user feedback, or terminate the program.
-//Exception Thrown: For example, if checkGrade is called with 151, it throws GradeTooLowException
-//Stack Unwinding: The exception stops the constructor execution, and the destructor is called for any fully constructed base or member objects
-//(though in this case, name is a simple type and doesn't require explicit destruction).
-//Catch Block Search: The runtime looks up the call stack for a matching catch block.
-//Main Catch Block: If the constructor was called in a try block in main, the control is transferred to the corresponding catch block in main,
-//and the exception is handled by printing an error message.
-
 int main()
 {
     Bureaucrat AnonymousLou;
@@ -33,7 +13,7 @@ int main()
     }
     catch(const std::exception &e)
     {
-        std::cerr << "\e[1;31mException caught: \e[0m" << e.what() << std::endl;//"what" prints the specific error defined for the thrown exception
+        std::cerr << "\e[1;31mException caught: \e[0m" << e.what() << std::endl;
     }
 
     try
@@ -50,7 +30,7 @@ int main()
     }
     catch(const std::exception &e)
     {
-        std::cerr << "\e[1;31mException caught: \e[0m" << e.what() << std::endl;//"what" prints the specific error defined for the thrown exception
+        std::cerr << "\e[1;31mException caught: \e[0m" << e.what() << std::endl;
     }
 
     try
@@ -61,8 +41,7 @@ int main()
     }
     catch(const std::exception &e)
     {
-        std::cerr << "\e[1;31mException caught: \e[0m" << e.what() << std::endl;//"what" prints the specific error defined for the thrown exception
-        // std::cout << "Object not created due to exception." << std::endl;
+        std::cerr << "\e[1;31mException caught: \e[0m" << e.what() << std::endl;
     }
 
     try
@@ -73,7 +52,7 @@ int main()
         Antonio.incrementGrade();
         std::cout << Antonio << std::endl;
 
-        Antonio.incrementGrade(); // should throw an exception
+        Antonio.incrementGrade();
         std::cout << Antonio << std::endl;
     }
     catch (const std::exception &e)
@@ -89,7 +68,7 @@ int main()
         Bobby.decrementGrade();
         std::cout << Bobby << std::endl;
 
-        Bobby.decrementGrade(); // should throw an exception
+        Bobby.decrementGrade();
         std::cout << Bobby << std::endl;
     }
     catch (const std::exception &e)
@@ -99,12 +78,11 @@ int main()
 
     try
     {
-        Bureaucrat invalid("Too Bad", 151); // should throw an exception
+        Bureaucrat invalid("Too Bad", 151);
     }
     catch (const std::exception &e)
     {
         std::cerr << "\e[1;31mException caught: \e[0m" << e.what() << std::endl;
-        // std::cout << "Object not created due to exception." << std::endl;
     }
     
     return 0;
@@ -184,3 +162,23 @@ int main()
 //     }
     
 // }
+
+//use the exceptions exceptionally! they use many resources
+//only for exceptional errors that might occur, not for normal error returning of funcs
+//for ex: 'new' returns an BAD ALLOC EXCEPTION if there's not enough memory available
+//it's a good practice to handle exceptions at the highest level possible
+//where you have enough context to deal with them appropriately.
+//This often means that exceptions should be caught in the main function or in other high-level functions
+//that can make meaningful decisions about how to recover from an error or how to log it.
+// - Centralized Error Handling: makes it easier to manage and maintain the code.
+//You can decide how to log errors, clean up resources, or perform other actions based on the type of error.
+// - Separation of Concerns: It separates the error-handling logic from the core functionality of your classes.
+//Your class methods should focus on their main responsibilities, and exception handling can be dealt with separately.
+// - Flexibility: Handling exceptions at a higher level provides more flexibility in deciding what to do with different types of exceptions.
+//For example, you might want to retry an operation, provide user feedback, or terminate the program.
+//Exception Thrown: For example, if checkGrade is called with 151, it throws GradeTooLowException
+//Stack Unwinding: The exception stops the constructor execution, and the destructor is called for any fully constructed base or member objects
+//(though in this case, name is a simple type and doesn't require explicit destruction).
+//Catch Block Search: The runtime looks up the call stack for a matching catch block.
+//Main Catch Block: If the constructor was called in a try block in main, the control is transferred to the corresponding catch block in main,
+//and the exception is handled by printing an error message.
