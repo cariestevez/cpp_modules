@@ -114,6 +114,8 @@ void Character::equip(AMateria* m)
             return ;
         }
     }
+    std::cout << "Character can't learn more materias!" << std::endl;
+    delete m;
 }
 
 //The unequip() member function must NOT delete the Materia!

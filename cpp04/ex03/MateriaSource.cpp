@@ -53,10 +53,11 @@ void MateriaSource::learnMateria(AMateria *materia)//stores address of the ptr
             _materias[i] = materia; //materia->clone();
             return ;
         }
-        // else
-        //     std::cout << "Index " << i << " has " << _materias[i]->getType() << std::endl;
+        //else
+        //    std::cout << "Index " << i << " has " << _materias[i]->getType() << std::endl;
     }
-    // /delete materia;
+    std::cout << "Materia source is already full!" << std::endl;
+    delete materia;
 }
 
 // • createMateria(std::string const &)
