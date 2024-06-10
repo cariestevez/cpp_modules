@@ -5,7 +5,6 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
-#include <map>
 
 class Intern
 {
@@ -15,7 +14,10 @@ class Intern
         Intern &operator=(const Intern &source);
         virtual ~Intern(void);
 
-        Form *makeForm(std::string formName, std::string target);
+        Form *makeForm(const std::string &formName, const std::string &target);
+        Form *createShrubberyForm(const std::string &target);
+        Form *createRobotomyForm(const std::string &target);
+        Form *createPresidentialForm(const std::string &target);
 };
 
 #endif
