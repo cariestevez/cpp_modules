@@ -41,8 +41,15 @@ void Span::addNumber(int number)
     // throw exception bc span is full
 }
 
+void Span::addSet(std::set<int> newSpan)
+{
+    // Inserts a range of elements 
+    newSpan.insert(newSpan.begin(), newSpan.end());   
+}
+
 int Span::shortestSpan() const
 {
+    //compare each number only to the next, since they're ordered
     //if (_span.empty())
         //throw empty exception
 
@@ -50,6 +57,7 @@ int Span::shortestSpan() const
 
 int Span::longestSpan() const
 {
+    //compare each number only to the next, since they're ordered
     //if (_span.empty())
         //throw empty exception
     

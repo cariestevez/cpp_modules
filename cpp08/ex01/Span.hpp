@@ -19,6 +19,7 @@ class Span
         ~Span(void);
 
         void addNumber(int number);
+        void addSet(std::set<int> newSpan);
         int shortestSpan() const;
         int longestSpan() const;
 };
