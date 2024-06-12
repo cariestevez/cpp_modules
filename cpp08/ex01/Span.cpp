@@ -33,32 +33,69 @@ Span::~Span()
 
 //////////////////////////////////////////////////////////////////////////////////////
 
+const std::set<int> &Span::getContainer(void)
+{
+    return _span;
+}
+
+unsigned int Span::getSize(void) const
+{
+    return _span.size();
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+
 void Span::addNumber(int number)
 {
-    if (_span.size() < _N)
+    if (getSize() < _N)
         _span.insert(number);
-    //else
-    // throw exception bc span is full
+    else
+        throw std::length_error("Could not add number because span is already full!");
 }
 
-void Span::addSet(std::set<int> newSpan)
+void Span::addSet(const std::set<int> &sourceIntSpan)
 {
-    // Inserts a range of elements 
-    newSpan.insert(newSpan.begin(), newSpan.end());   
+    addRange(sourceIntSpan.begin(), sourceIntSpan.end());
 }
 
+void Span::addVector(const std::vector<int> &sourceIntSpan)
+{
+    addRange(sourceIntSpan.begin(), sourceIntSpan.end());
+}
+
+void Span::addList(const std::list<int> &sourceIntSpan)
+{
+    addRange(sourceIntSpan.begin(), sourceIntSpan.end());
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+//smallest difference between any two consecutive numbers in the sorted set
 int Span::shortestSpan() const
 {
-    //compare each number only to the next, since they're ordered
-    //if (_span.empty())
-        //throw empty exception
-
+    checkSize();
+    int distance = std::numeric_limits<int>::max();
+    std::set<int>::const_iterator prev = _span.begin();
+    std::set<int>::const_iterator next = prev;
+    next++;
+    for (; next != _span.end(); prev++, next++)
+    {
+        int result = *next - *prev;//compare each number only to the previous, since they're ordered
+        if (result <= distance)
+            distance = result;
+    }
+    return distance;
 }
 
+//maximum possible difference between any two numbers in that set
 int Span::longestSpan() const
 {
-    //compare each number only to the next, since they're ordered
-    //if (_span.empty())
-        //throw empty exception
-    
+    checkSize();
+    return *--_span.end() - *_span.begin();//end iterator points to the value after the last one!
+}
+
+void Span::checkSize() const
+{
+    if (getSize() <= 1)
+        throw std::logic_error("Span has 1 or less numbers!");
 }

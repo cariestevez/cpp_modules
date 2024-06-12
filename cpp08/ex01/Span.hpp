@@ -3,7 +3,10 @@
 
 #include <iostream>
 #include <set>
+#include <list>
+#include <vector>
 #include <exception>
+#include <iterator>
 
 class Span
 {
@@ -18,10 +21,21 @@ class Span
         Span &operator=(const Span &source);
         ~Span(void);
 
+        const std::set<int> &getContainer(void);
+        unsigned int getSize(void) const;
+
         void addNumber(int number);
-        void addSet(std::set<int> newSpan);
+        template <typename rangeIterator>
+        void addRange(rangeIterator first, rangeIterator last);
+        void addSet(const std::set<int> &sourceIntSpan);
+        void addVector(const std::vector<int> &sourceIntSpan);
+        void addList(const std::list<int> &sourceIntSpan);
         int shortestSpan() const;
         int longestSpan() const;
+
+        void checkSize() const;
 };
+
+#include "Span.tpp"
 
 #endif

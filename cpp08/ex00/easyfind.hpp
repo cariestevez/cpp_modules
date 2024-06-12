@@ -16,7 +16,7 @@ typename T::const_iterator easyfind(T &paramA, int paramB)
         if (*iter == paramB)
             return iter;
     }
-    throw std::range_error("no ocurrence found");
+    throw std::out_of_range("No ocurrence found");
 }
 
 #endif
