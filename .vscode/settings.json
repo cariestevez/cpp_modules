@@ -138,6 +138,9 @@
     "filesystem": "cpp",
     "__memory": "cpp",
     "__tree": "cpp",
-    "map": "cpp"
+    "map": "cpp",
+    "list": "cpp",
+    "set": "cpp",
+    "*.tpp": "cpp"
   }
 }
