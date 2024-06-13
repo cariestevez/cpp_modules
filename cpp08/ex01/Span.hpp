@@ -7,10 +7,12 @@
 #include <vector>
 #include <exception>
 #include <iterator>
+#include <limits>
 
 class Span
 {
     private:
+        std::string _name;
         unsigned int    _N;
         std::set<int>   _span;
 
