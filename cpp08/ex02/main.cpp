@@ -15,6 +15,7 @@ int main()
     mstack.push(0);
     MutantStack<int>::iterator it = mstack.begin();
     MutantStack<int>::iterator ite = mstack.end();
+    std::cout << "trying to use iterators" << std::endl;
     ++it;
     --it;
     while (it != ite)
