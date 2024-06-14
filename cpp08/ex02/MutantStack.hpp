@@ -11,6 +11,7 @@ class MutantStack
 {
     private:
         std::deque<T> _deque;
+        std::stack<T, std::deque<T> > _dequeStack;
 
     public:
         typedef typename std::deque<T>::iterator    iterator;
@@ -23,8 +24,6 @@ class MutantStack
         MutantStack(const MutantStack &source);
         MutantStack &operator=(const MutantStack &source);
         ~MutantStack(void);
-
-        std::deque<T> &getContainer(void);
 
         iterator begin();
         const_iterator begin() const;
@@ -40,6 +39,18 @@ class MutantStack
         void push(const T &value);
         size_t size(void) const;
         bool empty(void) const;
+
+        operator std::stack<T, std::deque<T> >() const
+        {
+            return _dequeStack;
+        }
+        T& operator*() const;
+        iterator& operator++();     // Prefix increment
+        iterator operator++(int); // Postfix increment
+        iterator& operator--();     // Prefix decrement
+        iterator operator--(int);   // Postfix decrement
+        bool operator==(const iterator& other) const;
+        bool operator!=(const iterator& other) const;
 
 };
 

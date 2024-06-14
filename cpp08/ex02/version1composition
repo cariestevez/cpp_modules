@@ -10,7 +10,7 @@ template <typename T>
 class MutantStack
 {
     private:
-        std::deque<T> _deque;
+        // std::deque<T> _deque;
         std::stack<T, std::deque<T> > _dequeStack;
 
     public:

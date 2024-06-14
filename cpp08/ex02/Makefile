@@ -4,15 +4,15 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 CXX = c++
 
-SRC = main MutantStack
+SRC = main
 OBJ = $(SRC:=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) MutantStack.hpp
 	$(CXX) $(OBJ) -o $(NAME)
 
-%.o: %.cpp
+%.o: %.cpp MutantStack.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
