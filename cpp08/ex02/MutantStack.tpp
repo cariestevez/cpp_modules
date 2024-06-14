@@ -5,23 +5,17 @@
 #include <iterator>
 
 template <typename T>
-MutantStack<T>::MutantStack(void) : _dequeStack() {}
-
-// template <typename T>
-// MutantStack<T>::MutantStack(unsigned int n) : _dequeStack()
-// {
-    
-// }
+MutantStack<T>::MutantStack(void) : _deque() {}
 
 template <typename T>
-MutantStack<T>::MutantStack(const MutantStack &source) : _dequeStack(source._dequeStack) {}
+MutantStack<T>::MutantStack(const MutantStack<T> &source) : _deque(source._deque) {}
 
 template <typename T>
-MutantStack<T> &MutantStack<T>::operator=(const MutantStack &source)
+MutantStack<T> &MutantStack<T>::operator=(const MutantStack<T> &source)
 {
     if (this != &source)
     {
-        _dequeStack = source._dequeStack;
+        _deque = source._deque;
     }
     
     return (*this);
@@ -32,89 +26,93 @@ MutantStack<T>::~MutantStack(void) {}
 
 ////////////////////////////////////////////////////////////////////
 
+template <typename T>
+T &MutantStack<T>::top(void)
+{
+    return _deque.back();
+}
+
+template <typename T>
+void MutantStack<T>::pop(void)
+{
+    _deque.pop_back() ;
+}
+
+template <typename T>
+void MutantStack<T>::push(const T &value)
+{
+    _deque.push_back(value);
+}
+
+template <typename T>
+size_t MutantStack<T>::size(void) const
+{
+    return _deque.size();
+}
+
+template <typename T>
+bool MutantStack<T>::empty(void) const
+{
+    return _deque.empty();
+}
+
+
+////////////////////////////////////////////////////////////////////
+
 template<typename T>
 typename MutantStack<T>::iterator MutantStack<T>::begin()
 {
-    return stack._Get_container().begin();
+    return getContainer().begin();
 }
 
 template<typename T>
 typename MutantStack<T>::const_iterator MutantStack<T>::begin() const
 {
-    return stack._Get_container().begin();
+    return getContainer().begin();
 }
 
 template<typename T>
 typename MutantStack<T>::iterator MutantStack<T>::end()
 {
-    return stack._Get_container().end();
+    return getContainer().end();
 }
 
 template<typename T>
 typename MutantStack<T>::const_iterator MutantStack<T>::end() const
 {
-    return stack._Get_container().end();
+    return getContainer().end();
 }
 
 template<typename T>
 typename MutantStack<T>::reverse_iterator MutantStack<T>::rbegin()
 {
-    return stack._Get_container().rbegin();
+    return getContainer().rbegin();
 }
 
 template<typename T>
 typename MutantStack<T>::const_reverse_iterator MutantStack<T>::rbegin() const 
 {
-    return stack._Get_container().rbegin();
+    return getContainer().rbegin();
 }
 
 template<typename T>
 typename MutantStack<T>::reverse_iterator MutantStack<T>::rend()
 {
-    return stack._Get_container().rend();
+    return getContainer().rend();
 }
 
 template<typename T>
 typename MutantStack<T>::const_reverse_iterator MutantStack<T>::rend() const
 {
-    return stack._Get_container().rend();
+    return getContainer().rend();
 }
 
 ////////////////////////////////////////////////////////////////////
 
-const std::deque<T> &MutantStack<T>::getContainer(void)
+template<typename T>
+std::deque<T> &MutantStack<T>::getContainer(void)
 {
-    return _dequeStack.
+    return _deque;
 }
-
-// // Subscript operator (non-const version)
-// //Allows modifying elements in the array
-// template <typename T>
-// T &MutantStack<T>::operator[](unsigned int index)
-// {
-//     if (index >= _n)
-//         throw std::out_of_range("Index is out of range");
-    
-//     return _elements[index];
-    
-// }
-// // Subscript operator (const version)
-// //Allows read-only access to elements in the array
-// template <typename T>
-// const T &MutantStack<T>::operator[](unsigned int index) const
-// {
-//     if (index >= _n)
-//         throw std::out_of_range("Index is out of range");
-    
-//     return _elements[index];
-// }
-
-// ////////////////////////////////////////////////////////////////////
-
-// template <typename T>
-// unsigned int MutantStack<T>::size(void) const
-// {
-//     return _n;
-// }
 
 #endif
