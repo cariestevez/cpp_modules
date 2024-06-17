@@ -7,17 +7,13 @@
 #include <iterator>
 
 template <typename T>
-class MutantStack
+class MutantStack : public std::stack<T>
 {
-    private:
-        std::deque<T> _deque;
-        std::stack<T, std::deque<T> > _dequeStack;
-
     public:
-        typedef typename std::deque<T>::iterator    iterator;
-        typedef typename std::deque<T>::const_iterator const_iterator;
-        typedef typename std::deque<T>::reverse_iterator reverse_iterator;
-        typedef typename std::deque<T>::const_reverse_iterator const_reverse_iterator;
+        typedef typename std::stack<T>::container_type::iterator iterator;
+        typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+        typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
+        typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
         
         MutantStack(void);
         MutantStack(unsigned int N);
@@ -33,24 +29,6 @@ class MutantStack
         const_reverse_iterator rbegin() const;
         reverse_iterator rend();
         const_reverse_iterator rend() const;
-
-        T &top(void);
-        void pop(void);
-        void push(const T &value);
-        size_t size(void) const;
-        bool empty(void) const;
-
-        operator std::stack<T, std::deque<T> >() const
-        {
-            return _dequeStack;
-        }
-        T& operator*() const;
-        iterator& operator++();     // Prefix increment
-        iterator operator++(int); // Postfix increment
-        iterator& operator--();     // Prefix decrement
-        iterator operator--(int);   // Postfix decrement
-        bool operator==(const iterator& other) const;
-        bool operator!=(const iterator& other) const;
 
 };
 
