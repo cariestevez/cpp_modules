@@ -120,43 +120,51 @@ typename MutantStack<T>::const_reverse_iterator MutantStack<T>::rend() const
 template<typename T>
 T &MutantStack<T>::operator*() const
 {
-        return *_it;
+    return *_dequeStack.top();
 }
 
 template<typename T>
-iterator &MutantStack<T>::operator++() {
-    ++_it;
+typename MutantStack<T>::iterator &MutantStack<T>::operator++()
+{
+    ++_dequeStack;
     return *this;
 }
 
 template<typename T>
-iterator MutantStack<T>::operator++(int) {
+typename MutantStack<T>::iterator MutantStack<T>::operator++(int)
+{
     iterator temp = *this;
-    ++_it;
+    ++(*this);
     return temp;
 }
 
 template<typename T>
-iterator &MutantStack<T>::operator--() {
-    --_it;
+typename MutantStack<T>::iterator &MutantStack<T>::operator--()
+{
+    --_dequeStack;
     return *this;
 }
 
 template<typename T>
-iterator MutantStack<T>::operator--(int) {
+typename MutantStack<T>::iterator MutantStack<T>::operator--(int)
+{
     iterator temp = *this;
-    --_it;
+    --(*this);
     return temp;
 }
 
 template<typename T>
-bool MutantStack<T>::operator==(const iterator& other) const {
-    return _it == other._it;
+bool MutantStack<T>::operator==(const iterator& other) const
+{
+    return _dequeStack.top() == other._dequeStack.top();
 }
 
 template<typename T>
-bool MutantStack<T>::operator!=(const iterator& other) const {
-    return _it != other._it;
+bool MutantStack<T>::operator!=(const iterator& other) const
+{
+    
+    return !(*this == other);
+    //return _dequeStack != other._dequeStack;
 }
 
 #endif
