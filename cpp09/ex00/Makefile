@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 CXX = c++
 
-SRC = main
+SRC = main BitcoinExchange
 OBJ = $(SRC:=.o)
 
 all: $(NAME)
