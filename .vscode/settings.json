@@ -141,6 +141,7 @@
     "map": "cpp",
     "list": "cpp",
     "set": "cpp",
-    "*.tpp": "cpp"
+    "*.tpp": "cpp",
+    "regex": "cpp"
   }
 }
