@@ -14,9 +14,14 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    std::string btcDB = "data.csv";
-    BitcoinExchange btcExchange(btcDB);//instantiate the exchange
-    //std::cout << "exchange class created successfully" << std::endl;
+    std::ifstream btcDB("data.csv");
+    if (!btcDB)
+    {
+        std::cerr << "Error: could not open data base file." << std::endl;
+        return 1;
+    }
+
+    BitcoinExchange btcExchange(btcDB);
     btcExchange.processInputFile(inputFile);
     inputFile.close();
 
