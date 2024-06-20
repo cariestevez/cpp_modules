@@ -16,6 +16,7 @@ int main(int argc, char **argv)
 
     std::string btcDB = "data.csv";
     BitcoinExchange btcExchange(btcDB);//instantiate the exchange
+    //std::cout << "exchange class created successfully" << std::endl;
     btcExchange.processInputFile(inputFile);
     inputFile.close();
 
