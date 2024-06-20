@@ -1,6 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange(const std::string &dataBaseFile)
+BitcoinExchange::BitcoinExchange(std::ifstream &dataBaseFile)
 {
     loadDataBase(dataBaseFile);
 }
@@ -10,8 +10,10 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &source) : exchangeRateMa
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &source)
 {
     if (this != &source)
-        exchangeRateMap = source.exchangeRateMap;
-
+    {
+       exchangeRateMap = source.exchangeRateMap;
+    }
+    
 	return (*this);
 }
 
@@ -19,15 +21,8 @@ BitcoinExchange::~BitcoinExchange() {}
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-void BitcoinExchange::loadDataBase(const std::string &dataBaseFile)
+void BitcoinExchange::loadDataBase(std::ifstream &db)
 {
-    std::ifstream db(dataBaseFile);
-    if (!db)
-    {
-        std::cerr << "Error: could not open data base file." << std::endl;
-        return;
-    }
-
     std::string line;
     std::getline(db, line);
     while (std::getline(db, line))
@@ -39,7 +34,7 @@ void BitcoinExchange::loadDataBase(const std::string &dataBaseFile)
         if (std::getline(iss, date, ',') && std::getline(iss, rateStr))
         {
             std::istringstream ss(rateStr);
-            if (ss >> rate && iss.eof() && isValidDateFormat(date))//improve the conversion to float of the rate?
+            if (ss >> rate && iss.eof() && isValidDateFormat(date))
                 validLine = true;
         }
         if (validLine && date != "date")
@@ -49,46 +44,43 @@ void BitcoinExchange::loadDataBase(const std::string &dataBaseFile)
     }
     
     db.close();
-
-    if (exchangeRateMap.empty())
-        std::cout << "Error: No valid values could be extracted from database. Please provide a valid one." << std::endl;
     
-    //std::cout << "database parsed successfully" << std::endl;
     return ;
-
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
 
 void BitcoinExchange::processQuery(std::string &date, std::string &value)
 {
-    float floatValue = std::stof(value);
+    float floatValue = std::atof(value.c_str());
 
     std::map<std::string, float>::const_iterator iter = exchangeRateMap.lower_bound(date);
 
-    //std::cout << "return of lower bound iter: " << iter->first << std::endl;
-    if (iter->first == date)
+    if (iter != exchangeRateMap.end() && iter->first == date)
     {
         std::cout << date << " => " << value << " = " << iter->second * floatValue << std::endl;
     }
-    else if (iter->first > date && iter == exchangeRateMap.begin())
+    else if (iter == exchangeRateMap.begin())
     {
         std::cout << "Error: date " << date << " is before the oldest date in the database." << std::endl;
     }
     else
     {
-        // If no exact match, use the closest previous date
-        std::map<std::string, float>::const_iterator prev = std::prev(iter);
-        std::cout << date << " => " << value << " = " << prev->second * floatValue << std::endl;
+        std::cout << date << " => " << value << " = " << (--iter)->second * floatValue << std::endl;
     }
 }
 
 void BitcoinExchange::processInputFile(std::ifstream &inputFile)
 {
+    if (exchangeRateMap.empty())
+    {
+        std::cout << "Error: No valid values could be extracted from database. Please provide a valid one." << std::endl;
+        return ;
+    }
+
     std::string line;
     while (std::getline(inputFile, line))
     {
-        //std::cout << line << std::endl;
         std::istringstream iss(line);
         std::string date, separator, value;
         if (!(iss >> date) || (date != "date" && !(isValidDateFormat(date) && isValidDate(date))))
@@ -104,7 +96,9 @@ void BitcoinExchange::processInputFile(std::ifstream &inputFile)
         if (value != "value" && !(isValidValue(value)))
             continue;
         if (date != "date" && value != "value")
+        {
             processQuery(date, value);
+        }
     }
 
     return;
@@ -112,8 +106,30 @@ void BitcoinExchange::processInputFile(std::ifstream &inputFile)
 
 bool BitcoinExchange::isValidDateFormat(const std::string &date)
 {
-    std::regex dateRegex("\\d{4}-\\d{2}-\\d{2}");
-    return std::regex_match(date, dateRegex);
+    if (date.size() != 10)
+        return false;
+
+    for (int i = 0; i < 4; i++)
+    {
+        if (!(isdigit(date[i])))
+            return false;
+    }
+    if (date[4] != '-')
+        return false;
+    for (int i = 5; i < 7; i++)
+    {
+        if (!(isdigit(date[i])))
+            return false;
+    }
+    if (date[7] != '-')
+        return false;
+    for (int i = 8; i < 10; i++)
+    {
+        if (!(isdigit(date[i])))
+            return false;
+    }
+
+    return true;
 }
 
 bool BitcoinExchange::isValidDate(const std::string &date)
@@ -131,35 +147,20 @@ bool BitcoinExchange::isValidDate(const std::string &date)
 
 bool BitcoinExchange::isValidValue(const std::string &value)
 {
-    std::regex floatRegex("^[+-]?([0-9]*[.])?[0-9]+$");
+    std::istringstream iss(value);
+    float floatValue;
+    char remain;
 
-    if (!std::regex_match(value, floatRegex))
+    if (!(iss >> floatValue) || (iss >> remain))
+        return false;
+    if (floatValue < 0)
     {
-        std::cout << "Error: number not of valid type." << std::endl;
+        std::cout << "Error: not a positive number." << std::endl;
         return false;
     }
-    try
+    if (floatValue > 1000)
     {
-        float floatValue = std::stof(value);
-        if (floatValue < 0)
-        {
-            std::cout << "Error: not a positive number." << std::endl;
-            return false;
-        }
-        if (floatValue > 1000)
-        {
-            std::cout << "Error: too large a number." << std::endl;
-            return false;
-        }
-    }
-    catch (const std::invalid_argument &ia)
-    {
-        std::cerr << "Error: Conversion to float not possible. Invalid argument: " << ia.what() << std::endl;
-        return false;
-    }
-    catch (const std::out_of_range &oor)
-    {
-        std::cerr << "Error: Conversion to float not possible. Out of range: " << oor.what() << std::endl;
+        std::cout << "Error: too large a number." << std::endl;
         return false;
     }
 

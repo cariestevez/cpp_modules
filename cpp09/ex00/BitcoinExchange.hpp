@@ -5,15 +5,15 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <regex>
 #include <map>
+#include <cstdlib>
 
 class BitcoinExchange
 {
     private:
         std::map<std::string, float> exchangeRateMap;
 
-        void loadDataBase(const std::string &dataBaseFile);
+        void loadDataBase(std::ifstream &dataBaseFile);
         void populateMap(const std::string &dataBaseFile);
         bool isValidDateFormat(const std::string &date);
         bool isValidDate(const std::string &date);
@@ -21,7 +21,7 @@ class BitcoinExchange
         void processQuery(std::string &date, std::string &value);
 
     public:
-        BitcoinExchange(const std::string &dataBaseFile);
+        BitcoinExchange(std::ifstream &dataBaseFile);
         BitcoinExchange(const BitcoinExchange &source);
         BitcoinExchange &operator=(const BitcoinExchange &source);
         ~BitcoinExchange();
