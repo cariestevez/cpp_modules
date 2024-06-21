@@ -3,19 +3,25 @@
 
 #include <iostream>
 #include <string>
+#include <stack>
+#include <sstream>
 
 class RPN
 {
     private:
+        std::stack<int> op;
+
+        void processInput(const std::string &input);
+        bool isValidExpression(const std::string &input) const;
 
     public:
-        RPN();
+        RPN(const std::string &userInput);
         RPN(const RPN &source);
         RPN &operator=(const RPN &source);
         ~RPN();
 
-        void processInput(std::string &input);
-        bool isValidExpression(std::string &input);
+        void calculateExpression(void);
+
 };
 
 #endif // RPN_HPP
