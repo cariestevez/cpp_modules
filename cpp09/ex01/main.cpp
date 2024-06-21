@@ -8,5 +8,8 @@ int main(int argc, char **argv)
         return 1;
     }
     
+    RPN rpnCalculator(argv[1]);
+    rpnCalculator.calculateExpression();
+
     return 0;
 }
