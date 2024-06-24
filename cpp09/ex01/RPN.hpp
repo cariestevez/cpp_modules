@@ -9,10 +9,13 @@
 class RPN
 {
     private:
+        std::string expression;
         std::stack<int> op;
 
         void processInput(const std::string &input);
         bool isValidExpression(const std::string &input) const;
+        int applyOperator(const int &a, const int &b, const std::string &operatorToken);
+
 
     public:
         RPN(const std::string &userInput);
