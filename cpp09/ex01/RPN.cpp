@@ -3,28 +3,21 @@
 RPN::RPN(const std::string &userInput)
 {
     processInput(userInput);
-    std::cout << "\e[0;103mRPN::\e[0m Default constructor called" << std::endl;
 }
 
-RPN::RPN(const RPN &source) : op(source.op)
-{
-    std::cout << "\e[0;103mRPN::\e[0m Copy constructor called" << std::endl;
-}
+RPN::RPN(const RPN &source) : _op(source._op) {}
 
 RPN &RPN::operator=(const RPN &source)
 {
     if (this != &source)
     {
-        op = source.op;
+        _op = source._op;
     }
-    std::cout << "\e[0;103mRPN::\e[0m Assignment operator used" << std::endl;
+
 	return (*this);
 }
 
-RPN::~RPN()
-{
-    std::cout << "\e[0;103mRPN::\e[0m Destructor called" << std::endl;
-}
+RPN::~RPN() {}
 
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -33,10 +26,7 @@ void RPN::processInput(const std::string &input)
     if (!isValidExpression(input))
         return ;
     
-    for (size_t i = 0; i < input.size(); i++)
-    {
-        expression[i] = input[i];
-    }
+    _expression = input;
 }
 
 bool RPN::isValidExpression(const std::string &input) const
@@ -47,7 +37,7 @@ bool RPN::isValidExpression(const std::string &input) const
         return false;
     }
 
-    std::string charsToFind = "0123456789+-/*";
+    std::string charsToFind = " 0123456789+-/*";
     size_t pos = input.find_first_not_of(charsToFind);
 
     if (pos != std::string::npos)
@@ -63,88 +53,73 @@ int RPN::applyOperator(const int &a, const int &b, const std::string &operatorTo
 {
     if (operatorToken == "+")
     {
-        std::cout << "Operation: " << a + b << std::endl;
-        return a + b;
+        return b + a;
     }
     if (operatorToken == "-")
     {
-        std::cout << "Operation: " << a - b << std::endl;
-        return a - b;
+        return b - a;
     }
     if (operatorToken == "*")
     {
-        std::cout << "Operation: " << a * b << std::endl;
-        return a * b;
+        return b * a;
     }
-    if (operatorToken == "/")
+    if (operatorToken == "/" && a != 0)
     {
-        std::cout << "Operation: " << a / b << std::endl;
-        return a / b;
+        return b / a;
     }
-    throw std::invalid_argument("Exception ocurred: Invalid operator");
+
+    throw std::invalid_argument("Exception ocurred: Division by 0");
 }
 
 void RPN::calculateExpression(void)
 {
-    size_t result = 0;
+    if (_expression.empty())
+        return;
+    
     std::string operatorToken;
-    bool error = false;
-    int count = 0;
-
-    //do operations
-    std::stack<int> op;
-    for (size_t i = 0; i < expression.size() && error == false; i++)
+    for (size_t i = 0; i < _expression.size(); i++)
     {
-        if (isdigit(expression[i]))
+        while (_expression[i] && _expression[i] == ' ')
+            i++;
+        if (isdigit(_expression[i]))
         {
-            std::cout << "Operation: " << a + b << std::endl;
-
-            count++;
-            if (count > 2)
+            int number = 0;
+            while (_expression[i] && isdigit(_expression[i])) //_expression[i] != ' ')
             {
-                error = true;
-                continue;
+                number =  number * 10 + _expression[i] - '0';
+                i++;
             }
-            op.push(expression[i]);
+
+            _op.push(number);
         }
-        else if (!op.empty())
+        else if (!_op.empty() && _expression[i])
         {
-            operatorToken = expression[i];
-            int a = op.top();
-            op.pop();
-            if (!op.empty())
+            operatorToken = _expression[i];
+            int a = _op.top();
+            _op.pop();
+            if (!_op.empty())
             {
-                int b = op.top();
-                op.pop();
+                int b = _op.top();
+                _op.pop();
                 try
                 {
-                    op.push(applyOperator(a, b, operatorToken));
+                    _op.push(applyOperator(a, b, operatorToken));
                 }
                 catch(const std::exception &e)
                 {
                     std::cerr << e.what() << '\n';
-                    error = true;
+                    break;;
                 }
                 
             }
-            else
-                error = true;
         }
-        else
-                error = true;
 
     }
-
-    if (error == true)
+    if (_op.size() != 1)
     {
         std::cout << "Error: invalid RPN expression" << std::endl;
         return ;
     }
 
-    std::string resultStr;
-    std::stringstream iss;
-    iss << result;
-    resultStr = iss.str();
-
-    std::cout << resultStr << std::endl;
+    std::cout << _op.top() << std::endl;
 }

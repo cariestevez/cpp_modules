@@ -9,8 +9,8 @@
 class RPN
 {
     private:
-        std::string expression;
-        std::stack<int> op;
+        std::string _expression;
+        std::stack<int> _op;
 
         void processInput(const std::string &input);
         bool isValidExpression(const std::string &input) const;
