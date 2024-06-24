@@ -35,7 +35,7 @@ void RPN::processInput(const std::string &input)
     
     for (size_t i = 0; i < input.size(); i++)
     {
-        op.push(input[i]);
+        expression[i] = input[i];
     }
 }
 
@@ -43,7 +43,7 @@ bool RPN::isValidExpression(const std::string &input) const
 {
     if (input.empty())
     {
-        std::cout << "Error: input string (expression) is empty" << std::endl;
+        std::cout << "Error: input string is empty" << std::endl;
         return false;
     }
 
@@ -59,12 +59,48 @@ bool RPN::isValidExpression(const std::string &input) const
     return true;
 }
 
+int RPN::applyOperator(const int &a, const int &b, const std::string &operatorToken)
+{
+
+}
+
 void RPN::calculateExpression(void)
 {
     size_t result = 0;
+    std::string operatorToken;
+    bool error = false;
 
     //do operations
-    
+    std::stack<int> op;
+    for (size_t i = 0; i < expression.size(), error == false; i++)
+    {
+        if (isdigit(expression[i]))
+        {
+            op.push(expression[i]);
+        }
+        else if (!op.empty())
+        {
+            operatorToken = expression[i];
+            int a = op.pop();
+            if (!op.empty())
+            {
+                int b = op.pop();
+                op.push(applyOperator(a, b, operatorToken));
+            }
+            else
+                error = true;
+        }
+        else
+                error = true;
+
+    }
+
+    if (error == true)
+    {
+        std::cout << "Error: invalid RPN expression" << std::endl;
+        return ;
+    }
+
     std::string resultStr;
     std::stringstream iss;
     iss << result;
