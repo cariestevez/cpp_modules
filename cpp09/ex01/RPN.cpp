@@ -61,7 +61,27 @@ bool RPN::isValidExpression(const std::string &input) const
 
 int RPN::applyOperator(const int &a, const int &b, const std::string &operatorToken)
 {
-
+    if (operatorToken == "+")
+    {
+        std::cout << "Operation: " << a + b << std::endl;
+        return a + b;
+    }
+    if (operatorToken == "-")
+    {
+        std::cout << "Operation: " << a - b << std::endl;
+        return a - b;
+    }
+    if (operatorToken == "*")
+    {
+        std::cout << "Operation: " << a * b << std::endl;
+        return a * b;
+    }
+    if (operatorToken == "/")
+    {
+        std::cout << "Operation: " << a / b << std::endl;
+        return a / b;
+    }
+    throw std::invalid_argument("Exception ocurred: Invalid operator");
 }
 
 void RPN::calculateExpression(void)
@@ -69,23 +89,43 @@ void RPN::calculateExpression(void)
     size_t result = 0;
     std::string operatorToken;
     bool error = false;
+    int count = 0;
 
     //do operations
     std::stack<int> op;
-    for (size_t i = 0; i < expression.size(), error == false; i++)
+    for (size_t i = 0; i < expression.size() && error == false; i++)
     {
         if (isdigit(expression[i]))
         {
+            std::cout << "Operation: " << a + b << std::endl;
+
+            count++;
+            if (count > 2)
+            {
+                error = true;
+                continue;
+            }
             op.push(expression[i]);
         }
         else if (!op.empty())
         {
             operatorToken = expression[i];
-            int a = op.pop();
+            int a = op.top();
+            op.pop();
             if (!op.empty())
             {
-                int b = op.pop();
-                op.push(applyOperator(a, b, operatorToken));
+                int b = op.top();
+                op.pop();
+                try
+                {
+                    op.push(applyOperator(a, b, operatorToken));
+                }
+                catch(const std::exception &e)
+                {
+                    std::cerr << e.what() << '\n';
+                    error = true;
+                }
+                
             }
             else
                 error = true;
