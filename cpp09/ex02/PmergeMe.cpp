@@ -38,16 +38,22 @@ std::vector<int> generateInsertionSequence(int n)
     std::vector<int> insertionSequence;
 
     insertionSequence[0] = jacobsthalSequence[3];
-    int lastJacobsNum = jacobsthalSequence[3];
-    for (int i = 1, j = 3; i < n; i++)
+    insertionSequence[1] = jacobsthalSequence[3] - 1;
+
+    int i = 1, j = 3;
+
+    for ( ; ++i < n;)
     {
-        if (insertionSequence[i - 1] == jacobsthalSequence[j] && j != 3)
+        int last = j;
+        int num = jacobsthalSequence[last - 1];
+        j++;
+        while (num > jacobsthalSequence[last])
         {
-            while()
-            insertionSequence[i] = 
+            insertionSequence[i] = num;
+            i++;
+            num--;
         }
-        else
-            insertionSequence[i] = jacobsthalSequence[3]
+
     }
 }
 
@@ -58,7 +64,8 @@ std::vector<int> generateJacobsthalSequence(int n)
     if (n > 0) jacobsthal[0] = 0;
     if (n > 1) jacobsthal[1] = 1;
 
-    for (int i = 2; i < n; ++i) {
+    for (int i = 2; i < n + 2; ++i)//first 2 nums are not needed ('0', '1') so we generate 2 nums extra on their place. needed?
+    {
         jacobsthal[i] = jacobsthal[i-1] + 2 * jacobsthal[i-2];
     }
 
