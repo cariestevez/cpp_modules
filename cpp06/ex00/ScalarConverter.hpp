@@ -3,10 +3,13 @@
 
 #include <iostream>
 #include <string>
-#include <sstream>
 #include <exception>
 #include <limits>
 #include <iomanip>
+#include <cstdlib>
+#include <cerrno>
+#include <cmath>
+#include <climits>
 
 enum LiteralType { CHAR, INT, FLOAT, DOUBLE, PSEUDOLITERAL, UNKNOWN };
 
