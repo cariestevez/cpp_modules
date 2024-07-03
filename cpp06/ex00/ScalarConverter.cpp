@@ -33,7 +33,7 @@ ScalarConverter::~ScalarConverter(void)
 
 // Non displayable: if the char is a non printable
 // Impossible: If a conversion does not make any sense or overflows
-void ScalarConverter::convert(std::string literal)
+void ScalarConverter::convert(const std::string &literal)
 {
 	if (literal.empty())
 	{
@@ -42,10 +42,13 @@ void ScalarConverter::convert(std::string literal)
 	}
 	
 	LiteralType type = identifyLiteralType(literal);
+
+	std::cout << "type: " << type << std::endl;
 	
 	switch (type)
 	{
         case CHAR:
+
 			if (isprint(literal[0]))
 				std::cout << "char: '" 	<< static_cast<char>(literal[0]) 	<< "'" 		<< std::endl;
 			else
@@ -56,7 +59,7 @@ void ScalarConverter::convert(std::string literal)
 				std::cout << "float: "	<< static_cast<float>(literal[0]) 	<< ".0f" 	<< std::endl;
 				std::cout << "double: " << static_cast<double>(literal[0])	<< ".0"		<< std::endl;
 			}
-			catch (const std::bad_cast &e)//not needed?
+			catch (const std::exception &e)
 			{
 				std::cout << "e.what(): " << e.what() << std::endl;
 			}
@@ -65,7 +68,13 @@ void ScalarConverter::convert(std::string literal)
 		case INT:
             try
 			{
-            	int intValue = std::stoi(literal);
+            	//int intValue = std::stoi(literal);
+				std::istringstream iss(literal);
+				int intValue;
+				if (!(iss >> intValue) || !iss.eof())
+				{
+            		throw std::runtime_error("Invalid integer conversion");
+				}
 				if (intValue >= std::numeric_limits<char>::min() && intValue <= std::numeric_limits<char>::max())
 				{
 					if (isprint(intValue))
@@ -79,7 +88,7 @@ void ScalarConverter::convert(std::string literal)
                 std::cout << "float: " << static_cast<float>(intValue) 		<< ".0f" 	<< std::endl;
                 std::cout << "double: " << static_cast<double>(intValue) 	<< ".0"		<< std::endl;
             }
-			catch (const std::bad_cast& e)//not needed?
+			catch (const std::exception &e)
 			{
 				std::cout << "e.what(): " << e.what() << std::endl;
 			}
@@ -88,9 +97,15 @@ void ScalarConverter::convert(std::string literal)
         case FLOAT:
             try
 			{
+				//float floatValue = std::stof(literal);
+				std::istringstream iss(literal);
+				float floatValue;
+				if (!(iss >> floatValue) || !iss.eof())
+				{
+					throw std::invalid_argument("Invalid float conversion");
+				}
 				std::cout << std::fixed; // Set fixed-point notation
 				std::cout << std::setprecision(1); // Set precision to 1 decimal place
-                float floatValue = std::stof(literal);
 				if (floatValue >= std::numeric_limits<char>::min() && floatValue <= std::numeric_limits<char>::max())
 				{
 					if (isprint(floatValue))
@@ -103,8 +118,10 @@ void ScalarConverter::convert(std::string literal)
                 std::cout << "int: " 	<< static_cast<int>(floatValue) 					<< std::endl;
                 std::cout << "float: " 	<< floatValue 						<< "f" 			<< std::endl;
                 std::cout << "double: " << static_cast<double>(floatValue) 					<< std::endl;
-            }
-			catch (const std::bad_cast& e)//not needed?
+				std::cout.unsetf(std::ios::fixed); // Reset cout flags
+				std::cout.precision(6); // Reset precision to default
+			}
+			catch (const std::exception &e)
 			{
 				std::cout << "e.what(): " << e.what() << std::endl;
 			}
@@ -113,10 +130,15 @@ void ScalarConverter::convert(std::string literal)
         case DOUBLE:
             try
 			{
+                // double doubleValue = std::stod(literal);
+				std::istringstream iss(literal);
+				double doubleValue;
+				if (!(iss >> doubleValue) || !iss.eof())
+				{
+					throw std::invalid_argument("Invalid double conversion");
+				}
 				std::cout << std::fixed; // Set fixed-point notation
 				std::cout << std::setprecision(1); // Set precision to 1 decimal place
-                double doubleValue = std::stod(literal);
-				// std::cout << "Double value: " << doubleValue << std::endl;
 				if (doubleValue >= std::numeric_limits<char>::min() && doubleValue <= std::numeric_limits<char>::max())
 				{
 					if (isprint(doubleValue))
@@ -129,8 +151,10 @@ void ScalarConverter::convert(std::string literal)
                 std::cout << "int: " 		<< static_cast<int>(doubleValue) 			<< std::endl;
                 std::cout << "float: " 		<< static_cast<float>(doubleValue) << "f" 	<< std::endl;
                 std::cout << "double: " 	<< doubleValue 								<< std::endl;
-            }
-			catch (const std::bad_cast& e)//not needed?
+            	std::cout.unsetf(std::ios::fixed); // Reset cout flags
+				std::cout.precision(6); // Reset precision to default
+			}
+			catch (const std::exception &e)
 			{
 				std::cout << "e.what(): " << e.what() << std::endl;
 			}
@@ -147,7 +171,8 @@ void ScalarConverter::convert(std::string literal)
 			else
 			{
 				std::cout << "float: " 	<< literal 								<< std::endl;
-				std::cout << "double: " << literal.erase(literal.length() - 1) 	<< std::endl;
+				std::string copy = literal;
+				std::cout << "double: " << copy.erase(literal.length() - 1) 	<< std::endl;
 			}
 			break;
 
@@ -160,87 +185,175 @@ void ScalarConverter::convert(std::string literal)
     }
 }
 
-LiteralType identifyLiteralType(std::string literal)
+LiteralType identifyLiteralType(const std::string &literal)
 {
+
 	LiteralType type = UNKNOWN;
 	
 	if (literal == "nan" || literal == "+inf" || literal == "-inf"
 		|| literal == "nanf" ||  literal == "+inff" || literal == "-inff")
 	{
-		// std::cout << "Type: " << "PSEUDOLITERAL" << std::endl;
 		return PSEUDOLITERAL;
 	}
 
 	else if (literal.length() == 1 && !isdigit(literal[0]))
 	{
-		// std::cout << "Type: " << "CHAR" << std::endl;
 		return CHAR;
 	}
 
-	try
-	{
-		// std::cout << "trying to convert to INT" << std::endl;
-		size_t idx;
-		int intValue = std::stoi(literal, &idx);
-		if (idx == literal.length())//to confirm the whole str was converted
-		{
-			// std::cout << "Type: " << "INT" << std::endl;
-			return INT;
-		}
-	}
-	catch (const std::invalid_argument &)//variable name of the exception can be omited if we don't need to use it inside of the catch block
-	{
-		// not an int, continue to next check
-	}
-	catch (const std::out_of_range &)
-	{
-		// out of range for an int, continue to next check
-	}
+    std::istringstream iss(literal);
+    char nextChar;
+    if (!(iss >> nextChar)) {
+        return UNKNOWN;
+    }
 
-	if (type == UNKNOWN)
-	{
-		try
-		{
-			// std::cout << "trying to convert to FLOAT" << std::endl;
-			size_t pos;
-			float floatValue = std::stof(literal, &pos);
-			// std::cout << "Float: " << floatValue << std::endl;
-			// std::cout << "last char: " << literal[literal.length() - 1] << std::endl;
-			if (pos == literal.length() - 1 && literal[literal.length() - 1] == 'f')
-			{
-				// std::cout << "Type: " << "FLOAT" << std::endl;
-				return FLOAT;
-			}
-		}
-		catch (const std::invalid_argument &)
-		{
-			// Not a float, continue to next check
-		}
-		catch (const std::out_of_range &)
-		{
-			// Out of range for float, continue to next check
-		}
+    if (nextChar == '-' || isdigit(nextChar)) {
+        iss.putback(nextChar);
 
-		try
-		{
-			// std::cout << "trying to convert to DOUBLE" << std::endl;
-			size_t pos;
-			double doubleValue = std::stod(literal, &pos);
-			if (pos == literal.length())
-			{
-				// std::cout << "Type: " << "DOUBLE" << std::endl;
-				return DOUBLE;
-			}
-		}
-		catch (const std::invalid_argument&)
-		{
-			// Not a double, continue
-		}
-		catch (const std::out_of_range&)
-		{
-			// Out of range for double, continue
-		}
-	}
-
-	return UNKNOWN;
+        // Check for presence of 'f'
+        if (literal.find('f') != std::string::npos) {
+            // Contains 'f' at the end, try as FLOAT
+            float floatValue;
+            if (iss >> floatValue && iss.eof()) {
+                return FLOAT;
+            }
+        } else if (literal.find('.') != std::string::npos ||
+                   literal.find('e') != std::string::npos ||
+                   literal.find('E') != std::string::npos) {
+            // Contains '.', 'e', or 'E', try as DOUBLE
+            double doubleValue;
+            if (iss >> doubleValue && iss.eof()) {
+                return DOUBLE;
+            }
+        } else {
+            // No '.', 'e', 'E', 'f', try as INT
+            int intValue;
+            if (iss >> intValue && iss.eof()) {
+                return INT;
+            }
+        }
+        // if (literal.find('.') != std::string::npos
+		// 	|| literal.find('e') != std::string::npos
+		// 	|| literal.find('E') != std::string::npos
+		// 	|| literal.find('f') != std::string::npos)
+		// {
+        //     // Contains '.' or 'e'/'E', try float first
+		// 	// double doubleValue;
+		// 	double doubleValue;
+		// 	float floatValue;
+		// 	if (iss >> doubleValue && iss.eof())
+		// 	{
+        //         return DOUBLE;
+        //     }
+		// 	std::cout << "no double" << std::endl;
+		// 	iss.clear();
+        //     if (iss >> floatValue && literal.find('f') != std::string::npos)
+		// 	{
+        //         return FLOAT;
+        //     }
+        // }
+		// else
+		// {
+        //     // No '.' or 'e'/'E', try integer
+        //     int intValue;
+        //     if (iss >> intValue && iss.eof())
+		// 	{
+        //         return INT;
+        //     }
+        // }
+    }
+    return UNKNOWN;
 }
+
+// LiteralType identifyLiteralType(std::string literal)
+// {
+// 	LiteralType type = UNKNOWN;
+	
+// 	if (literal == "nan" || literal == "+inf" || literal == "-inf"
+// 		|| literal == "nanf" ||  literal == "+inff" || literal == "-inff")
+// 	{
+// 		return PSEUDOLITERAL;
+// 	}
+
+// 	else if (literal.length() == 1 && !isdigit(literal[0]))
+// 	{
+// 		return CHAR;
+// 	}
+
+// 	try
+// 	{
+// 		std::istringstream iss(literal);
+// 		int intValue;
+// 		if (!(iss >> intValue) || !iss.eof())
+// 		{
+// 			throw std::runtime_error("Invalid integer conversion");
+// 		}
+		
+// 		return INT;
+// 	}
+// 	catch (const std::exception &e)
+// 	{
+// 		std::cout << "e.what(): " << e.what() << std::endl;
+// 	}
+
+// 	if (type == UNKNOWN)
+// 	{
+// 		try
+// 		{
+// 			std::istringstream iss(literal);
+// 			float floatValue;
+// 			if (!(iss >> floatValue) || !iss.eof())
+// 			{
+// 				throw std::invalid_argument("Invalid float conversion");
+// 			}
+// 			// size_t pos;
+// 			// float floatValue = std::stof(literal, &pos);
+// 			// if (pos == literal.length() - 1 && literal[literal.length() - 1] == 'f')
+// 			// {
+// 			// 	return FLOAT;
+// 			// }
+// 		}
+// 		catch (const std::exception &e)
+// 		{
+// 			std::cout << "e.what(): " << e.what() << std::endl;
+// 		}
+// 		// catch (const std::invalid_argument &)
+// 		// {
+// 		// 	// Not a float, continue to next check
+// 		// }
+// 		// catch (const std::out_of_range &)
+// 		// {
+// 		// 	// Out of range for float, continue to next check
+// 		// }
+
+// 		try
+// 		{
+// 			std::istringstream iss(literal);
+// 			double doubleValue;
+// 			if (!(iss >> doubleValue) || !iss.eof())
+// 			{
+// 				throw std::invalid_argument("Invalid double conversion");
+// 			}
+// 			// size_t pos;
+// 			// double doubleValue = std::stod(literal, &pos);
+// 			// if (pos == literal.length())
+// 			// {
+// 			// 	return DOUBLE;
+// 			// }
+// 		}
+// 		catch (const std::exception &e)
+// 		{
+// 			std::cout << "e.what(): " << e.what() << std::endl;
+// 		}
+// 		// catch (const std::invalid_argument&)
+// 		// {
+// 		// 	// Not a double, continue
+// 		// }
+// 		// catch (const std::out_of_range&)
+// 		// {
+// 		// 	// Out of range for double, continue
+// 		// }
+// 	}
+
+// 	return UNKNOWN;
+// }
