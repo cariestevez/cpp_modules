@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <exception>
 #include <limits>
 #include <iomanip>
@@ -18,9 +19,9 @@ class ScalarConverter
         ~ScalarConverter(void);
        
     public: 
-        static void convert(std::string literal);
+        static void convert(const std::string &literal);
 };
 
-LiteralType identifyLiteralType(std::string literal);
+LiteralType identifyLiteralType(const std::string &literal);
 
 #endif
