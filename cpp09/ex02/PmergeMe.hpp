@@ -13,9 +13,9 @@ class PmergeMe
         int _oddNum;
         std::vector<int> _unsorted;
         std::vector<int> _sorted;
-        std::vector<int> _insertionSequence;
+        std::vector<int> _insertionSequence; 
         
-        void print(void) const;
+        //void print(void) const;
         std::vector<int> generateJacobsthalSequence(int n);
         std::vector<int> generateInsertionSequence(int n);
 
