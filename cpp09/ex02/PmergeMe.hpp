@@ -6,21 +6,24 @@
 #include <vector>
 #include <deque>
 #include <sstream>
+#include <utility>
 
 class PmergeMe
 {
     private:
         int _oddNum;
+        int _size;
         std::vector<int> _unsorted;
+        std::vector<std::pair<int, int>> _pairs;
         std::vector<int> _sorted;
         std::vector<int> _insertionSequence; 
         
         //void print(void) const;
-        std::vector<int> generateJacobsthalSequence(int n);
-        std::vector<int> generateInsertionSequence(int n);
+        std::vector<int> generateJacobsthalSequence(void);
+        std::vector<int> generateInsertionSequence(void);
 
     public:
-        PmergeMe(std::vector<int> &userInput);
+        PmergeMe(int argc, char **argv);
         PmergeMe(const PmergeMe &source);
         PmergeMe &operator=(const PmergeMe &source);
         ~PmergeMe(void);
