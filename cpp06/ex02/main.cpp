@@ -19,6 +19,6 @@ int main()
     std::cout << "Identifying by reference:" << std::endl;
     identify(*p);
     
-    delete p; // Clean up to avoid memory leak
+    delete p;
     return 0;
 }

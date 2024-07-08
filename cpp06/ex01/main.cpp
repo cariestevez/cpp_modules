@@ -7,11 +7,20 @@
 int main()
 {
     Data dataStruct = Data(10, 42.5, "just data");
-    std::cout << "dataStruct value: " << &dataStruct << std::endl;
+    std::cout << "DataStruct address: " << &dataStruct << std::endl;
+    std::cout << "Data in datastruct: "    << dataStruct.getInt()    << ", "
+                                        << dataStruct.getFloat()  << ", "
+                                        << dataStruct.getString() << std::endl;
+    std::cout << std::endl;
 
     uintptr_t serializedObj = Serializer::serialize(&dataStruct);
-    std::cout << "serializedObj value: " << serializedObj << std::endl;
+    std::cout << "Serialized datastruct pointer value: " << serializedObj << std::endl;
+
+    std::cout << std::endl;
 
     Data *deserializedPtr = Serializer::deserialize(serializedObj);
-    std::cout << "deserializedPtr value: " << deserializedPtr << std::endl;
+    std::cout << "DeserializedPtr address: " << deserializedPtr << std::endl;
+    std::cout << "Data in serializedObj obtained from deserializedPtr: "    << deserializedPtr->getInt()    << ", "
+                                                                            << deserializedPtr->getFloat()  << ", "
+                                                                            << deserializedPtr->getString() << std::endl;
 }
