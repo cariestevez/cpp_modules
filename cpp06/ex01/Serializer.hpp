@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Data.hpp"
 
+typedef unsigned long uintptr_t;
+
 class Serializer
 {
     private:
@@ -21,6 +23,6 @@ class Serializer
 
 // Pointer manipulation: How to convert pointers to integral types and back.
 // Type casting: Using reinterpret_cast for type conversions.
-// Platform independence: Using uintptr_t to ensure pointers can be stored as integers.
+// Platform independence: Using unsigned long (uintptr_t not available in std98) to ensure pointers can be stored as integers.
 // Static utility classes: Creating non-instantiable classes with static methods.
 // Safe type conversions: Ensuring conversions are accurate and do not lead to data corruption.

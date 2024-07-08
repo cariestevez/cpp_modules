@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -Wno-unused-variable
 #-Wshadow -Wno-shadow
 CXX = c++
 
-SRC = Serializer main
+SRC = Serializer Data main
 OBJ = $(SRC:=.o)
 
 all: $(NAME)

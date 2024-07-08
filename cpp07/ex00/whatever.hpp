@@ -17,8 +17,8 @@ void swap(T &a, T &b)
    b = temp;
 }
 
-// • min: Compares the two values passed in its arguments and returns the smallest
-// one. If the two of them are equal, then it returns the second one.
+// • min: Compares the two values passed in its arguments and returns the smallest one
+// If the two of them are equal, then it returns the second one.
 template <typename T>
 const T &min(T const &a, T const &b)
 {

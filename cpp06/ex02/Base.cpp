@@ -18,7 +18,7 @@ Base *generate(void)
 }
 
 // It prints the actual type of the object pointed to by p: "A", "B" or "C".
-void identify(Base* p)
+void identify(Base *p)
 {
     if (dynamic_cast<A *>(p))//dynamic cast returns a nullptr if the cast is not possible
         std::cout << "A" << std::endl;
@@ -33,8 +33,8 @@ void identify(Base* p)
         std::cout << "Unknown type" << std::endl;
 }
 
-// It prints the actual type of the object pointed to by p: "A", "B" or "C". Using a pointer
-// inside this function is forbidden.
+// It prints the actual type of the object pointed to by p: "A", "B" or "C".
+// Using a pointer inside this function is forbidden.
 void identify(Base &p)
 {
     try
