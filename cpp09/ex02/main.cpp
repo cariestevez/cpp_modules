@@ -14,20 +14,20 @@ int main(int argc, char **argv)
 
         std::cout << "Before: ";
         for (int i = 1; i < argc; i++)
-            std::cout << *argv[i] << " ";
+            std::cout << argv[i] << " ";
         std::cout << std::endl;
 
         sortMe.mergeInsertSort();
 
-        // // Sort using std::list
-        // std::list<int> numList(numbers.begin(), numbers.end());
-        // PmergeMe::mergeInsertSort(numList);
+        // // // Sort using std::list
+        // // std::list<int> numList(numbers.begin(), numbers.end());
+        // // PmergeMe::mergeInsertSort(numList);
 
-        std::cout << "After: ";
-        sortMe.print();
+        // std::cout << "After: ";
+        // sortMe.print();
 
-        std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector: " << sortMe.getVecTime() << std::endl;
-        std::cout << "Time to process a range of " << argc - 1 << " elements with std::list: " << sortMe.getLstTime() << std::endl;
+        // std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector: " << sortMe.getVecTime() << std::endl;
+        // std::cout << "Time to process a range of " << argc - 1 << " elements with std::list: " << sortMe.getLstTime() << std::endl;
 
     }
     catch(const std::exception& e)

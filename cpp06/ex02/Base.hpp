@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <typeinfo>
+//#include <typeinfo>
 
 class Base
 {

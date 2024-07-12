@@ -13,14 +13,20 @@ class PmergeMe
     private:
         int _oddNum;
         int _size;
-        std::vector<int> _unsorted;
-        std::vector<std::pair<int, int>> _pairs;
+        std::vector<int> _mainChain;
+        std::vector<int> _pend;
+        std::vector<std::pair<int, int> > _pairs;
         std::vector<int> _sorted;
         std::vector<int> _insertionSequence; 
         
-        //void print(void) const;
+        int convertToInt(char *numString);
         std::vector<int> generateJacobsthalSequence(void);
-        std::vector<int> generateInsertionSequence(void);
+        void generateInsertionSequence(void);
+        void sortPairs();
+        void merge(std::vector<std::pair<int, int> >& arr, int left, int mid, int right);
+        void mergeSort(std::vector<std::pair<int, int> >& arr, int left, int right);
+        void divideChains();
+        void insertSort();
 
     public:
         PmergeMe(int argc, char **argv);
