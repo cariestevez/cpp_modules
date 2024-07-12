@@ -3,6 +3,7 @@
 PmergeMe::PmergeMe(int argc, char **argv)
 {
     _size = 0;
+    _oddNum = -1;
     for (int i = 1; i < argc; i += 2)
     {
         // need to convert each arg(str into integer) and check it's valid. then saving the converted one into the pairs vector
@@ -45,7 +46,6 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &source)
     {
         _oddNum = source._oddNum;
         _size = source._size;
-        // _unsorted = source._unsorted;
         _sorted = source._sorted;
         _insertionSequence = source._insertionSequence;
     }
@@ -65,7 +65,7 @@ int PmergeMe::convertToInt(char *numString)
     char *endptr;
     long value = std::strtol(numString, &endptr, 10);
 
-    if (endptr == numString || *endptr != '\0' || value > INT_MAX || value < INT_MIN)
+    if (endptr == numString || *endptr != '\0' || value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min())
         return -2;
 
     return static_cast<int>(value);
@@ -81,27 +81,31 @@ void PmergeMe::print(void) const
 void PmergeMe::generateInsertionSequence(void)
 {
     std::vector<int> jacobsthalSequence = generateJacobsthalSequence();
-    std::vector<int> insertion(_size);
+    std::vector<int> insertion(_pend.size() - 1);
 
     insertion[0] = jacobsthalSequence[3];
-    insertion[1] = jacobsthalSequence[3] - 1;
+    if (_pend.size() > 1)
+        insertion[1] = jacobsthalSequence[3] - 1;
 
-    int i = 1, j = 3;
-    int last = jacobsthalSequence[3];
-
-    for ( ; ++j, ++i < _size;)
+    if (_pend.size() > 2)
     {
-        insertion[i] = jacobsthalSequence[j];
-        int num = insertion[i];
-        while (--num > last)
+        size_t i = 1, j = 3;
+        int last = jacobsthalSequence[3];
+
+        for ( ; ++j, ++i < _pend.size();)
         {
-            insertion[++i] = num;
+            insertion[i] = jacobsthalSequence[j];
+            int num = insertion[i];
+            while (--num > last)
+            {
+                insertion[++i] = num;
+            }
+            last = jacobsthalSequence[j];
         }
-        last = jacobsthalSequence[j];
     }
     _insertionSequence = insertion;
     std::cout << "insertion: " << " ";
-    for (int i = 0; i < _size; ++i)
+    for (size_t i = 0; i < _insertionSequence.size(); ++i)
     {
         std::cout << _insertionSequence[i] << " ";
     }
@@ -115,13 +119,10 @@ std::vector<int> PmergeMe::generateJacobsthalSequence(void)
     if (_size > 0) jacobsthal[0] = 0;
     if (_size > 1) jacobsthal[1] = 1;
 
-    // std::cout << "jacobsthal: " << " ";
     for (int i = 2; i < _size + 2; ++i)//first 2 nums are not needed ('0', '1') so we generate 2 nums extra on their place. needed?
     {
         jacobsthal[i] = jacobsthal[i-1] + 2 * jacobsthal[i-2];
-        // std::cout << jacobsthal[i] << " ";
     }
-    // std::cout << std::endl;
 
     return jacobsthal;
 }
@@ -148,62 +149,63 @@ std::vector<int> PmergeMe::generateJacobsthalSequence(void)
 // }
 
 
-void PmergeMe::merge(std::vector<std::pair<int, int> >& arr, int left, int mid, int right)
-{
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
+// void PmergeMe::merge(std::vector<std::pair<int, int> >& arr, int left, int mid, int right)
+// {
+//     int n1 = mid - left + 1;
+//     int n2 = right - mid;
 
-    std::vector<std::pair<int, int> > L(n1);
-    std::vector<std::pair<int, int> > R(n2);
+//     std::vector<std::pair<int, int> > L(n1);
+//     std::vector<std::pair<int, int> > R(n2);
 
-    for (int i = 0; i < n1; ++i)
-        L[i] = arr[left + i];
-    for (int i = 0; i < n2; ++i)
-        R[i] = arr[mid + 1 + i];
+//     for (int i = 0; i < n1; ++i)
+//         L[i] = arr[left + i];
+//     for (int i = 0; i < n2; ++i)
+//         R[i] = arr[mid + 1 + i];
 
-    int i = 0, j = 0, k = left;
-    while (i < n1 && j < n2) {
-        if (L[i].first <= R[j].first) {
-            arr[k] = L[i];
-            ++i;
-        } else {
-            arr[k] = R[j];
-            ++j;
-        }
-        ++k;
-    }
+//     int i = 0, j = 0, k = left;
+//     while (i < n1 && j < n2) {
+//         if (L[i].first <= R[j].first) {
+//             arr[k] = L[i];
+//             ++i;
+//         } else {
+//             arr[k] = R[j];
+//             ++j;
+//         }
+//         ++k;
+//     }
 
-    while (i < n1) {
-        arr[k] = L[i];
-        ++i;
-        ++k;
-    }
+//     while (i < n1) {
+//         arr[k] = L[i];
+//         ++i;
+//         ++k;
+//     }
 
-    while (j < n2) {
-        arr[k] = R[j];
-        ++j;
-        ++k;
-    }
-}
+//     while (j < n2) {
+//         arr[k] = R[j];
+//         ++j;
+//         ++k;
+//     }
+// }
 
 // Function to perform merge sort on the pairs based on the first element
-void PmergeMe::mergeSort(std::vector<std::pair<int, int> >& arr, int left, int right)
-{
-    if (left < right) {
-        int mid = left + (right - left) / 2;
+// void PmergeMe::mergeSort(std::vector<std::pair<int, int> >& arr, int left, int right)
+// {
+//     // if (left < right) {
+//     //     int mid = left + (right - left) / 2;
 
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
+//     //     mergeSort(arr, left, mid);
+//     //     mergeSort(arr, mid + 1, right);
 
-        merge(arr, left, mid, right);
-    }
-}
+//     //     merge(arr, left, mid, right);
+//     // }
+// }
 
 // Function to sort pairs using merge sort
 void PmergeMe::sortPairs()
 {
-    mergeSort(_pairs, 0, _pairs.size() - 1);
+    // mergeSort(_pairs, 0, _pairs.size() - 1);
 
+    std::sort(_pairs.begin(), _pairs.end());
     std::cout << "sorted pairs: ";
     for (unsigned long i = 0; i < _pairs.size(); ++i) {
         std::cout << "(" << _pairs[i].first << ", " << _pairs[i].second << ") ";
@@ -227,7 +229,7 @@ void PmergeMe::divideChains()
         _pend[i - 1] = _pairs[i].second;
     }
 
-    std::cout << "main chain: " << " ";
+    std::cout << "_mainChain: " << " ";
     for (unsigned long i = 0; i < _mainChain.size(); ++i)
     {
         std::cout << _mainChain[i] << " ";
@@ -243,67 +245,46 @@ void PmergeMe::divideChains()
 
 }
 
+
 void PmergeMe::insertSort()
 {
-    std::vector<int> sorted(_size);
+    std::vector<int>::iterator it;
+    int key = 0;
 
-    _sorted = sorted;
-    size_t p = 0;
-    size_t m = 0;
-    size_t s = 0;
-    size_t i = 0;
-    while ((size_t)_insertionSequence[i] - 2 < _pend.size())
+    for (size_t i = 0, j = 0; j < _pend.size(); i++)
     {
-        int key = _pend[_insertionSequence[i] - 2];
-        if (key < _mainChain[m])
-        {
-            _sorted[s] = key;
-            p++;
-            std::cout << "case 1 - _sorted[" << s << "] = "
-            << "_pend[" << _insertionSequence[i] - 2 << "] = " << key << std::endl;
-            i++;
-        }
+        if (i < _insertionSequence.size())
+            key = _pend[_insertionSequence[i] - 2];
         else
+            key = *(_pend.end() - 1);
+        std::cout << "key: " << key << std::endl;
+
+        it = _mainChain.begin();
+        while (it != _mainChain.end() && key > *it)
         {
-            _sorted[s] = _mainChain[m];
-            std::cout << "case 2 - _sorted[" << s << "] = "
-            << "_mainChain[" << m << "] = " << _mainChain[m] << std::endl;
-            m++;
+            std::cout << "incrementing mainChain ptr" << std::endl;
+            it++;
         }
-        s++;
+        _mainChain.insert(it, key);
+        j++;
+        std::cout << "inserted " << key << std::endl;
+
     }
-
-    if (p < _pend.size())
-        _sorted[s++] = _pend[p++];
-
-    while (m < _mainChain.size())
+    if (_oddNum >= 0)
     {
-        _sorted[s++] = _mainChain[m++];
+        std::cout << "ODD " << _oddNum << std::endl;
+        std::vector<int>::iterator it = _mainChain.begin();
+        while (it != _mainChain.end() && _oddNum > *it)
+        {
+            std::cout << "incrementing mainChain ptr for ODD" << std::endl;
+            it++;
+        }
+        _mainChain.insert(it, _oddNum);
     }
-    // for (int i = 0, k = 0, s = 0; s < _size; s++)
-    // {
-    //     if (_pend[_insertionSequence[k] - 2] && _pend[_insertionSequence[k] - 2] < _mainChain[i])
-    //     {
-    //         _sorted[s] = _pend[_insertionSequence[k] - 2];
-    //         std::cout << "case 1 - _sorted[" << s << "] = "
-    //         << "_pend[" << _insertionSequence[k] - 2 << "] = " << _pend[_insertionSequence[k] - 2] << std::endl;
-    //         k++;
-    //     }
-    //     else
-    //     {
-    //         _sorted[s] = _mainChain[i];
-    //         std::cout << "case 2 - _sorted[" << s << "] = "
-    //         << "_mainChain[" << i << "] = " << _mainChain[i] << std::endl;
-    //         i++;
-    //     }
-    // }
-
-    //need to add 
-    _sorted[_size - 1] = _oddNum;
     std::cout << "SORTED: " << " ";
-    for (unsigned long i = 0; i < _sorted.size(); ++i)
+    for (unsigned long i = 0; i < _mainChain.size(); ++i)
     {
-        std::cout << _sorted[i] << " ";
+        std::cout << _mainChain[i] << " ";
     }
     std::cout << std::endl;
 }
