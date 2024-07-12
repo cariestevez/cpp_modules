@@ -7,6 +7,9 @@
 #include <deque>
 #include <sstream>
 #include <utility>
+#include <limits>
+#include <cstdlib>
+#include <algorithm>
 
 class PmergeMe
 {
@@ -27,6 +30,7 @@ class PmergeMe
         void mergeSort(std::vector<std::pair<int, int> >& arr, int left, int right);
         void divideChains();
         void insertSort();
+
 
     public:
         PmergeMe(int argc, char **argv);
