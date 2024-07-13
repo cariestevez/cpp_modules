@@ -1,5 +1,32 @@
 #include "whatever.hpp"
-//#include "Complex.hpp"
+
+//COMPLEX CLASS FOR TEST
+// class ComplexType
+// {
+//     public:
+//         int value;
+//         std::string name;
+
+//         ComplexType(int v, std::string n) : value(v), name(n) {}
+
+//         bool operator<(const ComplexType &other) const {
+//             return value < other.value;
+//         }
+
+//         bool operator>(const ComplexType &other) const {
+//             return value > other.value;
+//         }
+
+//         bool operator==(const ComplexType &other) const {
+//             return value == other.value;
+//         }
+// };
+
+// std::ostream &operator<<(std::ostream &os, const ComplexType &obj)
+// {
+//     os << "ComplexType(value: " << obj.value << ", name: " << obj.name << ")";
+//     return os;
+// }
 
 int main( void )
 {
@@ -9,14 +36,14 @@ int main( void )
     std::cout << "a = " << a << ", b = " << b << std::endl;
     std::cout << "min( a, b ) = " << ::min( a, b ) << std::endl;
     std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;
-    std::string c = "chain1";
-    std::string d = "chain2";
+    std::string c = "string 3";
+    std::string d = "string 2";
     ::swap(c, d);
     std::cout << "c = " << c << ", d = " << d << std::endl;
     std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
     std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
     
-    //testing a class (complex type)
+    // //TESTING A COMPLEX CLASS
     // std::cout << std::endl;
 
     // ComplexType obj1(10, "First");
@@ -38,36 +65,4 @@ int main( void )
     return 0;
 }
 
-// COMPLEX CLASS FOR TESTING
-// #ifndef COMPLEX_HPP
-// #define COMPLEX_HPP
 
-// #include <iostream>
-// #include <string>
-
-// class ComplexType {
-// public:
-//     int value;
-//     std::string name;
-
-//     ComplexType(int v, std::string n) : value(v), name(n) {}
-
-//     bool operator<(const ComplexType &other) const {
-//         return value < other.value;
-//     }
-
-//     bool operator>(const ComplexType &other) const {
-//         return value > other.value;
-//     }
-
-//     bool operator==(const ComplexType &other) const {
-//         return value == other.value;
-//     }
-// };
-
-// std::ostream &operator<<(std::ostream &os, const ComplexType &obj) {
-//     os << "ComplexType(value: " << obj.value << ", name: " << obj.name << ")";
-//     return os;
-// }
-
-// #endif
