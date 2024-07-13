@@ -1,54 +1,87 @@
 #include "Array.hpp"
+#define MAX_VAL 3
 
-#define MAX_VAL 5
+//COMPLEX CLASS FOR TEST
+// class Complex
+// {
+//     public:
+//         Complex() : a(0), b(0) {}
+//         Complex(int a, int b) : a(a), b(b) {}
+
+//         int getA() const { return a; }
+//         int getB() const { return b; }
+
+//     private:
+//         int a, b;
+// };
+
+// std::ostream &operator<<(std::ostream &os, const Complex &c)
+// {
+//     os << "(" << c.getA() << ", " << c.getB() << ")";
+//     return os;
+// }
+
 int main(int, char**)
 {
-    Array<int> numbers(MAX_VAL);
-    int* mirror = new int[MAX_VAL];
-    srand(time(0));
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-    }
+    int *mirror = new int[MAX_VAL];
     
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        std::cout << numbers[i] << std::endl;
-        std::cout << mirror[i] << std::endl;
-    }
-
-    Array<int> tmp = numbers;
-    Array<int> test(tmp);
-
     try
     {
-        numbers[4] = 9;
-        mirror[4] = 5;
+        Array<int> empty;
+
+        Array<int> originalTemplate(MAX_VAL);
+        
+        srand(time(0));
+        for (int i = 0; i < MAX_VAL; i++)
+        {
+            const int value = rand();
+            originalTemplate[i] = value;
+            mirror[i] = value;
+        }
+        
+        for (int i = 0; i < MAX_VAL; i++)
+        {
+            std::cout << "originalTemplate[" << i << "] " << originalTemplate[i] << std::endl;
+            std::cout << "mirror[" << i << "] " << mirror[i] << std::endl;
+        }
+
+        Array<int> assigned = originalTemplate;
+        Array<int> copy(originalTemplate);
+        originalTemplate[2] = 9;
+        mirror[2] = 5;
+        std::cout << "originalTemplate[OUTOFBOUND] " << originalTemplate[100] << std::endl;
+        
+        for (int i = 0; i < MAX_VAL; i++)
+        {
+            std::cout << "originalTemplate[" << i << "] " << originalTemplate[i] << std::endl;
+            std::cout << "mirror[" << i << "] " << mirror[i] << std::endl;
+            std::cout << "assigned[" << i << "] " << assigned[i] << std::endl;
+            std::cout << "copy[" << i << "] " << copy[i] << std::endl;
+        }
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << '\n';
+        std::cerr << "Exception: " << e.what() << '\n';
     }
+
+    //TESTING WITH A COMPLEX CLASS
     // try
     // {
-    //     numbers[MAX_VAL] = 70;
+    //     Array<Complex> complexArray(3);
+    //     complexArray[0] = Complex(1, 2);
+    //     complexArray[1] = Complex(3, 4);
+    //     complexArray[2] = Complex(5, 6);
+    //     for (unsigned int i = 0; i < complexArray.size(); ++i)
+    //     {
+    //         std::cout << complexArray[i] << std::endl;
+    //     }
     // }
-    // catch(const std::exception& e)
+    // catch (const std::exception &e)
     // {
-    //     std::cerr << e.what() << '\n';
+    //     std::cerr << "Exception: " << e.what() << std::endl;
     // }
-
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        std::cout << numbers[i] << std::endl;
-        std::cout << mirror[i] << std::endl;
-        std::cout << tmp[i] << std::endl;
-        std::cout << test[i] << std::endl;
-    }
 
     delete [] mirror;
- 
+
     return 0;
 }
