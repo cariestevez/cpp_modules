@@ -35,6 +35,7 @@ PmergeMe::PmergeMe(int argc, char **argv)
     {
         std::cout << _pairs[i].first << " " << _pairs[i].second <<  " - ";
     }
+    std::cout << "_oddNum: " << _oddNum;
     std::cout << std::endl;
 }
 
@@ -187,23 +188,23 @@ std::vector<int> PmergeMe::generateJacobsthalSequence(void)
 //     }
 // }
 
-// Function to perform merge sort on the pairs based on the first element
+// //Function to perform merge sort on the pairs based on the first element
 // void PmergeMe::mergeSort(std::vector<std::pair<int, int> >& arr, int left, int right)
 // {
-//     // if (left < right) {
-//     //     int mid = left + (right - left) / 2;
+//     if (left < right) {
+//         int mid = left + (right - left) / 2;
 
-//     //     mergeSort(arr, left, mid);
-//     //     mergeSort(arr, mid + 1, right);
+//         mergeSort(arr, left, mid);
+//         mergeSort(arr, mid + 1, right);
 
-//     //     merge(arr, left, mid, right);
-//     // }
+//         merge(arr, left, mid, right);
+//     }
 // }
 
 // Function to sort pairs using merge sort
 void PmergeMe::sortPairs()
 {
-    // mergeSort(_pairs, 0, _pairs.size() - 1);
+    //mergeSort(_pairs, 0, _pairs.size() - 1);
 
     std::sort(_pairs.begin(), _pairs.end());
     std::cout << "sorted pairs: ";
