@@ -31,25 +31,25 @@ int main()
         //     sp2.addNumber(randomNum);
         // }
         //Testing addSet function
-        Span sp2 = Span(28000);
-        for (int i = 0; i < 28000; i++)
+        Span sp2 = Span(15);
+        for (int i = 0; i < 15; i++)
         {
             int randomNum = std::rand() % std::numeric_limits<int>::max();
             sp2.addNumber(randomNum);
         }
         std::cout << "Span sp2 size: " << sp2.getSize() << std::endl;
-        sp1.addSet(sp2.getContainer());  
+        sp1.addContainer(sp2.getContainer());  
         std::cout << "Span sp1 size: " << sp1.getSize() << std::endl;  
         std::cout << "Shortest Span in sp1: " << sp1.shortestSpan() << std::endl;
         std::cout << "Longest Span in sp1: " << sp1.longestSpan() << std::endl;
 
         //Testing adding a vector to the set sp1 with addRange function
         std::vector<int> vec;
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 29000; i++)
         {
             int randomNum = std::rand() % std::numeric_limits<int>::max();
             vec.push_back(randomNum);
-        } 
+        }
         std::cout << "Span vector size: " << vec.size() << std::endl;
         sp1.addRange(vec.begin(), vec.end());
         std::cout << "Span sp1 size: " << sp1.getSize() << std::endl;

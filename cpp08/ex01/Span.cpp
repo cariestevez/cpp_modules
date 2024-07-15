@@ -47,26 +47,14 @@ unsigned int Span::getSize(void) const
 
 void Span::addNumber(int number)
 {
+    std::pair<std::set<int>::iterator, bool> inserted;
+
     if (getSize() < _N)
-        _span.insert(number);
-    else
-        throw std::length_error("Could not add number because span is already full!");
+        inserted = _span.insert(number);
+    else if (getSize() >= _N || inserted.second == false)
+        throw std::length_error("Could not add number!");
 }
 
-void Span::addSet(const std::set<int> &sourceIntSpan)
-{
-    addRange(sourceIntSpan.begin(), sourceIntSpan.end());
-}
-
-void Span::addVector(const std::vector<int> &sourceIntSpan)
-{
-    addRange(sourceIntSpan.begin(), sourceIntSpan.end());
-}
-
-void Span::addList(const std::list<int> &sourceIntSpan)
-{
-    addRange(sourceIntSpan.begin(), sourceIntSpan.end());
-}
 
 //////////////////////////////////////////////////////////////////////////////////////
 

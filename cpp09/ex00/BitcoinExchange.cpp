@@ -85,7 +85,10 @@ void BitcoinExchange::processInputFile(std::ifstream &inputFile)
         std::string date, separator, value;
         if (!(iss >> date) || (date != "date" && !(isValidDateFormat(date) && isValidDate(date))))
         {
-            std::cout << "Error: bad input => " << date << std::endl;
+            if (!(iss >> date))
+                std::cout << "Error: empty line" << date << std::endl;
+            else
+                std::cout << "Error: bad input => " << date << std::endl;
             continue;
         }
         if (!(iss >> separator >> value) || !iss.eof() || separator != "|")//separes the line by whitespaces and saves in each of the variables
@@ -94,7 +97,9 @@ void BitcoinExchange::processInputFile(std::ifstream &inputFile)
             continue;
         }
         if (value != "value" && !(isValidValue(value)))
+        {
             continue;
+        }
         if (date != "date" && value != "value")
         {
             processQuery(date, value);
@@ -152,7 +157,10 @@ bool BitcoinExchange::isValidValue(const std::string &value)
     char remain;
 
     if (!(iss >> floatValue) || (iss >> remain))
+    {
+        std::cout << "Error: invalid value." << std::endl;
         return false;
+    }
     if (floatValue < 0)
     {
         std::cout << "Error: not a positive number." << std::endl;
