@@ -19,7 +19,6 @@ class PmergeMe
         std::vector<int> _mainChain;
         std::vector<int> _pend;
         std::vector<std::pair<int, int> > _pairs;
-        std::vector<int> _sorted;
         std::vector<int> _insertionSequence; 
         
         int convertToInt(char *numString);
@@ -29,6 +28,7 @@ class PmergeMe
         void merge(std::vector<std::pair<int, int> >& arr, int left, int mid, int right);
         void mergeSort(std::vector<std::pair<int, int> >& arr, int left, int right);
         void divideChains();
+        std::vector<int>::iterator findPositionInMain(const int &i);
         void insertSort();
 
 
