@@ -19,6 +19,7 @@ int main(int argc, char **argv)
 
         sortMe.mergeInsertSort();
 
+        sortMe.print();
         // // // Sort using std::list
         // // std::list<int> numList(numbers.begin(), numbers.end());
         // // PmergeMe::mergeInsertSort(numList);
