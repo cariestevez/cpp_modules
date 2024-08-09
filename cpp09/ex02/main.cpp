@@ -10,18 +10,21 @@ int main(int argc, char **argv)
 
     try
     {
-        PmergeMe sortMe(argc, argv);
+        PmergeMe vecSequence(argc, argv);
 
         std::cout << "Before: ";
         for (int i = 1; i < argc; i++)
             std::cout << argv[i] << " ";
         std::cout << std::endl;
 
-        sortMe.mergeInsertSort();
+        vecSequence.mergeInsertSort();
 
-        sortMe.print();
+        std::cout << "After: ";
+        vecSequence.print();
+
         // // // Sort using std::list
         // // std::list<int> numList(numbers.begin(), numbers.end());
+        //PmergeMe listSequence(argc, argv);
         // // PmergeMe::mergeInsertSort(numList);
 
         // std::cout << "After: ";

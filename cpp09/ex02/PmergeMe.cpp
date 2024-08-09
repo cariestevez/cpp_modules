@@ -4,6 +4,7 @@ PmergeMe::PmergeMe(int argc, char **argv)
 {
     _size = 0;
     _oddNum = -1;
+
     for (int i = 1; i < argc; i += 2)
     {
         int convertedFirst = convertToInt(argv[i]);
@@ -27,13 +28,14 @@ PmergeMe::PmergeMe(int argc, char **argv)
             _size += 2;
         }
     }
-    std::cout << "pairs: " << " ";
-    for (unsigned long i = 0; i < _pairs.size(); ++i)
-    {
-        std::cout << _pairs[i].first << " " << _pairs[i].second <<  " - ";
-    }
-    std::cout << "_oddNum: " << _oddNum;
-    std::cout << std::endl;
+    //debug print
+    // std::cout << "pairs: " << " ";
+    // for (unsigned long i = 0; i < _pairs.size(); ++i)
+    // {
+    //     std::cout << _pairs[i].first << " " << _pairs[i].second <<  " - ";
+    // }
+    // std::cout << "_oddNum: " << _oddNum;
+    // std::cout << std::endl;
 }
 
 PmergeMe::PmergeMe(const PmergeMe &source) : _oddNum(source._oddNum), _size(source._size), _insertionSequence(source._insertionSequence) {}
@@ -72,7 +74,8 @@ void PmergeMe::print(void) const
 {
     for (size_t i = 0; i < _mainChain.size(); i++)
     {
-        std::cout << "_mainChain[" << i << "] " << _mainChain[i] << " ";
+        // std::cout << "_mainChain[" << i << "] " << _mainChain[i] << " ";
+        std::cout << _mainChain[i] << " ";
     }
     std::cout << std::endl;
 }
@@ -93,23 +96,28 @@ void PmergeMe::generateInsertionSequence(void)
             size_t i = 1, j = 3;
             int last = jacobsthalSequence[3];
 
-            for (; ++j, ++i < _pend.size();)
+            while (++i < _pend.size() && ++j < jacobsthalSequence.size())
             {
                 insertion[i] = jacobsthalSequence[j];
                 int num = insertion[i];
                 while (--num > last)
                 {
-                    if (i < _pend.size())
+                    if (++i < _pend.size())
                     {
-                        insertion[++i] = num;
+                        insertion[i] = num;
+                    }
+                    else
+                    {
+                        break; // Break the loop if we are about to exceed the vector size
                     }
                 }
                 last = jacobsthalSequence[j];
             }
+
         }
     }
     _insertionSequence = insertion;
-    std::cout << "insertion seq generated" << std::endl;
+    // std::cout << "insertion seq generated" << std::endl;
 }
 
 std::vector<int> PmergeMe::generateJacobsthalSequence(void)
@@ -119,7 +127,7 @@ std::vector<int> PmergeMe::generateJacobsthalSequence(void)
     if (_size > 0) jacobsthal[0] = 0;
     if (_size > 1) jacobsthal[1] = 1;
 
-    for (int i = 2; i < _size + 2; ++i)//first 2 nums are not needed ('0', '1') so we generate 2 nums extra on their place. needed?
+    for (int i = 2; i < _size; ++i)//first 2 nums are not needed ('0', '1') so we generate 2 nums extra on their place. needed?
     {
         jacobsthal[i] = jacobsthal[i-1] + 2 * jacobsthal[i-2];
     }
@@ -132,11 +140,12 @@ void PmergeMe::sortPairs()
     //mergeSort(_pairs, 0, _pairs.size() - 1);
 
     std::sort(_pairs.begin(), _pairs.end());
-    std::cout << "sorted pairs: " << "size " << _pairs.size() << " ";
-    for (unsigned long i = 0; i < _pairs.size(); ++i) {
-        std::cout << "(" << _pairs[i].first << ", " << _pairs[i].second << ") ";
-    }
-    std::cout << std::endl;
+    //debug print
+    // std::cout << "sorted pairs: " << "size " << _pairs.size() << " ";
+    // for (unsigned long i = 0; i < _pairs.size(); ++i) {
+    //     std::cout << "(" << _pairs[i].first << ", " << _pairs[i].second << ") ";
+    // }
+    // std::cout << std::endl;
 }
 
 
@@ -147,7 +156,6 @@ void PmergeMe::divideChains()
 
     _mainChain = mainChain;
     _pend = pend;
-
 
     if (_pairs.size() > 0)
     {
@@ -162,50 +170,61 @@ void PmergeMe::divideChains()
         }
     }
 
-    print();
-    for (unsigned long i = 0; i < _pend.size(); ++i)
-    {
-        std::cout << "_pend[" << i << "] " << _pend[i] << " ";
-    }
-    std::cout << std::endl;
-    std::cout << "chains divided" << std::endl;
+    //debug print
+    // print();
+    // for (unsigned long i = 0; i < _pend.size(); ++i)
+    // {
+    //     std::cout << "_pend[" << i << "] " << _pend[i] << " ";
+    // }
+    // std::cout << std::endl;
+    // std::cout << "chains divided" << std::endl;
 }
 
 std::vector<int>::iterator	PmergeMe::findPositionInMain(const int &i)
 {
-	std::vector<int>::iterator it;
+	std::vector<int>::iterator it = _mainChain.begin();
 
-	for (it = _mainChain.begin(); it < _mainChain.end() && *it < i; ++it);
+	while (it != _mainChain.end() && *it < i)
+        ++it;
     
 	return (it);
 }
 
 void PmergeMe::insertSort()
 {
+    std::vector<int>::iterator positionInMain;
+
+    // Loop through the insertion sequence
     for (std::vector<int>::iterator it = _insertionSequence.begin(); it != _insertionSequence.end(); ++it)
     {
-        std::cout << "*it - 2 = " << *it - 2 << std::endl;
-        std::cout << "_pend.size() = " << _pend.size() << std::endl;
-        if (_pend.size() == 1)
+        int index = *it - 2;
+
+        // Ensure the index is valid and within bounds
+        if (index >= 0 && index < static_cast<int>(_pend.size()))
         {
-            std::vector<int>::iterator positionInMain = findPositionInMain(_pend[0]);
-            _mainChain.insert(positionInMain, _pend[0]);
-            std::cout << "inserted _pend[0]" << _pend[0] << std::endl;
-        }
-        else if (*it - 2 >= 0 && *it - 2 <= static_cast<int>(_pend.size()))
-        {
-            std::vector<int>::iterator positionInMain = findPositionInMain(_pend[*it - 2]);
-            _mainChain.insert(positionInMain, _pend[*it - 2]);
-            std::cout << "inserted _pend[" << *it - 2 << "] " << _pend[*it - 2] << std::endl;
+            positionInMain = findPositionInMain(_pend[index]);
+            _mainChain.insert(positionInMain, _pend[index]);
+            // std::cout << "Inserted _pend[" << index << "] = " << _pend[index] << std::endl;
         }
     }
 
+    // Ensure all elements in _pend are inserted into _mainChain
+    for (size_t i = 0; i < _pend.size(); ++i)
+    {
+        if (std::find(_insertionSequence.begin(), _insertionSequence.end(), i + 2) == _insertionSequence.end())
+        {
+            positionInMain = findPositionInMain(_pend[i]);
+            _mainChain.insert(positionInMain, _pend[i]);
+            // std::cout << "Ensured insertion of _pend[" << i << "] = " << _pend[i] << std::endl;
+        }
+    }
 
+    // Insert _oddNum if it's non-negative
     if (_oddNum >= 0)
     {
-        std::vector<int>::iterator oddPosition = findPositionInMain(_oddNum);
-        _mainChain.insert(oddPosition, _oddNum);
-        std::cout << "odd inserted" << std::endl;
+        positionInMain = findPositionInMain(_oddNum);
+        _mainChain.insert(positionInMain, _oddNum);
+        // std::cout << "Odd number inserted: " << _oddNum << std::endl;
     }
 }
 

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <deque>
+#include <list>
 #include <sstream>
 #include <utility>
 #include <limits>
@@ -17,20 +17,21 @@ class PmergeMe
         int _oddNum;
         int _size;
         std::vector<int> _mainChain;
+        // std::list<int> _mainChainList;
         std::vector<int> _pend;
+        // std::list<int> _pendList;
         std::vector<std::pair<int, int> > _pairs;
         std::vector<int> _insertionSequence; 
         
         int convertToInt(char *numString);
-        std::vector<int> generateJacobsthalSequence(void);
-        void generateInsertionSequence(void);
         void sortPairs();
-        void merge(std::vector<std::pair<int, int> >& arr, int left, int mid, int right);
-        void mergeSort(std::vector<std::pair<int, int> >& arr, int left, int right);
         void divideChains();
-        std::vector<int>::iterator findPositionInMain(const int &i);
+        void generateInsertionSequence(void);
+        std::vector<int> generateJacobsthalSequence(void);
         void insertSort();
-
+        std::vector<int>::iterator findPositionInMain(const int &i);
+        // void merge(std::vector<std::pair<int, int> >& arr, int left, int mid, int right);
+        // void mergeSort(std::vector<std::pair<int, int> >& arr, int left, int right);
 
     public:
         PmergeMe(int argc, char **argv);
