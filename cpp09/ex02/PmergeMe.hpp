@@ -42,7 +42,7 @@ class PmergeMe
         void mergeInsertSort();
         void print(void) const;
         int getVecTime(void) const;
-        int getLstTime(void) const;
+        // int getLstTime(void) const;
 };
 
 #endif // PMERGEME_HPP

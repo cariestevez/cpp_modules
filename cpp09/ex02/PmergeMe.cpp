@@ -2,6 +2,7 @@
 
 PmergeMe::PmergeMe(int argc, char **argv)
 {
+    getVecTime();
     _size = 0;
     _oddNum = -1;
 
@@ -28,7 +29,7 @@ PmergeMe::PmergeMe(int argc, char **argv)
             _size += 2;
         }
     }
-    //debug print
+    // //debug print
     // std::cout << "pairs: " << " ";
     // for (unsigned long i = 0; i < _pairs.size(); ++i)
     // {
@@ -85,7 +86,7 @@ void PmergeMe::generateInsertionSequence(void)
     std::vector<int> jacobsthalSequence = generateJacobsthalSequence();
     std::vector<int> insertion(_pend.size());
 
-    if (_pend.size() > 0)
+    if (!_pend.empty())//(_pend.size() > 0)
     {
         insertion[0] = jacobsthalSequence[3];
         if (_pend.size() > 1)
@@ -140,7 +141,7 @@ void PmergeMe::sortPairs()
     //mergeSort(_pairs, 0, _pairs.size() - 1);
 
     std::sort(_pairs.begin(), _pairs.end());
-    //debug print
+    // //debug print
     // std::cout << "sorted pairs: " << "size " << _pairs.size() << " ";
     // for (unsigned long i = 0; i < _pairs.size(); ++i) {
     //     std::cout << "(" << _pairs[i].first << ", " << _pairs[i].second << ") ";
@@ -170,7 +171,7 @@ void PmergeMe::divideChains()
         }
     }
 
-    //debug print
+    // //debug print
     // print();
     // for (unsigned long i = 0; i < _pend.size(); ++i)
     // {

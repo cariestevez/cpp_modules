@@ -1,4 +1,5 @@
 #include "PmergeMe.hpp"
+#include "PmergeList.hpp"
 
 int main(int argc, char **argv)
 {
@@ -11,28 +12,22 @@ int main(int argc, char **argv)
     try
     {
         PmergeMe vecSequence(argc, argv);
+        vecSequence.mergeInsertSort();
+        // std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector: " << sortMe.getVecTime() << std::endl;
 
+        PmergeList listSequence(argc, argv);
+        listSequence.mergeInsertSort();
+        // std::cout << "Time to process a range of " << argc - 1 << " elements with std::list: " << sortMe.getLstTime() << std::endl;
+        
         std::cout << "Before: ";
         for (int i = 1; i < argc; i++)
             std::cout << argv[i] << " ";
         std::cout << std::endl;
-
-        vecSequence.mergeInsertSort();
-
         std::cout << "After: ";
         vecSequence.print();
+        listSequence.print();
 
-        // // // Sort using std::list
-        // // std::list<int> numList(numbers.begin(), numbers.end());
-        //PmergeMe listSequence(argc, argv);
-        // // PmergeMe::mergeInsertSort(numList);
-
-        // std::cout << "After: ";
-        // sortMe.print();
-
-        // std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector: " << sortMe.getVecTime() << std::endl;
-        // std::cout << "Time to process a range of " << argc - 1 << " elements with std::list: " << sortMe.getLstTime() << std::endl;
-
+        std::cout << std::endl;
     }
     catch(const std::exception& e)
     {
