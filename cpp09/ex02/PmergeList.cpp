@@ -23,20 +23,12 @@ PmergeList::PmergeList(int argc, char **argv)
             _pairs.push_back(std::make_pair(convertedFirst, convertedLast));
             _size += 2;
         }
-        else //(convertedLast > convertedFirst)
+        else
         {
             _pairs.push_back(std::make_pair(convertedLast, convertedFirst));
             _size += 2;
         }
     }
-    // //debug print
-    // std::cout << "pairs: " << " ";
-    // for (std::list<std::pair<int, int> >::const_iterator it = _pairs.begin(); it != _pairs.end(); ++it)
-    // {
-    //     std::cout << it->first << " " << it->second << " - ";
-    // }
-    // std::cout << "_oddNum: " << _oddNum;
-    // std::cout << std::endl;
 }
 
 PmergeList::PmergeList(const PmergeList &source) : _oddNum(source._oddNum), _size(source._size), _insertionSequence(source._insertionSequence) {}
@@ -90,7 +82,7 @@ void PmergeList::generateInsertionSequence(void)
     if (!_pend.empty())
     {
         std::list<int>::iterator jacobIt = jacobsthalSequence.begin();
-        std::advance(jacobIt, 3);  // Move to the 4th element (index 3)
+        std::advance(jacobIt, 3);// Move to the 4th element (index 3)
 
         insertion.push_back(*jacobIt);
 
@@ -103,7 +95,7 @@ void PmergeList::generateInsertionSequence(void)
             int last = *jacobIt;
             std::list<int>::iterator pendIt = _pend.begin();
 
-            std::advance(pendIt, 2);  // Start from the 3rd element of _pend
+            std::advance(pendIt, 2);// Start from the 3rd element of _pend
 
             while (++i < _pend.size() && ++jacobIt != jacobsthalSequence.end())
             {
@@ -118,7 +110,7 @@ void PmergeList::generateInsertionSequence(void)
                     }
                     else
                     {
-                        break; // Break the loop if we are about to exceed the list size
+                        break;// Break the loop if > list size
                     }
                 }
                 last = *jacobIt;
@@ -126,7 +118,6 @@ void PmergeList::generateInsertionSequence(void)
         }
     }
     _insertionSequence = insertion;
-    // std::cout << "insertion seq generated" << std::endl;
 }
 
 std::list<int> PmergeList::generateJacobsthalSequence(void)
@@ -139,8 +130,8 @@ std::list<int> PmergeList::generateJacobsthalSequence(void)
         jacobsthal.push_back(1);
     if (_size > 2)
     {
-        std::list<int>::iterator prev2 = jacobsthal.begin();      // Points to the 0th element
-        std::list<int>::iterator prev1 = jacobsthal.begin();      // Points to the 1st element (after increment)
+        std::list<int>::iterator prev2 = jacobsthal.begin();// Points to the 0th element
+        std::list<int>::iterator prev1 = jacobsthal.begin();// Points to the 1st element (after ++)
         ++prev1;
 
         for (int i = 2; i < _size; ++i)
@@ -158,22 +149,11 @@ std::list<int> PmergeList::generateJacobsthalSequence(void)
 
 void PmergeList::sortPairs()
 {
-    //mergeSort(_pairs, 0, _pairs.size() - 1);
-
     _pairs.sort();
-    // //debug print
-    // std::cout << "sorted pairs: " << "size " << _pairs.size() << " ";
-    // for (std::list<std::pair<int, int> >::const_iterator it = _pairs.begin(); it != _pairs.end(); ++it)
-    // {
-    //     std::cout << "(" << it->first << ", " << it->second << ") ";
-    // }
-
-    // std::cout << std::endl;
 }
 
 void PmergeList::divideChains()
 {
-    // Clear any existing elements in _mainChain and _pend
     _mainChain.clear();
     _pend.clear();
 
@@ -195,23 +175,6 @@ void PmergeList::divideChains()
                 _pend.push_back(pairsIt->second);
             }
         }
-
-        // // Debug print
-        // std::cout << "_mainChain:";
-        // for (std::list<int>::iterator mainIt = _mainChain.begin(); mainIt != _mainChain.end(); ++mainIt)
-        // {
-        //     std::cout << " " << *mainIt;
-        // }
-        // std::cout << std::endl;
-
-        // std::cout << "_pend:";
-        // for (std::list<int>::iterator pendIt = _pend.begin(); pendIt != _pend.end(); ++pendIt)
-        // {
-        //     std::cout << " " << *pendIt;
-        // }
-        // std::cout << std::endl;
-
-        // std::cout << "Chains divided" << std::endl;
     }
 }
 
@@ -233,14 +196,6 @@ void PmergeList::insertSort()
     for (std::list<int>::iterator it = _insertionSequence.begin(); it != _insertionSequence.end(); ++it)
     {
         int index = *it - 2;
-
-    //     // Ensure the index is valid and within bounds
-    //     if (index >= 0 && index < static_cast<int>(_pend.size()))
-    //     {
-    //         positionInMain = findPositionInMain(_pend[index]);
-    //         _mainChain.insert(positionInMain, _pend[index]);
-    //         // std::cout << "Inserted _pend[" << index << "] = " << _pend[index] << std::endl;
-    //     }
         if (index >= 0)
         {
             // Traverse _pend to get the value at the calculated index
@@ -252,11 +207,10 @@ void PmergeList::insertSort()
             {
                 positionInMain = findPositionInMain(*pendIt);
                 _mainChain.insert(positionInMain, *pendIt);
-                // std::cout << "Inserted _pend[" << index << "] = " << *pendIt << std::endl;
             }
         }
     }
-    // Ensure all elements in _pend are inserted into _mainChain
+    // Elements in _pend are inserted into _mainChain
     int i = 0;
     for (std::list<int>::iterator pendIt = _pend.begin(); pendIt != _pend.end(); ++pendIt, ++i)
     {
@@ -264,7 +218,6 @@ void PmergeList::insertSort()
         {
             positionInMain = findPositionInMain(*pendIt);
             _mainChain.insert(positionInMain, *pendIt);
-            // std::cout << "Ensured insertion of _pend[" << i << "] = " << *pendIt << std::endl;
         }
     }
     // Insert _oddNum if it's non-negative
@@ -272,7 +225,6 @@ void PmergeList::insertSort()
     {
         positionInMain = findPositionInMain(_oddNum);
         _mainChain.insert(positionInMain, _oddNum);
-        // std::cout << "Odd number inserted: " << _oddNum << std::endl;
     }
     
 }
@@ -292,7 +244,6 @@ void PmergeList::mergeInsertSort()
        _mainChain = mainChain;
     }
     _endTime = clock();
-
 }
 
 void PmergeList::getTime(void) const
@@ -300,77 +251,3 @@ void PmergeList::getTime(void) const
     double _duration = double(_endTime - _startTime) / CLOCKS_PER_SEC;
     std::cout << "Time to process a range of " << _size << " elements with std::list : " <<  _duration * 1000 << " us" << std::endl;
 }
-
-//UGLY MERGE SORT ALGORITHM
-// void PmergeList::sortPairs(void)//change for the merge sort algorithm!
-// {
-//     for (unsigned long i = 0; i < _pairs.size() - 1; i++)
-//     {
-//         if (_pairs[i].first > _pairs[i + 1].first)
-//         {
-//             std::pair<int, int> temp = _pairs[i];
-//             _pairs[i] = _pairs[i + 1];
-//             _pairs[i + 1] = temp;
-//         }
-        
-//     }
-
-//     std::cout << "sorted pairs: " << " ";
-//     for (unsigned long i = 0; i < _pairs.size(); ++i)
-//     {
-//         std::cout << _pairs[i].first << " " << _pairs[i].second <<  " - ";
-//     }
-//     std::cout << std::endl;
-// }
-
-
-// void PmergeList::merge(std::list<std::pair<int, int> >& arr, int left, int mid, int right)
-// {
-//     int n1 = mid - left + 1;
-//     int n2 = right - mid;
-
-//     std::list<std::pair<int, int> > L(n1);
-//     std::list<std::pair<int, int> > R(n2);
-
-//     for (int i = 0; i < n1; ++i)
-//         L[i] = arr[left + i];
-//     for (int i = 0; i < n2; ++i)
-//         R[i] = arr[mid + 1 + i];
-
-//     int i = 0, j = 0, k = left;
-//     while (i < n1 && j < n2) {
-//         if (L[i].first <= R[j].first) {
-//             arr[k] = L[i];
-//             ++i;
-//         } else {
-//             arr[k] = R[j];
-//             ++j;
-//         }
-//         ++k;
-//     }
-
-//     while (i < n1) {
-//         arr[k] = L[i];
-//         ++i;
-//         ++k;
-//     }
-
-//     while (j < n2) {
-//         arr[k] = R[j];
-//         ++j;
-//         ++k;
-//     }
-// }
-
-// //Function to perform merge sort on the pairs based on the first element
-// void PmergeList::mergeSort(std::list<std::pair<int, int> >& arr, int left, int right)
-// {
-//     if (left < right) {
-//         int mid = left + (right - left) / 2;
-
-//         mergeSort(arr, left, mid);
-//         mergeSort(arr, mid + 1, right);
-
-//         merge(arr, left, mid, right);
-//     }
-// }

@@ -29,8 +29,6 @@ class PmergeList
         std::list<int> generateJacobsthalSequence(void);
         void insertSort();
         std::list<int>::iterator findPositionInMain(const int &i);
-        // void merge(std::list<std::pair<int, int> >& arr, int left, int mid, int right);
-        // void mergeSort(std::list<std::pair<int, int> >& arr, int left, int right);
 
     public:
         PmergeList(int argc, char **argv);
