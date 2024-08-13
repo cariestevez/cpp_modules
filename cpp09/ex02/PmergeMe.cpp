@@ -129,8 +129,6 @@ std::vector<int> PmergeMe::generateJacobsthalSequence(void)
 void PmergeMe::sortPairs()
 {
     std::sort(_pairs.begin(), _pairs.end());
-    //option using handmade ugly merge sort
-    //mergeSort(_pairs, 0, _pairs.size() - 1);
 }
 
 
@@ -222,55 +220,3 @@ void PmergeMe::getTime(void) const
     double _duration = double(_endTime - _startTime) / CLOCKS_PER_SEC;
     std::cout << "Time to process a range of " << _size << " elements with std::vector : " <<  _duration * 1000 << " us" << std::endl;
 }
-
-// //UGLY MERGE SORT ALGORITHM
-// void PmergeMe::merge(std::vector<std::pair<int, int> >& arr, int left, int mid, int right)
-// {
-//     int n1 = mid - left + 1;
-//     int n2 = right - mid;
-
-//     std::vector<std::pair<int, int> > L(n1);
-//     std::vector<std::pair<int, int> > R(n2);
-
-//     for (int i = 0; i < n1; ++i)
-//         L[i] = arr[left + i];
-//     for (int i = 0; i < n2; ++i)
-//         R[i] = arr[mid + 1 + i];
-
-//     int i = 0, j = 0, k = left;
-//     while (i < n1 && j < n2) {
-//         if (L[i].first <= R[j].first) {
-//             arr[k] = L[i];
-//             ++i;
-//         } else {
-//             arr[k] = R[j];
-//             ++j;
-//         }
-//         ++k;
-//     }
-
-//     while (i < n1) {
-//         arr[k] = L[i];
-//         ++i;
-//         ++k;
-//     }
-
-//     while (j < n2) {
-//         arr[k] = R[j];
-//         ++j;
-//         ++k;
-//     }
-// }
-
-// //Function to perform merge sort on the pairs based on the first element
-// void PmergeMe::mergeSort(std::vector<std::pair<int, int> >& arr, int left, int right)
-// {
-//     if (left < right) {
-//         int mid = left + (right - left) / 2;
-
-//         mergeSort(arr, left, mid);
-//         mergeSort(arr, mid + 1, right);
-
-//         merge(arr, left, mid, right);
-//     }
-// }

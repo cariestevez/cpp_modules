@@ -30,8 +30,6 @@ class PmergeMe
         std::vector<int> generateJacobsthalSequence(void);
         void insertSort();
         std::vector<int>::iterator findPositionInMain(const int &i);
-        // void merge(std::vector<std::pair<int, int> >& arr, int left, int mid, int right);
-        // void mergeSort(std::vector<std::pair<int, int> >& arr, int left, int right);
 
     public:
         PmergeMe(int argc, char **argv);
