@@ -13,11 +13,9 @@ int main(int argc, char **argv)
     {
         PmergeMe vecSequence(argc, argv);
         vecSequence.mergeInsertSort();
-        // std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector: " << sortMe.getVecTime() << std::endl;
 
         PmergeList listSequence(argc, argv);
         listSequence.mergeInsertSort();
-        // std::cout << "Time to process a range of " << argc - 1 << " elements with std::list: " << sortMe.getLstTime() << std::endl;
         
         std::cout << "Before: ";
         for (int i = 1; i < argc; i++)
@@ -25,9 +23,10 @@ int main(int argc, char **argv)
         std::cout << std::endl;
         std::cout << "After: ";
         vecSequence.print();
-        listSequence.print();
+        //listSequence.print();
+        vecSequence.getTime();
+        listSequence.getTime();
 
-        std::cout << std::endl;
     }
     catch(const std::exception& e)
     {

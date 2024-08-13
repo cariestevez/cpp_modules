@@ -2,7 +2,7 @@
 
 PmergeMe::PmergeMe(int argc, char **argv)
 {
-    getVecTime();
+    _startTime = clock();
     _size = 0;
     _oddNum = -1;
 
@@ -243,6 +243,13 @@ void PmergeMe::mergeInsertSort()
         std::vector<int> mainChain(1, _oddNum);
        _mainChain = mainChain;
     }
+    _endTime = clock();
+}
+
+void PmergeMe::getTime(void) const
+{
+    double _duration = double(_endTime - _startTime) / CLOCKS_PER_SEC;
+    std::cout << "Time to process a range of " << _size << " elements with std::vector : " <<  _duration * 1000 << " us" << std::endl;
 }
 
 //UGLY MERGE SORT ALGORITHM

@@ -9,6 +9,7 @@
 #include <limits>
 #include <cstdlib>
 #include <algorithm>
+#include <ctime>
 
 class PmergeList
 {
@@ -18,7 +19,8 @@ class PmergeList
         std::list<int> _mainChain;
         std::list<int> _pend;
         std::list<std::pair<int, int> > _pairs;
-        std::list<int> _insertionSequence; 
+        std::list<int> _insertionSequence;
+        clock_t _startTime, _endTime;
         
         int convertToInt(char *numString);
         void sortPairs();
@@ -38,7 +40,7 @@ class PmergeList
 
         void mergeInsertSort();
         void print(void) const;
-        int getLstTime(void) const;
+        void getTime(void) const;
 };
 
 #endif // PMERGELIST_HPP

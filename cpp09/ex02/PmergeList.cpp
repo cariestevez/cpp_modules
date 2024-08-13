@@ -2,7 +2,7 @@
 
 PmergeList::PmergeList(int argc, char **argv)
 {
-    getLstTime();
+    _startTime = clock();
     _size = 0;
     _oddNum = -1;
 
@@ -73,6 +73,7 @@ int PmergeList::convertToInt(char *numString)
 
 void PmergeList::print(void) const
 {
+    std::cout << "Sorted list: ";
     for (std::list<int>::const_iterator it = _mainChain.begin(); it != _mainChain.end(); ++it)
     {
         std::cout << *it << "-";
@@ -80,46 +81,6 @@ void PmergeList::print(void) const
 
     std::cout << std::endl;
 }
-
-// void PmergeList::generateInsertionSequence(void)
-// {
-//     std::list<int> jacobsthalSequence = generateJacobsthalSequence();
-//     std::list<int> insertion(_pend.size());
-
-//     if (!_pend.empty!)
-//     {
-//         insertion[0] = jacobsthalSequence[3];
-//         if (_pend.size() > 1)
-//             insertion[1] = jacobsthalSequence[3] - 1;
-
-//         if (_pend.size() > 2)
-//         {
-//             size_t i = 1, j = 3;
-//             int last = jacobsthalSequence[3];
-
-//             while (++i < _pend.size() && ++j < jacobsthalSequence.size())
-//             {
-//                 insertion[i] = jacobsthalSequence[j];
-//                 int num = insertion[i];
-//                 while (--num > last)
-//                 {
-//                     if (++i < _pend.size())
-//                     {
-//                         insertion[i] = num;
-//                     }
-//                     else
-//                     {
-//                         break; // Break the loop if we are about to exceed the list size
-//                     }
-//                 }
-//                 last = jacobsthalSequence[j];
-//             }
-
-//         }
-//     }
-//     _insertionSequence = insertion;
-//     // std::cout << "insertion seq generated" << std::endl;
-// }
 
 void PmergeList::generateInsertionSequence(void)
 {
@@ -176,11 +137,6 @@ std::list<int> PmergeList::generateJacobsthalSequence(void)
         jacobsthal.push_back(0);
     if (_size > 1)
         jacobsthal.push_back(1);
-
-    // for (int i = 2; i < _size; ++i)//first 2 nums are not needed ('0', '1') so we generate 2 nums extra on their place. needed?
-    // {
-    //     jacobsthal[i] = jacobsthal[i-1] + 2 * jacobsthal[i-2];
-    // }
     if (_size > 2)
     {
         std::list<int>::iterator prev2 = jacobsthal.begin();      // Points to the 0th element
@@ -214,132 +170,6 @@ void PmergeList::sortPairs()
 
     // std::cout << std::endl;
 }
-
-
-// void PmergeList::divideChains()
-// {
-//     std::list<int> mainChain(_pairs.size() + 1);
-//     std::list<int> pend((_pairs.size() > 1) ? _pairs.size() - 1 : 0);
-
-//     _mainChain = mainChain;
-//     _pend = pend;
-
-//     if (_pairs.size() > 0)
-//     {
-//         _mainChain[0] = _pairs[0].second;
-//         for (unsigned long i = 1; i <= _pairs.size(); ++i)
-//         {
-//             _mainChain[i] = _pairs[i - 1].first;
-//             if (i < _pairs.size())
-//             {
-//                 _pend[i - 1] = _pairs[i].second;
-//             }
-//         }
-//     }
-
-//     //debug print
-//     // print();
-//     // for (unsigned long i = 0; i < _pend.size(); ++i)
-//     // {
-//     //     std::cout << "_pend[" << i << "] " << _pend[i] << " ";
-//     // }
-//     // std::cout << std::endl;
-//     // std::cout << "chains divided" << std::endl;
-// }
-
-// void PmergeList::divideChains()
-// {
-//     std::list<int> mainChain(_pairs.size() + 1);
-//     std::list<int> pend((_pairs.size() > 1) ? _pairs.size() - 1 : 0);
-
-//     _mainChain = mainChain;
-//     _pend = pend;
-//     if (!_pairs.empty())
-//     {
-//         std::list<int>::iterator mainIt = _mainChain.begin();
-//         std::list<int>::iterator pendIt = _pend.begin();
-
-//         _mainChain.push_back(_pairs.front().second);
-//         //mainIt = _mainChain.begin();
-//         std::list<std::pair<int, int> >::iterator pairsIt = _pairs.begin();
-//         for (unsigned long i = 1; i <= _pairs.size(); ++i)
-//         {
-             
-//             _mainChain.push_back(pairsIt->first);
-//             if (pendIt != --_pend.end())//(i < _pairs.size())
-//             {
-//                 _pend.push_back(pairsIt->second);
-//             }
-//         }
-    
-//         // std::list<std::pair<int, int> >::iterator pairIt = _pairs.begin();
-        
-//         // for (++pairIt; pairIt != _pairs.end(); ++pairIt)
-//         // {
-//         //     _mainChain.push_back(pairIt->first);
-//         //     mainIt++;
-
-//         //     if (pairIt != --_pairs.end()) // Avoid last element for _pend
-//         //     {
-//         //         _pend.push_back(pairIt->second);
-//         //         pendIt++;
-//         //     }
-//         // }
-//         // debug print
-//         for (mainIt = _mainChain.begin(); mainIt != _mainChain.end(); ++mainIt)
-//         {
-//             std::cout << "_mainChain: " << *mainIt << " ";
-//         }
-//         std::cout << std::endl;
-
-//         for (pendIt = _pend.begin(); pendIt != _pend.end(); ++pendIt)
-//         {
-//             std::cout << "_pend: " << *pendIt << " ";
-//         }
-//         std::cout << std::endl;
-
-//         std::cout << "Chains divided" << std::endl;
-//     }
-
-// }
-// void PmergeList::divideChains()
-// {
-//     // Reserve space in _mainChain and _pend based on the size of _pairs
-//     _mainChain.clear(); // Clear any existing elements in _mainChain
-//     _pend.clear();      // Clear any existing elements in _pend
-
-//     if (!_pairs.empty())
-//     {
-//         // Populate _mainChain and _pend
-//         _mainChain.push_back(_pairs.front().second);
-
-//         std::list<std::pair<int, int> >::iterator pairsIt = _pairs.begin();
-//         ++pairsIt; // Start from the second element in _pairs
-
-//         for (; pairsIt != _pairs.end(); ++pairsIt)
-//         {
-//             _mainChain.push_back(pairsIt->first);
-//             _pend.push_back(pairsIt->second);
-//         }
-
-//         // Debug print
-//         std::cout << "_mainChain:";
-//         for (std::list<int>::iterator mainIt = _mainChain.begin(); mainIt != _mainChain.end(); ++mainIt)
-//         {
-//             std::cout << " " << *mainIt;
-//         }
-//         std::cout << std::endl;
-
-//         std::cout << "_pend:";
-//         for (std::list<int>::iterator pendIt = _pend.begin(); pendIt != _pend.end(); ++pendIt)
-//         {
-//             std::cout << " " << *pendIt;
-//         }
-//         std::cout << std::endl;
-
-//         std::cout << "Chains divided" << std::endl;
-//     }
-// }
 
 void PmergeList::divideChains()
 {
@@ -426,18 +256,7 @@ void PmergeList::insertSort()
             }
         }
     }
-
-
-    // // Ensure all elements in _pend are inserted into _mainChain
-    // for (size_t i = 0; i < _pend.size(); ++i)
-    // {
-    //     if (std::find(_insertionSequence.begin(), _insertionSequence.end(), i + 2) == _insertionSequence.end())
-    //     {
-    //         positionInMain = findPositionInMain(_pend[i]);
-    //         _mainChain.insert(positionInMain, _pend[i]);
-    //         // std::cout << "Ensured insertion of _pend[" << i << "] = " << _pend[i] << std::endl;
-    //     }
-    // }
+    // Ensure all elements in _pend are inserted into _mainChain
     int i = 0;
     for (std::list<int>::iterator pendIt = _pend.begin(); pendIt != _pend.end(); ++pendIt, ++i)
     {
@@ -448,14 +267,6 @@ void PmergeList::insertSort()
             // std::cout << "Ensured insertion of _pend[" << i << "] = " << *pendIt << std::endl;
         }
     }
-
-    // // Insert _oddNum if it's non-negative
-    // if (_oddNum >= 0)
-    // {
-    //     positionInMain = findPositionInMain(_oddNum);
-    //     _mainChain.insert(positionInMain, _oddNum);
-    //     // std::cout << "Odd number inserted: " << _oddNum << std::endl;
-    // }
     // Insert _oddNum if it's non-negative
     if (_oddNum >= 0)
     {
@@ -480,6 +291,14 @@ void PmergeList::mergeInsertSort()
         std::list<int> mainChain(1, _oddNum);
        _mainChain = mainChain;
     }
+    _endTime = clock();
+
+}
+
+void PmergeList::getTime(void) const
+{
+    double _duration = double(_endTime - _startTime) / CLOCKS_PER_SEC;
+    std::cout << "Time to process a range of " << _size << " elements with std::list : " <<  _duration * 1000 << " us" << std::endl;
 }
 
 //UGLY MERGE SORT ALGORITHM

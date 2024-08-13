@@ -10,6 +10,7 @@
 #include <limits>
 #include <cstdlib>
 #include <algorithm>
+#include <ctime>
 
 class PmergeMe
 {
@@ -17,11 +18,10 @@ class PmergeMe
         int _oddNum;
         int _size;
         std::vector<int> _mainChain;
-        // std::list<int> _mainChainList;
         std::vector<int> _pend;
-        // std::list<int> _pendList;
         std::vector<std::pair<int, int> > _pairs;
-        std::vector<int> _insertionSequence; 
+        std::vector<int> _insertionSequence;
+        clock_t _startTime, _endTime;
         
         int convertToInt(char *numString);
         void sortPairs();
@@ -41,8 +41,8 @@ class PmergeMe
 
         void mergeInsertSort();
         void print(void) const;
-        int getVecTime(void) const;
-        // int getLstTime(void) const;
+        void getTime(void) const;
+
 };
 
 #endif // PMERGEME_HPP
